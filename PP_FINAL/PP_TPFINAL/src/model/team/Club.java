@@ -1,0 +1,172 @@
+package model.team;
+
+import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
+import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
+import com.ppstudios.footballmanager.api.contracts.team.IClub;
+import com.ppstudios.footballmanager.api.contracts.team.IPlayerSelector;
+
+import java.io.IOException;
+
+public class Club implements IClub {
+
+    private String name;
+    private String code;
+    private String country;
+    private int foundedYear;
+    private String stadiumName;
+    private String logo;
+
+    private IPlayer[] players;
+    private int playerCount;
+
+    public Club(String name, String code, String country, int foundedYear, String stadiumName, String logo) {
+        this.name = name;
+        this.code = code;
+        this.country = country;
+        this.foundedYear = foundedYear;
+        this.stadiumName = stadiumName;
+        this.logo = logo;
+        this.players = new IPlayer[100]; // capacidade máxima arbitrária
+        this.playerCount = 0;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public IPlayer[] getPlayers() {
+        IPlayer[] currentPlayers = new IPlayer[playerCount];
+        for (int i = 0; i < playerCount; i++) {
+            currentPlayers[i] = players[i];
+        }
+        return currentPlayers;
+    }
+
+    @Override
+    public String getCode() {
+        return code;
+    }
+
+    @Override
+    public String getCountry() {
+        return country;
+    }
+
+    @Override
+    public int getFoundedYear() {
+        return foundedYear;
+    }
+
+    @Override
+    public String getStadiumName() {
+        return stadiumName;
+    }
+
+    @Override
+    public String getLogo() {
+        return logo;
+    }
+
+    @Override
+    public void addPlayer(IPlayer player) {
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null.");
+        }
+        if (isPlayer(player)) {
+            throw new IllegalArgumentException("Player is already in the club.");
+        }
+        if (playerCount >= players.length) {
+            throw new IllegalStateException("The club is full.");
+        }
+        players[playerCount++] = player;
+    }
+
+
+    @Override
+    public boolean isPlayer(IPlayer player) {
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null.");
+        }
+
+        for (int i = 0; i < playerCount; i++) {
+            if (players[i].equals(player)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public void removePlayer(IPlayer player) {
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null.");
+        }
+
+        boolean found = false;
+        for (int i = 0; i < playerCount; i++) {
+            if (players[i].equals(player)) {
+                // Remove o jogador e reorganiza o array
+                for (int j = i; j < playerCount - 1; j++) {
+                    players[j] = players[j + 1];
+                }
+                players[--playerCount] = null;
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            throw new IllegalArgumentException("Player is not in the club.");
+        }
+    }
+
+
+    @Override
+    public int getPlayerCount() {
+        return playerCount;
+    }
+
+    @Override
+    public IPlayer selectPlayer(IPlayerSelector selector, IPlayerPosition position) {
+        if (position == null) {
+            throw new IllegalArgumentException("Position cannot be null.");
+        }
+        if (playerCount == 0) {
+            throw new IllegalStateException("The club is empty.");
+        }
+
+        IPlayer selected = selector.selectPlayer(this, position);
+        if (selected == null) {
+            throw new IllegalStateException("No player found for the specified position.");
+        }
+
+        return selected;
+    }
+
+    @Override
+    public boolean isValid() {
+        if (playerCount == 0) {
+            throw new IllegalStateException("The club has no players. Please add players.");
+        }
+        if (playerCount < 16) {
+            throw new IllegalStateException("The club has only " + playerCount + " players. At least 16 are required.");
+        }
+
+        for (int i = 0; i < playerCount; i++) {
+            if (players[i].getPosition().getDescription().equalsIgnoreCase("GOALKEEPER")){
+                return true;
+            }
+        }
+
+        throw new IllegalStateException("The club must have at least one goalkeeper.");
+    }
+
+
+    @Override
+    public void exportToJson() throws IOException {
+
+    }
+}
