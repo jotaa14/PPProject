@@ -1,5 +1,6 @@
 package data;
 
+import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
 import model.player.Player;
 import model.player.PlayerPosition;
 import model.player.PlayerPositionType;
@@ -8,7 +9,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.util.Random;
-import org.json.simple.JSONObject;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -41,6 +41,12 @@ public class Importer {
                 int speed = (int) p.get("speed");
                 int shooting = (int) p.get("shooting");
                 int passing = (int) p.get("passing");
+                PreferredFoot preferredFoot;
+                if (p.containsKey("preferredFoot")) {
+                    preferredFoot = PreferredFoot.fromString((String) p.get("preferredFoot"));
+                } else {
+                    preferredFoot = generateRandomPreferredFoot();
+                }
 
                 PlayerPosition playerPosition = new PlayerPosition(position);
 
@@ -58,29 +64,30 @@ public class Importer {
 
                 if (p.containsKey("stamina")) {
                     stamina = ((Number) p.get("stamina")).intValue();
-                }else {
+                } else {
                     stamina = generateRandomStamina(playerPosition);
                 }
 
                 if (p.containsKey("speed")) {
                     speed = ((Number) p.get("speed")).intValue();
-                }else {
+                } else {
                     speed = generateRandomSpeed(playerPosition);
                 }
 
                 if (p.containsKey("shooting")) {
                     shooting = ((Number) p.get("shooting")).intValue();
-                }else {
+                } else {
                     shooting = generateRandomShooting(playerPosition);
                 }
 
                 if (p.containsKey("passing")) {
                     passing = ((Number) p.get("passing")).intValue();
-                }else {
+                } else {
                     passing = generateRandomPassing(playerPosition);
                 }
 
-                players[i] = new Player(name, birthDate, nationality, new PlayerPosition(position), photo, number, );
+
+                players[i] = new Player(name, birthDate, nationality, new PlayerPosition(position), photo, number, shooting, passing, stamina, speed, height, weight, preferredFoot);
             }
 
             file.close();
@@ -95,14 +102,15 @@ public class Importer {
         Random random = new Random();
         return 1.50f + random.nextFloat() * (2.00f - 1.50f);
     }
+
     private static float generateRandomWeight() {
         Random random = new Random();
         return 60.00f + random.nextFloat() * (100.00f - 60.00f);
     }
 
-    private static int generateRandomSpeed(PlayerPosition  position) {
+    private static int generateRandomSpeed(PlayerPosition position) {
         Random random = new Random();
-        switch (position.getDescription()){
+        switch (position.getDescription()) {
             case "GOALKEEPER":
                 return random.nextInt(20) + 30;
             case "DEFENDER":
@@ -111,14 +119,14 @@ public class Importer {
                 return random.nextInt(60) + 30;
             case "FORWARD":
                 return random.nextInt(70) + 30;
-                default:
-                    return 0;
+            default:
+                return 0;
         }
     }
 
-    private static int generateRandomStamina(PlayerPosition  position) {
+    private static int generateRandomStamina(PlayerPosition position) {
         Random random = new Random();
-        switch (position.getDescription()){
+        switch (position.getDescription()) {
             case "GOALKEEPER":
                 return random.nextInt(30) + 30;
             case "DEFENDER":
@@ -131,9 +139,10 @@ public class Importer {
                 return 0;
         }
     }
-    private static int generateRandomShooting(PlayerPosition  position) {
+
+    private static int generateRandomShooting(PlayerPosition position) {
         Random random = new Random();
-        switch (position.getDescription()){
+        switch (position.getDescription()) {
             case "GOALKEEPER":
                 return random.nextInt(20) + 30;
             case "DEFENDER":
@@ -146,9 +155,10 @@ public class Importer {
                 return 0;
         }
     }
-    private static int generateRandomPassing(PlayerPosition  position) {
+
+    private static int generateRandomPassing(PlayerPosition position) {
         Random random = new Random();
-        switch (position.getDescription()){
+        switch (position.getDescription()) {
             case "GOALKEEPER":
                 return random.nextInt(60) + 30;
             case "DEFENDER":
@@ -160,6 +170,11 @@ public class Importer {
             default:
                 return 0;
         }
+    }
+
+    private static PreferredFoot generateRandomPreferredFoot() {
+        PreferredFoot[] options = PreferredFoot.values();
+        return options[new Random().nextInt(options.length)];
     }
 
     public Club[] importClubs(String filePath) throws IOException {

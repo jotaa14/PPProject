@@ -21,7 +21,7 @@ public class Club implements IClub {
     private IPlayer[] players;
     private int playerCount;
 
-    public Club(String name, String code, String country, int foundedYear, String stadiumName, String logo, boolean isNationalTeam) {
+    public Club(String name, String code, String country, int foundedYear, boolean isNationalTeam, String logo, String stadiumName) {
         this.name = name;
         this.code = code;
         this.country = country;
