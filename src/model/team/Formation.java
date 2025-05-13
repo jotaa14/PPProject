@@ -14,10 +14,10 @@ public class Formation implements IFormation {
     @Override
     public int getTacticalAdvantage(IFormation formation) {
         if(formation == null){
-        throw new NullPointerException("Opponent formation is not set.");
+        throw new IllegalStateException("Opponent formation is not set.");
         }
         if(!(formation instanceof Formation)){
-        throw new ClassCastException("Unknown formation type");
+        throw new IllegalStateException("Unknown formation type");
         }
 
         Formation opponent = (Formation) formation;

@@ -90,6 +90,7 @@ public class Team implements ITeam {
     @Override
     public boolean isValidPositionForFormation(IPlayerPosition iPlayerPosition) {
         return false;
+
     }
 
     @Override
