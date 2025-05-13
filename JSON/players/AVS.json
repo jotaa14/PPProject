@@ -1,0 +1,156 @@
+{
+  "squad": [
+    {
+      "name": "Guillermo Ochoa",
+      "birthDate": "1985-07-13",
+      "nationality": "Mexican",
+      "basePosition": "Goalkeeper",
+      "photo": "https://afsfut.pt/equipas/ochoa/",
+      "number": 1
+    },
+    {
+      "name": "Pedro Trigueira",
+      "birthDate": "1994-03-21",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://afsfut.pt/equipas/pedro-trigueira/",
+      "number": 88
+    },
+    {
+      "name": "Clayton",
+      "birthDate": "1996-11-04",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "photo": "https://afsfut.pt/equipas/clayton/",
+      "number": 40
+    },
+    {
+      "name": "Anthony Correia",
+      "birthDate": "1999-06-15",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://afsfut.pt/equipas/anthony-correia/",
+      "number": 4
+    },
+    {
+      "name": "Zé Tiago",
+      "birthDate": "1995-11-15",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://afsfut.pt/equipas/ze-tiago/",
+      "number": 3
+    },
+    {
+      "name": "Afonso Taira",
+      "birthDate": "1998-01-02",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://afsfut.pt/equipas/afonso-taira/",
+      "number": 13
+    },
+    {
+      "name": "Mário Silva",
+      "birthDate": "1997-05-10",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://afsfut.pt/equipas/mario-silva/",
+      "number": 22
+    },
+    {
+      "name": "Ruben Macedo",
+      "birthDate": "1993-06-01",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://afsfut.pt/equipas/ruben-macedo/",
+      "number": 18
+    },
+    {
+      "name": "André Almeida",
+      "birthDate": "1996-09-23",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://afsfut.pt/equipas/andre-almeida/",
+      "number": 15
+    },
+    {
+      "name": "David Tavares",
+      "birthDate": "2000-02-17",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://afsfut.pt/equipas/david-tavares/",
+      "number": 5
+    },
+    {
+      "name": "Renato Santos",
+      "birthDate": "1992-04-06",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://afsfut.pt/equipas/renato-santos/",
+      "number": 10
+    },
+    {
+      "name": "Ricardo Pereira",
+      "birthDate": "1998-03-12",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://afsfut.pt/equipas/ricardo-pereira/",
+      "number": 8
+    },
+    {
+      "name": "David Silva",
+      "birthDate": "1999-07-14",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://afsfut.pt/equipas/david-silva/",
+      "number": 6
+    },
+    {
+      "name": "Tiago Silva",
+      "birthDate": "1995-01-02",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://afsfut.pt/equipas/tiago-silva/",
+      "number": 17
+    },
+    {
+      "name": "Gustavo Soares",
+      "birthDate": "1998-11-10",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://afsfut.pt/equipas/gustavo-soares/",
+      "number": 20
+    },
+    {
+      "name": "Marcos Paulo",
+      "birthDate": "1998-03-09",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
+      "photo": "https://afsfut.pt/equipas/marcos-paulo/",
+      "number": 7
+    },
+    {
+      "name": "Hélio",
+      "birthDate": "1995-05-17",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://afsfut.pt/equipas/helio/",
+      "number": 11
+    },
+    {
+      "name": "Douglas Tanque",
+      "birthDate": "1995-09-23",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
+      "photo": "https://afsfut.pt/equipas/douglas-tanque/",
+      "number": 9
+    },
+    {
+      "name": "Ricardo Alves",
+      "birthDate": "1999-04-01",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://afsfut.pt/equipas/ricardo-alves/",
+      "number": 17
+    }
+  ]
+}

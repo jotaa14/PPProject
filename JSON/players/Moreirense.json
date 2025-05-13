@@ -1,0 +1,172 @@
+{
+  "squad": [
+    {
+      "name": "Kewin Silva",
+      "birthDate": "2004-01-16",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.moreirensefc.pt/plantel/kewin/",
+      "number": 40
+    },
+    {
+      "name": "Mika",
+      "birthDate": "1995-03-10",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.moreirensefc.pt/plantel/mika/",
+      "number": 16
+    },
+    {
+      "name": "Caio Secco",
+      "birthDate": "1997-11-25",
+      "nationality": "Brazilian",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.moreirensefc.pt/plantel/caio-secco/",
+      "number": 22
+    },
+    {
+      "name": "Michel",
+      "birthDate": "1992-07-06",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://www.moreirensefc.pt/plantel/michel/",
+      "number": 3
+    },
+    {
+      "name": "Dinis Pinto",
+      "birthDate": "1997-02-25",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://www.moreirensefc.pt/plantel/dinis-pinto/",
+      "number": 76
+    },
+    {
+      "name": "Gilberto Batista",
+      "birthDate": "1999-03-22",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://www.moreirensefc.pt/plantel/gilberto-batista/",
+      "number": 66
+    },
+    {
+      "name": "Leonardo Buta",
+      "birthDate": "2002-06-05",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://www.moreirensefc.pt/plantel/buta/",
+      "number": 15
+    },
+    {
+      "name": "Frimpong",
+      "birthDate": "1998-12-12",
+      "nationality": "Ghanaian",
+      "basePosition": "Defender",
+      "photo": "https://www.moreirensefc.pt/plantel/frimpong/",
+      "number": 23
+    },
+    {
+      "name": "Marcelo",
+      "birthDate": "1992-06-22",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "photo": "https://www.moreirensefc.pt/plantel/marcelo/",
+      "number": 44
+    },
+    {
+      "name": "Maracás",
+      "birthDate": "1999-04-04",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "photo": "https://www.moreirensefc.pt/plantel/maracas/",
+      "number": 26
+    },
+    {
+      "name": "Dani Morer",
+      "birthDate": "1997-07-04",
+      "nationality": "Spanish",
+      "basePosition": "Defender",
+      "photo": "https://www.moreirensefc.pt/plantel/dani-morer/",
+      "number": 28
+    },
+    {
+      "name": "Guilherme Liberato",
+      "birthDate": "2000-04-06",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.moreirensefc.pt/plantel/guilherme-liberato/",
+      "number": 25
+    },
+    {
+      "name": "Assis",
+      "birthDate": "1998-09-15",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.moreirensefc.pt/plantel/assis/",
+      "number": 5
+    },
+    {
+      "name": "Sidnei Sidnei",
+      "birthDate": "1999-05-11",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.moreirensefc.pt/plantel/sidnei-sidnei/",
+      "number": 80
+    },
+    {
+      "name": "Ofori",
+      "birthDate": "1998-10-04",
+      "nationality": "Ghanaian",
+      "basePosition": "Midfielder",
+      "photo": "https://www.moreirensefc.pt/plantel/ofori/",
+      "number": 11
+    },
+    {
+      "name": "Alan",
+      "birthDate": "1997-09-21",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.moreirensefc.pt/plantel/alan/",
+      "number": 6
+    },
+    {
+      "name": "Ismael",
+      "birthDate": "2001-07-25",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.moreirensefc.pt/plantel/ismael/",
+      "number": 20
+    },
+    {
+      "name": "Benny",
+      "birthDate": "1997-04-14",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.moreirensefc.pt/plantel/benny/",
+      "number": 19
+    },
+    {
+      "name": "Joel Jorquera",
+      "birthDate": "1996-03-14",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://www.moreirensefc.pt/plantel/joel-jorquera/",
+      "number": 7
+    },
+    {
+      "name": "Hernani",
+      "birthDate": "1995-03-06",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://www.moreirensefc.pt/plantel/hernani/",
+      "number": 21
+    },
+    {
+      "name": "Pedro Santos",
+      "birthDate": "1995-05-22",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://www.moreirensefc.pt/plantel/pedro-santos/",
+      "number": 14
+    }
+  ]
+}
