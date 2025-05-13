@@ -6,6 +6,7 @@ import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import model.player.Player;
+import model.player.PlayerPositionType;
 
 import java.io.IOException;
 
@@ -86,11 +87,29 @@ public class Team implements ITeam {
         }
         return counter;
     }
-    //fazerrrrrrrrr
+
     @Override
     public boolean isValidPositionForFormation(IPlayerPosition iPlayerPosition) {
-        return false;
+        if (iPlayerPosition == null){
+            return  false;
+        }
+        PlayerPositionType role;
+        if(iPlayerPosition instanceof model.player.PlayerPosition){
+            role = ((model.player.PlayerPosition) iPlayerPosition).getType();
+        }else{
+            try{
+            role = PlayerPositionType.fromString(iPlayerPosition.getDescription());
+        }catch (IllegalArgumentException e){
+                return  false;
+            }
+        }
 
+        return switch (role) {
+            case DEFENDER -> defenders > 0;
+            case MIDFIELDER -> midfielders > 0;
+            case FORWARD -> forwards > 0;
+            case GOALKEEPER -> true;
+        };
     }
 
     @Override

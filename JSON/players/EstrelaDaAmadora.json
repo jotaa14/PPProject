@@ -1,0 +1,244 @@
+{
+  "squad": [
+    {
+      "name": "Francisco Meixedo",
+      "birthDate": "2001-05-19",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://estrelamadora.pt/jogadores-francisco-meixedo/",
+      "number": 1
+    },
+    {
+      "name": "Bruno Brígido",
+      "birthDate": "1991-03-09",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://estrelamadora.pt/jogadores-bruno-brigido/",
+      "number": 30
+    },
+    {
+      "name": "Marko Gudžulić",
+      "birthDate": "2002-07-05",
+      "nationality": "Serbian",
+      "basePosition": "Goalkeeper",
+      "photo": "https://estrelamadora.pt/jogadores-marko-gudzulic/",
+      "number": 93
+    },
+    {
+      "name": "Travassos",
+      "birthDate": "2004-03-31",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-travassos/",
+      "number": 2
+    },
+    {
+      "name": "Till Cissokho",
+      "birthDate": "2000-02-08",
+      "nationality": "French",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-till-cissokho/",
+      "number": 3
+    },
+    {
+      "name": "Ferro",
+      "birthDate": "1997-09-27",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-ferro/",
+      "number": 4
+    },
+    {
+      "name": "Issiar Dramé",
+      "birthDate": "1999-02-16",
+      "nationality": "French",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-issiar-drame/",
+      "number": 5
+    },
+    {
+      "name": "Miguel Lopes",
+      "birthDate": "1986-12-19",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-miguel-lopes/",
+      "number": 13
+    },
+    {
+      "name": "Juan Mina",
+      "birthDate": "2004-07-27",
+      "nationality": "Colombian",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-juan-mina/",
+      "number": 20
+    },
+    {
+      "name": "Guilherme Montóia",
+      "birthDate": "2003-09-14",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-guilherme-montoia/",
+      "number": 21
+    },
+    {
+      "name": "Nilton Varela",
+      "birthDate": "2001-05-25",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-nilton-varela/",
+      "number": 25
+    },
+    {
+      "name": "Rúben Lima",
+      "birthDate": "1989-10-03",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-ruben-lima/",
+      "number": 28
+    },
+    {
+      "name": "Euri Carvalho",
+      "birthDate": "2004-02-17",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-euri-carvalho/",
+      "number": 31
+    },
+    {
+      "name": "Tiago Gabriel",
+      "birthDate": "2004-12-26",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-tiago-gabriel/",
+      "number": 44
+    },
+    {
+      "name": "Danilo Veiga",
+      "birthDate": "2002-09-25",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://estrelamadora.pt/jogadores-danilo-veiga/",
+      "number": 77
+    },
+    {
+      "name": "Daniel Cabral",
+      "birthDate": "2002-05-14",
+      "nationality": "Brazilian",
+      "basePosition": "Midfielder",
+      "photo": "https://estrelamadora.pt/jogadores-daniel-cabral/",
+      "number": 8
+    },
+    {
+      "name": "Alan Ruiz",
+      "birthDate": "1993-08-19",
+      "nationality": "Argentine",
+      "basePosition": "Midfielder",
+      "photo": "https://estrelamadora.pt/jogadores-alan-ruiz/",
+      "number": 10
+    },
+    {
+      "name": "Paulo Moreira",
+      "birthDate": "2000-02-17",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://estrelamadora.pt/jogadores-paulo-moreira/",
+      "number": 19
+    },
+    {
+      "name": "Léo Cordeiro",
+      "birthDate": "1995-09-27",
+      "nationality": "Brazilian",
+      "basePosition": "Midfielder",
+      "photo": "https://estrelamadora.pt/jogadores-leo-cordeiro/",
+      "number": 22
+    },
+    {
+      "name": "Leonel Bucca",
+      "birthDate": "1999-03-20",
+      "nationality": "Argentine",
+      "basePosition": "Midfielder",
+      "photo": "https://estrelamadora.pt/jogadores-leonel-bucca/",
+      "number": 26
+    },
+    {
+      "name": "Manuel Keliano",
+      "birthDate": "2003-01-16",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://estrelamadora.pt/jogadores-manuel-keliano/",
+      "number": 42
+    },
+    {
+      "name": "Nur Asis",
+      "birthDate": "2004-03-04",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://estrelamadora.pt/jogadores-nur-asis/",
+      "number": 89
+    },
+    {
+      "name": "Kikas",
+      "birthDate": "1991-09-17",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://estrelamadora.pt/jogadores-kikas/",
+      "number": 7
+    },
+    {
+      "name": "Jean Felipe",
+      "birthDate": "1998-03-09",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
+      "photo": "https://estrelamadora.pt/jogadores-jean-felipe/",
+      "number": 11
+    },
+    {
+      "name": "Ronald",
+      "birthDate": "1997-06-18",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
+      "photo": "https://estrelamadora.pt/jogadores-ronald/",
+      "number": 14
+    },
+    {
+      "name": "Léo Jabá",
+      "birthDate": "1998-08-02",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
+      "photo": "https://estrelamadora.pt/jogadores-leo-jaba/",
+      "number": 17
+    },
+    {
+      "name": "Kikas Bondo",
+      "birthDate": "2005-01-26",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://estrelamadora.pt/jogadores-kikas-bondo/",
+      "number": 27
+    },
+    {
+      "name": "Pedro Mendes",
+      "birthDate": "1999-08-01",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://estrelamadora.pt/jogadores-pedro-mendes/",
+      "number": 29
+    },
+    {
+      "name": "Luís Gustavo",
+      "birthDate": "2004-06-22",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
+      "photo": "https://estrelamadora.pt/jogadores-luis-gustavo/",
+      "number": 70
+    },
+    {
+      "name": "Hevertton",
+      "birthDate": "1999-09-26",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
+      "photo": "https://estrelamadora.pt/jogadores-hevertton/",
+      "number": 90
+    }
+  ]
+}

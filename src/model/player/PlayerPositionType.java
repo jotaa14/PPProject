@@ -7,7 +7,6 @@ public enum PlayerPositionType {
     FORWARD;
 
     public String getPlayerPositionType() {
-
         return this.name();
     }
 

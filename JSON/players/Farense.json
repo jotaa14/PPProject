@@ -1,0 +1,156 @@
+{
+  "squad": [
+    {
+      "name": "Ricardo Velho",
+      "birthDate": "1998-08-20",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://scfarense.pt/jogadores-ricardo-velho/",
+      "number": 33
+    },
+    {
+      "name": "Gustavo Lobo",
+      "birthDate": "2002-03-03",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://scfarense.pt/jogadores-gustavo-lobo/",
+      "number": 12
+    },
+    {
+      "name": "Bruno Bolas",
+      "birthDate": "1996-06-24",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://scfarense.pt/jogadores-bruno-bolas/",
+      "number": 1
+    },
+    {
+      "name": "Gonçalo Silva",
+      "birthDate": "1991-06-04",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://scfarense.pt/jogadores-goncalo-silva/",
+      "number": 37
+    },
+    {
+      "name": "Francisco Fidalgo",
+      "birthDate": "2000-03-03",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://scfarense.pt/jogadores-francisco-fidalgo/",
+      "number": 3
+    },
+    {
+      "name": "Pastor",
+      "birthDate": "1999-04-18",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "photo": "https://scfarense.pt/jogadores-pastor/",
+      "number": 6
+    },
+    {
+      "name": "Zé Miguel",
+      "birthDate": "2002-03-27",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://scfarense.pt/jogadores-ze-miguel/",
+      "number": 15
+    },
+    {
+      "name": "Marco Matias",
+      "birthDate": "1989-05-10",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://scfarense.pt/jogadores-marco-matias/",
+      "number": 7
+    },
+    {
+      "name": "Luís Henrique",
+      "birthDate": "1998-01-11",
+      "nationality": "Brazilian",
+      "basePosition": "Midfielder",
+      "photo": "https://scfarense.pt/jogadores-luis-henrique/",
+      "number": 8
+    },
+    {
+      "name": "Cláudio Falcão",
+      "birthDate": "1994-06-03",
+      "nationality": "Brazilian",
+      "basePosition": "Midfielder",
+      "photo": "https://scfarense.pt/jogadores-claudio-falcao/",
+      "number": 5
+    },
+    {
+      "name": "Fabricio Isidoro",
+      "birthDate": "1992-01-28",
+      "nationality": "Brazilian",
+      "basePosition": "Midfielder",
+      "photo": "https://scfarense.pt/jogadores-fabricio-isidoro/",
+      "number": 20
+    },
+    {
+      "name": "Benny",
+      "birthDate": "1996-12-10",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://scfarense.pt/jogadores-benny/",
+      "number": 27
+    },
+    {
+      "name": "Mattheus Oliveira",
+      "birthDate": "1994-07-07",
+      "nationality": "Brazilian",
+      "basePosition": "Midfielder",
+      "photo": "https://scfarense.pt/jogadores-mattheus-oliveira/",
+      "number": 10
+    },
+    {
+      "name": "Talocha",
+      "birthDate": "1989-08-30",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://scfarense.pt/jogadores-talocha/",
+      "number": 31
+    },
+    {
+      "name": "Rafael Barbosa",
+      "birthDate": "1996-03-25",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://scfarense.pt/jogadores-rafael-barbosa/",
+      "number": 23
+    },
+    {
+      "name": "Belloumi",
+      "birthDate": "2002-06-23",
+      "nationality": "Algerian",
+      "basePosition": "Forward",
+      "photo": "https://scfarense.pt/jogadores-belloumi/",
+      "number": 17
+    },
+    {
+      "name": "André Ricardo",
+      "birthDate": "2001-06-15",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://scfarense.pt/jogadores-andre-ricardo/",
+      "number": 11
+    },
+    {
+      "name": "Pedro Henrique",
+      "birthDate": "1992-11-16",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
+      "photo": "https://scfarense.pt/jogadores-pedro-henrique/",
+      "number": 9
+    },
+    {
+      "name": "Christian Irobiso",
+      "birthDate": "1993-05-03",
+      "nationality": "Nigerian",
+      "basePosition": "Forward",
+      "photo": "https://scfarense.pt/jogadores-christian-irobiso/",
+      "number": 99
+    }
+  ]
+}
