@@ -6,25 +6,17 @@ import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IPlayerSelector;
 
 public class PlayerSelector implements IPlayerSelector {
-
-    @Override
-    public IPlayer selectPlayer(IClub iClub, IPlayerPosition iPlayerPosition) {
-        if (iClub == null || iPlayerPosition == null) {
-            throw new IllegalArgumentException("Clube ou posição não pode ser nulo.");
+    IPlayer selectPlayer(IClub club, IPlayerPosition position){
+        if(club == null || position == null){
+            throw new IllegalArgumentException("club or position cant 't be null");
         }
 
-        IPlayer[] players = iClub.getPlayers(); // assumindo que retorna um array
+        IPlayer[] players = club.getPlayers();
 
-        if (players == null || players.length == 0) {
-            throw new IllegalStateException("O clube não possui jogadores.");
-        }
+        if(position.getDescription().equalsIgnoreCase(""))
 
-        for (int i = 0; i < players.length; i++) {
-            if (iPlayerPosition.equals(players[i].getPosition())) {
-                return players[i];
-            }
-        }
-
-        throw new IllegalStateException("Nenhum jogador encontrado para a posição especificada.");
     }
 }
+
+
+

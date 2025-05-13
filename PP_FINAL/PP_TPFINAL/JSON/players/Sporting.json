@@ -1,0 +1,212 @@
+{
+  "squad": [
+    {
+      "name": "Franco Israel",
+      "birthDate": "2000-04-22",
+      "nationality": "Uruguayan",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/franco-israel-wibmer",
+      "number": 1
+    },
+    {
+      "name": "Rui Silva",
+      "birthDate": "1994-02-07",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/rui-tiago-dantas-da-silva",
+      "number": 24
+    },
+    {
+      "name": "Diego Calai",
+      "birthDate": "2004-07-18",
+      "nationality": "Brazilian",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/diego-calai-silva",
+      "number": 41
+    },
+    {
+      "name": "Diogo Pinto",
+      "birthDate": "2004-06-18",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/diogo-carvalho-pinto",
+      "number": 51
+    },
+    {
+      "name": "Matheus Reis",
+      "birthDate": "1995-02-18",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/matheus-reis-de-lima",
+      "number": 2
+    },
+    {
+      "name": "St.Juste",
+      "birthDate": "1996-10-19",
+      "nationality": "Dutch",
+      "basePosition": "Defender",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/jeremiah-israel-st-juste",
+      "number": 3
+    },
+    {
+      "name": "Zeno Debast",
+      "birthDate": "2003-10-24",
+      "nationality": "Belgian",
+      "basePosition": "Defender",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/zeno-koen-debast",
+      "number": 6
+    },
+    {
+       "name": "Iván Fresneda",
+      "birthDate": "2004-09-28",
+      "nationality": "Spanish",
+      "basePosition": "Defender",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/ivan-fresneda-corraliza",
+      "number": 22
+    },
+    {
+      "name": "Gonçalo Inácio",
+      "birthDate": "2001-08-25",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/goncalo-bernardo-inacio",
+      "number": 25
+    },
+    {
+      "name": "Ousmane Diomande",
+      "birthDate": "2003-12-04",
+      "nationality": "Ivorian",
+      "basePosition": "Defender",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/ousmane-diomande",
+      "number": 26
+    },
+    {
+      "name": "Ricardo Esgaio",
+      "birthDate": "1993-05-16",
+      "nationality": "Portugal",
+      "basePosition": "Defender",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/ricardo-sousa-esgaio",
+      "number": 47
+    },
+    {
+      "name": "Eduardo Quaresma",
+      "birthDate": "2002-03-02",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/eduardo-filipe-quaresma-vieira-coimbra-simoes",
+      "number": 72
+    },
+    {
+      "name": "Hidemasa Morita",
+      "birthDate": "1995-05-10",
+      "nationality": "Japanese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/hidemasa-morita",
+      "number": 5
+    },
+    {
+      "name": "Pedro Gonçalves",
+      "birthDate": "1998-06-28",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/pedro-antonio-pereira-goncalves",
+      "number": 8
+    },
+    {
+      "name": "Daniel Bragança",
+      "birthDate": "1999-05-27",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/daniel-santos-braganca",
+      "number": 23
+    },
+    {
+      "name": "Morten Hjulmand",
+      "birthDate": "1999-06-25",
+      "nationality": "Danish",
+      "basePosition": "Midfielder",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/morten-blom-due-hjulmand",
+      "number": 42
+    },
+    {
+      "name": "João Simões",
+      "birthDate": "2007-01-06",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/joao-pedro-arnauth-barrocas-simoes",
+      "number": 52
+    },
+    {
+      "name": "Viktor Gyökeres",
+      "birthDate": "1998-06-04",
+      "nationality": "Swedish",
+      "basePosition": "Forward",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/viktor-einar-gyokeres",
+      "number": 9
+    },
+    {
+      "name": "Nuno Santos",
+      "birthDate": "1995-02-13",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/nuno-miguel-gomes-dos-santos",
+      "number": 11
+    },
+    {
+      "name": "Francisco Trincão",
+      "birthDate": "1999-12-29",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/francisco-antonio-machado-mota-castro-trincão",
+      "number": 17
+    },
+    {
+      "name": "Conrad Harder",
+      "birthDate": "2005-04-07",
+      "nationality": "Danish",
+      "basePosition": "Forward",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/conrad-harder-weibel-schandorff",
+      "number": 19
+    },
+    {
+      "name": "Maxi Araújo",
+      "birthDate": "2000-02-15",
+      "nationality": "Uruguayan",
+      "basePosition": "Forward",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/maximiliano-javier-araujo-vilches",
+      "number": 20
+    },
+    {
+      "name": "Geny Catamo",
+      "birthDate": "2001-01-26",
+      "nationality": "Mozambican",
+      "basePosition": "Forward",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/geny-cipriano-catamo",
+      "number": 21
+    },
+    {
+      "name": "Biel",
+      "birthDate": "2001-04-01",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/gabriel-teixeira-aragao",
+      "number": 30
+    },
+    {
+      "name": "Geovany Quenda",
+      "birthDate": "2007-04-30",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://www.slbenfica.pt/pt-pt/players/hugo-sequeira",
+      "number": 57
+    },
+    {
+      "name": "Afonso Moreira",
+      "birthDate": "2005-03-19",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://www.sporting.pt/pt/futebol/equipa-principal/plantel/afonso-bastardo-moreira",
+      "number": 90
+    }
+  ]
+}

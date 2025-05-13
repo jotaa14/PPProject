@@ -57,7 +57,15 @@ public class Player implements IPlayer {
 
     @Override
     public int getAge() {
-        return age;
+        LocalDate now = LocalDate.now();
+        int years = now.getYear() - birthDate.getYear();
+
+        if (now.getMonthValue() < birthDate.getMonthValue() ||
+                (now.getMonthValue() == birthDate.getMonthValue() && now.getDayOfMonth() < birthDate.getDayOfMonth())) {
+            years--;
+        }
+
+        return years;
     }
 
     @Override
@@ -66,8 +74,11 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void setPosition(IPlayerPosition iPlayerPosition) {
-        this.position = iPlayerPosition;
+    public void setPosition(IPlayerPosition playerPosition) {
+        if (playerPosition == null) {
+            throw new IllegalArgumentException("Position cannot be null.");
+        }
+        this.position = playerPosition;
     }
 
     @Override
@@ -102,33 +113,31 @@ public class Player implements IPlayer {
 
     @Override
     public IPlayerPosition getPosition() {
+
         return position;
     }
 
     @Override
     public float getHeight() {
+
         return height;
     }
 
     @Override
     public float getWeight() {
+
         return weight;
     }
 
     @Override
     public PreferredFoot getPreferredFoot() {
+
         return preferredFoot;
     }
 
     @Override
-    public void exportToJson() throws IOException {
-
-
-
-
-
-
-
+    public void exportToJson()
+            throws IOException {
 
     }
 }

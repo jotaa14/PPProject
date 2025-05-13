@@ -1,0 +1,156 @@
+{
+  "squad": [
+    {
+      "name": "João Valido",
+      "birthDate": "1999-04-21",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "number": 1,
+      "photo": "https://www.cdnacional.pt/player/joao-valido/"
+    },
+    {
+      "name": "Rafael Fernandes",
+      "birthDate": "2001-01-18",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "number": 64,
+      "photo": "https://www.cdnacional.pt/player/rafael-fernandes/"
+    },
+    {
+      "name": "Pedro Santos",
+      "birthDate": "1999-07-10",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "number": 89,
+      "photo": "https://www.cdnacional.pt/player/pedro-santos/"
+    },
+    {
+      "name": "David Simão",
+      "birthDate": "1989-09-06",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "number": 5,
+      "photo": "https://www.cdnacional.pt/player/david-simao/"
+    },
+    {
+      "name": "Pedro Moreira",
+      "birthDate": "1988-05-03",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "number": 20,
+      "photo": "https://www.cdnacional.pt/player/pedro-moreira/"
+    },
+    {
+      "name": "Matías Rocha",
+      "birthDate": "1999-10-07",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "number": 13,
+      "photo": "https://www.cdnacional.pt/player/matias-rocha/"
+    },
+    {
+      "name": "Nuno Santos",
+      "birthDate": "1999-12-12",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "number": 3,
+      "photo": "https://www.cdnacional.pt/player/nuno-santos/"
+    },
+    {
+      "name": "Tiago Esgaio",
+      "birthDate": "1994-03-02",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "number": 28,
+      "photo": "https://www.cdnacional.pt/player/tiago-esgaio/"
+    },
+    {
+      "name": "Gonçalo Paciência",
+      "birthDate": "1998-06-19",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "number": 9,
+      "photo": "https://www.cdnacional.pt/player/goncalo-paciencia/"
+    },
+    {
+      "name": "Quaresma",
+      "birthDate": "1995-04-01",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "number": 11,
+      "photo": "https://www.cdnacional.pt/player/quaresma/"
+    },
+    {
+      "name": "André Costa",
+      "birthDate": "2001-06-05",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "number": 5,
+      "photo": "https://www.cdnacional.pt/player/andre-costa/"
+    },
+    {
+      "name": "Fábio Ferreira",
+      "birthDate": "1998-04-12",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "number": 12,
+      "photo": "https://www.cdnacional.pt/player/fabio-ferreira/"
+    },
+    {
+      "name": "José Luís",
+      "birthDate": "2000-09-18",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "number": 18,
+      "photo": "https://www.cdnacional.pt/player/jose-luis/"
+    },
+    {
+      "name": "Carlos Eduardo",
+      "birthDate": "1995-03-25",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "number": 7,
+      "photo": "https://www.cdnacional.pt/player/carlos-eduardo/"
+    },
+    {
+      "name": "Vítor Costa",
+      "birthDate": "1996-05-22",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "number": 23,
+      "photo": "https://www.cdnacional.pt/player/vitor-costa/"
+    },
+    {
+      "name": "Diogo Nascimento",
+      "birthDate": "2000-07-07",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "number": 16,
+      "photo": "https://www.cdnacional.pt/player/diogo-nascimento/"
+    },
+    {
+      "name": "Carlos Júnior",
+      "birthDate": "1994-09-01",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "number": 8,
+      "photo": "https://www.cdnacional.pt/player/carlos-junior/"
+    },
+    {
+      "name": "David Gonçalves",
+      "birthDate": "2001-03-25",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "number": 4,
+      "photo": "https://www.cdnacional.pt/player/david-goncalves/"
+    },
+    {
+      "name": "Gabriel Silva",
+      "birthDate": "1999-05-19",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "number": 6,
+      "photo": "https://www.cdnacional.pt/player/gabriel-silva/"
+    }
+  ]
+}

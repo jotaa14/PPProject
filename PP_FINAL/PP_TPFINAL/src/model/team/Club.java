@@ -26,7 +26,7 @@ public class Club implements IClub {
         this.foundedYear = foundedYear;
         this.stadiumName = stadiumName;
         this.logo = logo;
-        this.players = new IPlayer[100]; // capacidade máxima arbitrária
+        this.players = new IPlayer[100];
         this.playerCount = 0;
     }
 
@@ -108,7 +108,6 @@ public class Club implements IClub {
         boolean found = false;
         for (int i = 0; i < playerCount; i++) {
             if (players[i].equals(player)) {
-                // Remove o jogador e reorganiza o array
                 for (int j = i; j < playerCount - 1; j++) {
                     players[j] = players[j + 1];
                 }
@@ -148,6 +147,9 @@ public class Club implements IClub {
 
     @Override
     public boolean isValid() {
+       if(players == null || players.length == 0) {
+           throw new IllegalStateException("The club has no players array initialized.");
+       }
         if (playerCount == 0) {
             throw new IllegalStateException("The club has no players. Please add players.");
         }
@@ -155,13 +157,17 @@ public class Club implements IClub {
             throw new IllegalStateException("The club has only " + playerCount + " players. At least 16 are required.");
         }
 
+        boolean hasGoalkeeper = false;
+
         for (int i = 0; i < playerCount; i++) {
             if (players[i].getPosition().getDescription().equalsIgnoreCase("GOALKEEPER")){
-                return true;
+                hasGoalkeeper = true;
             }
         }
-
-        throw new IllegalStateException("The club must have at least one goalkeeper.");
+        if (!hasGoalkeeper) {
+            throw new IllegalStateException("The club must have at least one goalkeeper.");
+        }
+        return true;
     }
 
 

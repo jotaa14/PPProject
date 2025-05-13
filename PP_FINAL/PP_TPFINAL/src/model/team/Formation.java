@@ -12,9 +12,16 @@ public class Formation implements IFormation {
     }
 
     @Override
-    public int getTacticalAdvantage(IFormation iFormation) {
+    public int getTacticalAdvantage(IFormation formation) {
+    if(formation == null){
+        throw new NullPointerException("Opponent formation is not set.");
+    }
+    if(!(formation instanceof Formation)){
+        throw new ClassCastException("Unknown formation type");
+    }
 
-        return formation;
+    Formation opponent = (Formation) formation;
+    return this.formation - opponent.formation;
     }
 
     @Override

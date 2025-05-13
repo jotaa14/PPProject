@@ -1,0 +1,200 @@
+{
+  "squad": [
+    {
+      "name": "Ignacio de Arruabarrena",
+      "birthDate": "1996-01-27",
+      "nationality": "Uruguai",
+      "basePosition": "Goalkeeper",
+      "number": 12
+    },
+    {
+      "name": "João Valido",
+      "birthDate": "1999-04-21",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "number": 1
+    },
+    {
+      "name": "Thiago Silva",
+      "birthDate": "1995-01-18",
+      "nationality": "Brazilian",
+      "basePosition": "Goalkeeper",
+      "number": 16
+    },
+    {
+      "name": "Robson Bambu",
+      "birthDate": "1997-11-12",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "number": 3
+    },
+    {
+      "name": "Jerome Opoku",
+      "birthDate": "1998-02-17",
+      "nationality": "Ghanaian",
+      "basePosition": "Defender",
+      "number": 2
+    },
+    {
+      "name": "Javi Montero",
+      "birthDate": "1997-06-30",
+      "nationality": "Spanish",
+      "basePosition": "Defender",
+      "number": 4
+    },
+    {
+      "name": "Rafael Fernandes",
+      "birthDate": "2001-01-18",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "number": 64
+    },
+    {
+      "name": "Matías Rocha",
+      "birthDate": "1999-05-19",
+      "nationality": "Uruguayan",
+      "basePosition": "Defender",
+      "number": 13
+    },
+    {
+      "name": "Nino Galović",
+      "birthDate": "1992-12-02",
+      "nationality": "Croatian",
+      "basePosition": "Defender",
+      "number": 44
+    },
+    {
+      "name": "Quaresma",
+      "birthDate": "1996-07-22",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "number": 6
+    },
+    {
+      "name": "Yanis Hamache",
+      "birthDate": "1998-04-09",
+      "nationality": "Algerian",
+      "basePosition": "Defender",
+      "number": 25
+    },
+    {
+      "name": "Weverson",
+      "birthDate": "1999-11-04",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "number": 26
+    },
+    {
+      "name": "Tiago Esgaio",
+      "birthDate": "1995-06-06",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "number": 28
+    },
+    {
+      "name": "Bogdan Milovanov",
+      "birthDate": "1997-02-17",
+      "nationality": "Ukrainian",
+      "basePosition": "Defender",
+      "number": 22
+    },
+    {
+      "name": "Eboue Kouassi",
+      "birthDate": "1997-08-01",
+      "nationality": "Ivory Coast",
+      "basePosition": "Midfielder",
+      "number": 8
+    },
+    {
+      "name": "Uri Busquets",
+      "birthDate": "1998-11-07",
+      "nationality": "Spanish",
+      "basePosition": "Midfielder",
+      "number": 14
+    },
+    {
+      "name": "Yaw Moses",
+      "birthDate": "1998-11-01",
+      "nationality": "Ghanaian",
+      "basePosition": "Midfielder",
+      "number": 17
+    },
+    {
+      "name": "Pedro Santos",
+      "birthDate": "1999-07-10",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "number": 89
+    },
+    {
+      "name": "Vitinho",
+      "birthDate": "1998-06-06",
+      "nationality": "Brazilian",
+      "basePosition": "Midfielder",
+      "number": 43
+    },
+    {
+      "name": "David Simão",
+      "birthDate": "1989-09-06",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "number": 5
+    },
+    {
+      "name": "Pedro Moreira",
+      "birthDate": "1988-05-03",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "number": 20
+    },
+    {
+      "name": "Morlaye Sylla",
+      "birthDate": "1998-11-11",
+      "nationality": "Guinean",
+      "basePosition": "Forward",
+      "number": 2
+    },
+    {
+      "name": "Benji Michel",
+      "birthDate": "1997-07-28",
+      "nationality": "Haitian",
+      "basePosition": "Forward",
+      "number": 18
+    },
+    {
+      "name": "Miguel Puche",
+      "birthDate": "1999-06-22",
+      "nationality": "Spanish",
+      "basePosition": "Forward",
+      "number": 11
+    },
+    {
+      "name": "Yusuf Lawal",
+      "birthDate": "1997-08-15",
+      "nationality": "Nigerian",
+      "basePosition": "Forward",
+      "number": 7
+    },
+    {
+      "name": "Jason",
+      "birthDate": "1994-05-18",
+      "nationality": "Spanish",
+      "basePosition": "Forward",
+      "number": 10
+    },
+    {
+      "name": "Alfonso Trezza",
+      "birthDate": "1997-02-23",
+      "nationality": "Uruguayan",
+      "basePosition": "Forward",
+      "number": 9
+    },
+    {
+      "name": "André Bukia",
+      "birthDate": "1994-09-22",
+      "nationality": "Congolese",
+      "basePosition": "Forward",
+      "number": 30
+    }
+  ]
+}
