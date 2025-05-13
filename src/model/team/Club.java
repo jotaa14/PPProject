@@ -4,6 +4,7 @@ import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IPlayerSelector;
+import model.player.Player;
 
 import java.io.IOException;
 
@@ -39,9 +40,18 @@ public class Club implements IClub {
     public IPlayer[] getPlayers() {
         IPlayer[] currentPlayers = new IPlayer[playerCount];
         for (int i = 0; i < playerCount; i++) {
-            currentPlayers[i] = players[i];
+            currentPlayers[i] = getPlayerClone(players[i]);
         }
         return currentPlayers;
+    }
+
+    public  IPlayer getPlayerClone(IPlayer player) {
+        try {
+            return (IPlayer) ((Player) player).clone();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println("Error while cloning Player");
+            return null;
+        }
     }
 
     @Override

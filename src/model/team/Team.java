@@ -5,6 +5,7 @@ import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import model.player.Player;
 
 import java.io.IOException;
 
@@ -57,14 +58,35 @@ public class Team implements ITeam {
         if(!club.isPlayer(iPlayer)){
             throw new IllegalStateException("Player is not belong in the Club!");
         }
+        for(int i = 0; i < playerCount; i++){
+            if(players[i].equals(iPlayer)){
+                throw new IllegalStateException("Player is already in the Club!");
+            }
+        }
+
+        if(playerCount >= players.length){
+            throw new IllegalStateException("Team is full!");
+
+        }
+        players[playerCount++] = iPlayer;
 
     }
 
     @Override
     public int getPositionCount(IPlayerPosition iPlayerPosition) {
-        return 0;
-    }
+       if(iPlayerPosition == null){
+           throw new IllegalArgumentException("Player position can't be null!");
+       }
 
+        int counter = 0;
+        for(int i = 0; i < playerCount; i++){
+            if(players[i].getPosition().equals(iPlayerPosition)){
+                counter++;
+            }
+        }
+        return counter;
+    }
+    //fazerrrrrrrrr
     @Override
     public boolean isValidPositionForFormation(IPlayerPosition iPlayerPosition) {
         return false;
@@ -72,12 +94,23 @@ public class Team implements ITeam {
 
     @Override
     public int getTeamStrength() {
-        return 0;
+        if(playerCount == 0){
+            return 0;
+        }
+
+        int teamStrength = 0;
+        for(int i = 0; i < playerCount; i++){
+            teamStrength += ((Player)players[i]).getStrength();
+        }
+        return teamStrength / playerCount;
     }
 
     @Override
-    public void setFormation(IFormation iFormation) {
-
+    public void setFormation(IFormation formation) {
+        if (formation == null) {
+            throw new IllegalArgumentException("Formation cannot be null.");
+        }
+        this.formation = formation;
     }
 
     @Override
