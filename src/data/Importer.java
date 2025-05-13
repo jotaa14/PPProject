@@ -41,12 +41,7 @@ public class Importer {
                 int speed = (int) p.get("speed");
                 int shooting = (int) p.get("shooting");
                 int passing = (int) p.get("passing");
-                PreferredFoot preferredFoot;
-                if (p.containsKey("preferredFoot")) {
-                    preferredFoot = PreferredFoot.fromString((String) p.get("preferredFoot"));
-                } else {
-                    preferredFoot = generateRandomPreferredFoot();
-                }
+                PreferredFoot preferredFoot= (PreferredFoot) p.get("preferredFoot");
 
                 PlayerPosition playerPosition = new PlayerPosition(position);
 
@@ -86,7 +81,12 @@ public class Importer {
                     passing = generateRandomPassing(playerPosition);
                 }
 
-
+                if (p.containsKey("preferredFoot")) {
+                    preferredFoot = PreferredFoot.fromString((String) p.get("preferredFoot"));
+                } else {
+                    preferredFoot = generateRandomPreferredFoot();
+                }
+                
                 players[i] = new Player(name, birthDate, nationality, new PlayerPosition(position), photo, number, shooting, passing, stamina, speed, height, weight, preferredFoot);
             }
 
@@ -173,8 +173,16 @@ public class Importer {
     }
 
     private static PreferredFoot generateRandomPreferredFoot() {
-        PreferredFoot[] options = PreferredFoot.values();
-        return options[new Random().nextInt(options.length)];
+        Random random = new Random();
+        int chance = random.nextInt(10) + 1; // 1 a 10
+
+        if (chance <= 2) {
+            return PreferredFoot.Both;
+        } else if (chance <= 5) {
+            return PreferredFoot.Left;
+        } else {
+            return PreferredFoot.Right;
+        }
     }
 
     public Club[] importClubs(String filePath) throws IOException {
