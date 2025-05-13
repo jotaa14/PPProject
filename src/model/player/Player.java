@@ -149,7 +149,7 @@ public class Player implements IPlayer {
                 ", Position: " + position + ", Number: " + number +
                 ", Skills - Shooting: " + shooting + ", Passing: " + passing +
                 ", Stamina: " + stamina + ", Speed: " + speed +
-                ", Height: " + height + "m, Weight: " + weight + "kg, Preferred Foot: " + preferredFoot;
+                ", Height: " + height + "m, Weight: " + weight + "kg, Preferred Foot: " + preferredFoot + "Strength" + getStrength();
     }
 
     @Override
