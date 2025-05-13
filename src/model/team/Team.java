@@ -9,6 +9,21 @@ import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import java.io.IOException;
 
 public class Team implements ITeam {
+
+   private IClub club;
+   private IFormation formation;
+   private IPlayer[] players;
+   private int playerCount;
+
+    public Team(IClub club){
+        if(club == null){
+            throw new NullPointerException("Club can't be null!");
+        }
+        this.club = club;
+        this.players = new IPlayer[100];
+        this.playerCount = 0;
+    }
+
     @Override
     public IClub getClub() {
         return null;
@@ -16,16 +31,32 @@ public class Team implements ITeam {
 
     @Override
     public IFormation getFormation() {
-        return null;
+        if(formation == null){
+            throw new IllegalArgumentException("Formation is not set!");
+        }
+        return formation;
     }
 
     @Override
     public IPlayer[] getPlayers() {
-        return new IPlayer[0];
+        IPlayer[] temp = new IPlayer[playerCount];
+        for(int i = 0; i < playerCount; i++){
+            temp[i] = players[i];
+        }
+        return temp;
     }
 
     @Override
     public void addPlayer(IPlayer iPlayer) {
+        if(iPlayer == null){
+            throw new IllegalArgumentException("Player can't be null!");
+        }
+        if(formation == null){
+            throw new IllegalStateException("Formation is not set!");
+        }
+        if(!club.isPlayer(iPlayer)){
+            throw new IllegalStateException("Player is not belong in the Club!");
+        }
 
     }
 
