@@ -13,7 +13,6 @@ import java.time.LocalDate;
 public class Player implements IPlayer {
     private String name;
     private LocalDate birthDate;
-    private int age;
     private String nationality;
     private IPlayerPosition position;
     private String photo;
@@ -26,12 +25,11 @@ public class Player implements IPlayer {
     private float weight;
     private PreferredFoot preferredFoot;
 
-    public Player(String name, LocalDate birthDate, int age, String nationality,
+    public Player(String name, LocalDate birthDate, String nationality,
                   IPlayerPosition position, String photo, int number, int shooting, int passing,
                   int stamina, int speed, float height, float weight, PreferredFoot preferredFoot) {
         this.name = name;
         this.birthDate = birthDate;
-        this.age = age;
         this.nationality = nationality;
         this.position = position;
         this.photo = photo;

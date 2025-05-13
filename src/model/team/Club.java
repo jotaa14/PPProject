@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class Club implements IClub {
 
+    private boolean isNationalTeam;
     private String name;
     private String code;
     private String country;
@@ -20,7 +21,7 @@ public class Club implements IClub {
     private IPlayer[] players;
     private int playerCount;
 
-    public Club(String name, String code, String country, int foundedYear, String stadiumName, String logo) {
+    public Club(String name, String code, String country, int foundedYear, String stadiumName, String logo, boolean isNationalTeam) {
         this.name = name;
         this.code = code;
         this.country = country;
@@ -29,6 +30,8 @@ public class Club implements IClub {
         this.logo = logo;
         this.players = new IPlayer[100];
         this.playerCount = 0;
+        this.isNationalTeam = isNationalTeam;
+        //TODO FAZER TOSTRING
     }
 
     @Override
