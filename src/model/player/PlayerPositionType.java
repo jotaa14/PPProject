@@ -4,7 +4,7 @@ public enum PlayerPositionType {
     GOALKEEPER,
     DEFENDER,
     MIDFIELDER,
-    STRIKER;
+    FORWARD;
 
     public String getPlayerPositionType() {
 

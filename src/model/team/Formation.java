@@ -3,12 +3,14 @@ package model.team;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 
 public class Formation implements IFormation {
-    private int formation;
-    private String displayName;
+    private int defenders;
+    private int midfielders;
+    private int forwards;
 
-    public Formation(int formation, String displayName) {
-        this.formation = formation;
-        this.displayName = displayName;
+    public Formation(int defenders, int midfielders, int forwards) {
+        this.defenders = defenders;
+        this.midfielders = midfielders;
+        this.forwards = forwards;
     }
 
     @Override
@@ -16,16 +18,32 @@ public class Formation implements IFormation {
         if(formation == null){
         throw new IllegalStateException("Opponent formation is not set.");
         }
+
         if(!(formation instanceof Formation)){
         throw new IllegalStateException("Unknown formation type");
         }
 
-        Formation opponent = (Formation) formation;
-        return this.formation - opponent.formation;
+        Formation opponent  = (Formation) formation;
+        return this.calculateTacticalValue() - opponent.calculateTacticalValue();
+    }
+
+    public int calculateTacticalValue() {
+        int totalTaticalValue = 0;
+        int defendersValue = 4;
+        int midfieldersValue = 3;
+        int forwardsValue = 4;
+
+        totalTaticalValue = defenders *defendersValue + midfielders *midfieldersValue + forwards *forwardsValue;
+
+        if(defenders > 4 || forwards > 3){
+            totalTaticalValue -= 10;
+        }
+
+        return totalTaticalValue;
     }
 
     @Override
     public String getDisplayName() {
-        return displayName;
+        return defenders + "-" + midfielders + "-" + forwards;
     }
 }
