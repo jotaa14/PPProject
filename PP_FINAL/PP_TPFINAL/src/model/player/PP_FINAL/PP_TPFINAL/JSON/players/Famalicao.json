@@ -1,0 +1,108 @@
+{
+  "squad": [
+    {
+      "name": "Luís Júnior",
+      "birthDate": "2001-01-20",
+      "nationality": "Brazilian",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.fcfamalicao.pt/player/luis-junior/",
+      "number": 31
+    },
+    {
+      "name": "Ivan Zlobin",
+      "birthDate": "1996-10-25",
+      "nationality": "Russian",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.fcfamalicao.pt/player/ivan-zlobin/",
+      "number": 12
+    },
+    {
+      "name": "Riccieli",
+      "birthDate": "1998-12-17",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "photo": "https://www.fcfamalicao.pt/player/riccieli/",
+      "number": 15
+    },
+    {
+      "name": "Otávio Ataíde",
+      "birthDate": "2002-06-14",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "photo": "https://www.fcfamalicao.pt/player/otavio-ataide/",
+      "number": 4
+    },
+    {
+      "name": "Francisco Moura",
+      "birthDate": "1999-08-16",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://www.fcfamalicao.pt/player/francisco-moura/",
+      "number": 74
+    },
+    {
+      "name": "Martin Aguirregabiria",
+      "birthDate": "1996-05-10",
+      "nationality": "Spanish",
+      "basePosition": "Defender",
+      "photo": "https://www.fcfamalicao.pt/player/martin-aguirregabiria/",
+      "number": 32
+    },
+    {
+      "name": "Santiago Colombatto",
+      "birthDate": "1997-01-17",
+      "nationality": "Argentinian",
+      "basePosition": "Midfielder",
+      "photo": "https://www.fcfamalicao.pt/player/santiago-colombatto/",
+      "number": 6
+    },
+    {
+      "name": "Zaydou Youssouf",
+      "birthDate": "1999-07-11",
+      "nationality": "French",
+      "basePosition": "Midfielder",
+      "photo": "https://www.fcfamalicao.pt/player/zaydou-youssouf/",
+      "number": 97
+    },
+    {
+      "name": "Ivan Jaime",
+      "birthDate": "2000-09-26",
+      "nationality": "Spanish",
+      "basePosition": "Midfielder",
+      "photo": "https://www.fcfamalicao.pt/player/ivan-jaime/",
+      "number": 10
+    },
+    {
+      "name": "Chiquinho",
+      "birthDate": "2000-02-05",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.fcfamalicao.pt/player/chiquinho/",
+      "number": 7
+    },
+    {
+      "name": "Júnior Kadile",
+      "birthDate": "2003-11-27",
+      "nationality": "French",
+      "basePosition": "Forward",
+      "photo": "https://www.fcfamalicao.pt/player/junior-kadile/",
+      "number": 9
+    },
+    {
+      "name": "Álex Millán",
+      "birthDate": "1999-11-07",
+      "nationality": "Spanish",
+      "basePosition": "Forward",
+      "photo": "https://www.fcfamalicao.pt/player/alex-millan/",
+      "number": 19
+    },
+    {
+      "name": "Jhonder Cádiz",
+      "birthDate": "1995-07-29",
+      "nationality": "Venezuelan",
+      "basePosition": "Forward",
+      "photo": "https://www.fcfamalicao.pt/player/jhonder-cadiz/",
+      "number": 99
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "squad": [
+    {
+      "name": "André Moreira",
+      "birthDate": "1994-03-07",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.estorilpraia.pt/player/andre-moreira/",
+      "number": 1
+    },
+    {
+      "name": "João Sousa",
+      "birthDate": "2002-01-09",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
+      "photo": "https://www.estorilpraia.pt/player/joao-sousa/",
+      "number": 12
+    },
+    {
+      "name": "Kiki",
+      "birthDate": "1995-05-10",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://www.estorilpraia.pt/player/kiki/",
+      "number": 2
+    },
+    {
+      "name": "Rui Moreira",
+      "birthDate": "1997-03-05",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://www.estorilpraia.pt/player/rui-moreira/",
+      "number": 3
+    },
+    {
+      "name": "Thiago",
+      "birthDate": "1996-02-23",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "photo": "https://www.estorilpraia.pt/player/thiago/",
+      "number": 4
+    },
+    {
+      "name": "Paulo Henrique",
+      "birthDate": "1997-05-15",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
+      "photo": "https://www.estorilpraia.pt/player/paulo-henrique/",
+      "number": 13
+    },
+    {
+      "name": "Hélder Almeida",
+      "birthDate": "1996-11-28",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
+      "photo": "https://www.estorilpraia.pt/player/helder-almeida/",
+      "number": 23
+    },
+    {
+      "name": "Ibrahima",
+      "birthDate": "2000-07-20",
+      "nationality": "Malian",
+      "basePosition": "Midfielder",
+      "photo": "https://www.estorilpraia.pt/player/ibrahima/",
+      "number": 5
+    },
+    {
+      "name": "André Franco",
+      "birthDate": "1998-02-25",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.estorilpraia.pt/player/andre-franco/",
+      "number": 10
+    },
+    {
+      "name": "Yohan Tavares",
+      "birthDate": "1997-10-29",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.estorilpraia.pt/player/yohan-tavares/",
+      "number": 8
+    },
+    {
+      "name": "João Carlos",
+      "birthDate": "1995-06-14",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
+      "photo": "https://www.estorilpraia.pt/player/joao-carlos/",
+      "number": 16
+    },
+    {
+      "name": "Cláudio Falcão",
+      "birthDate": "1998-11-15",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
+      "photo": "https://www.estorilpraia.pt/player/claudio-falcao/",
+      "number": 7
+    },
+    {
+      "name": "Lamine Diatta",
+      "birthDate": "1999-04-25",
+      "nationality": "Senegalese",
+      "basePosition": "Forward",
+      "photo": "https://www.estorilpraia.pt/player/lamine-diatta/",
+      "number": 9
+    }
+  ]
+}
