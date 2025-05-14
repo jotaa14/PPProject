@@ -13,6 +13,20 @@ public class Formation implements IFormation {
         this.forwards = forwards;
     }
 
+
+    public int getDefenders() {
+        return this.defenders;
+    }
+
+    public int getMidfielders() {
+        return this.midfielders;
+    }
+
+    public int getForwards() {
+        return this.forwards;
+    }
+
+
     @Override
     public int getTacticalAdvantage(IFormation formation) {
         if(formation == null){

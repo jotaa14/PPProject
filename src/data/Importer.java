@@ -86,7 +86,7 @@ public class Importer {
                 } else {
                     preferredFoot = generateRandomPreferredFoot();
                 }
-                
+
                 players[i] = new Player(name, birthDate, nationality, new PlayerPosition(position), photo, number, shooting, passing, stamina, speed, height, weight, preferredFoot);
             }
 

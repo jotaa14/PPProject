@@ -6,16 +6,17 @@ import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import model.player.Player;
+import model.player.PlayerPosition;
 import model.player.PlayerPositionType;
 
 import java.io.IOException;
 
 public class Team implements ITeam {
 
-   private IClub club;
-   private IFormation formation;
-   private IPlayer[] players;
-   private int playerCount;
+    private IClub club;
+    private IFormation formation;
+    private IPlayer[] players;
+    private int playerCount;
 
     public Team(IClub club){
         if(club == null){
@@ -28,7 +29,7 @@ public class Team implements ITeam {
 
     @Override
     public IClub getClub() {
-        return null;
+        return club; // Corrigido: não devemos adicionar jogadores aqui
     }
 
     @Override
@@ -42,9 +43,7 @@ public class Team implements ITeam {
     @Override
     public IPlayer[] getPlayers() {
         IPlayer[] temp = new IPlayer[playerCount];
-        for(int i = 0; i < playerCount; i++){
-            temp[i] = players[i];
-        }
+        System.arraycopy(players, 0, temp, 0, playerCount);
         return temp;
     }
 
@@ -57,59 +56,64 @@ public class Team implements ITeam {
             throw new IllegalStateException("Formation is not set!");
         }
         if(!club.isPlayer(iPlayer)){
-            throw new IllegalStateException("Player is not belong in the Club!");
+            throw new IllegalStateException("Player does not belong to the Club!");
         }
         for(int i = 0; i < playerCount; i++){
             if(players[i].equals(iPlayer)){
-                throw new IllegalStateException("Player is already in the Club!");
+                throw new IllegalStateException("Player is already in the Team!");
             }
         }
 
         if(playerCount >= players.length){
             throw new IllegalStateException("Team is full!");
-
         }
         players[playerCount++] = iPlayer;
-
     }
 
     @Override
-    public int getPositionCount(IPlayerPosition iPlayerPosition) {
-       if(iPlayerPosition == null){
-           throw new IllegalArgumentException("Player position can't be null!");
-       }
+    public int getPositionCount(IPlayerPosition position) {
+        if (position == null) {
+            throw new IllegalArgumentException("Player position can't be null!");
+        }
 
-        int counter = 0;
-        for(int i = 0; i < playerCount; i++){
-            if(players[i].getPosition().equals(iPlayerPosition)){
-                counter++;
+        int count = 0;
+        for (int i = 0; i < playerCount; i++) {
+            if (players[i].getPosition().getDescription().equalsIgnoreCase(position.getDescription())) {
+                count++;
             }
         }
-        return counter;
+        return count;
     }
 
     @Override
     public boolean isValidPositionForFormation(IPlayerPosition iPlayerPosition) {
-        if (iPlayerPosition == null){
-            return  false;
+        if (iPlayerPosition == null) {
+            return false;
         }
+
         PlayerPositionType role;
-        if(iPlayerPosition instanceof model.player.PlayerPosition){
-            role = ((model.player.PlayerPosition) iPlayerPosition).getType();
-        }else{
-            try{
-            role = PlayerPositionType.fromString(iPlayerPosition.getDescription());
-        }catch (IllegalArgumentException e){
-                return  false;
+        if (iPlayerPosition instanceof PlayerPosition) {
+            role = ((PlayerPosition) iPlayerPosition).getType();
+        } else {
+            try {
+                role = PlayerPositionType.fromString(iPlayerPosition.getDescription());
+            } catch (IllegalArgumentException e) {
+                return false;
             }
         }
 
-        return switch (role) {
-            case DEFENDER -> defenders > 0;
-            case MIDFIELDER -> midfielders > 0;
-            case FORWARD -> forwards > 0;
-            case GOALKEEPER -> true;
-        };
+        switch (role) {
+            case DEFENDER:
+                return ((Formation)formation).getDefenders() > 0;
+            case MIDFIELDER:
+                return ((Formation)formation).getMidfielders() > 0;
+            case FORWARD:
+                return ((Formation)formation).getForwards() > 0;
+            case GOALKEEPER:
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override
@@ -135,6 +139,6 @@ public class Team implements ITeam {
 
     @Override
     public void exportToJson() throws IOException {
-
+        // Implementar exportação para JSON aqui
     }
 }

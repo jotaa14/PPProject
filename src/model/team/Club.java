@@ -31,7 +31,6 @@ public class Club implements IClub {
         this.players = new IPlayer[100];
         this.playerCount = 0;
         this.isNationalTeam = isNationalTeam;
-        //TODO FAZER TOSTRING
     }
 
     @Override
@@ -48,13 +47,17 @@ public class Club implements IClub {
         return currentPlayers;
     }
 
-    public  IPlayer getPlayerClone(IPlayer player) {
+    public IPlayer getPlayerClone(IPlayer player) {
         try {
             return (IPlayer) ((Player) player).clone();
         } catch (CloneNotSupportedException ex) {
             System.out.println("Error while cloning Player");
             return null;
         }
+    }
+
+    public boolean isNationalTeam() {
+        return isNationalTeam;
     }
 
     @Override
@@ -96,19 +99,16 @@ public class Club implements IClub {
         players[playerCount++] = player;
     }
 
-
     @Override
     public boolean isPlayer(IPlayer player) {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null.");
         }
-
         for (int i = 0; i < playerCount; i++) {
             if (players[i].equals(player)) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -135,7 +135,6 @@ public class Club implements IClub {
         }
     }
 
-
     @Override
     public int getPlayerCount() {
         return playerCount;
@@ -160,9 +159,9 @@ public class Club implements IClub {
 
     @Override
     public boolean isValid() {
-       if(players == null || players.length == 0) {
-           throw new IllegalStateException("The club has no players array initialized.");
-       }
+        if (players == null || players.length == 0) {
+            throw new IllegalStateException("The club has no players array initialized.");
+        }
         if (playerCount == 0) {
             throw new IllegalStateException("The club has no players. Please add players.");
         }
@@ -171,9 +170,8 @@ public class Club implements IClub {
         }
 
         boolean hasGoalkeeper = false;
-
         for (int i = 0; i < playerCount; i++) {
-            if (players[i].getPosition().getDescription().equalsIgnoreCase("GOALKEEPER")){
+            if (players[i].getPosition().getDescription().equalsIgnoreCase("GOALKEEPER")) {
                 hasGoalkeeper = true;
             }
         }
@@ -183,9 +181,33 @@ public class Club implements IClub {
         return true;
     }
 
+    @Override
+    public String toString() {
+        String result = "Club: " + name + "\n";
+        result += "Code: " + code + "\n";
+        result += "Country: " + country + "\n";
+        result += "Founded Year: " + foundedYear + "\n";
+        result += "Stadium: " + stadiumName + "\n";
+        result += "Logo: " + logo + "\n";
+        result += "Is National Team: " + isNationalTeam + "\n";
+        result += "Players info: " + playerCount + "\n";
+
+        if (playerCount > 0) {
+            result += "Player(s): \n";
+            for (int i = 0; i < playerCount; i++) {
+                if (players[i] != null) {
+                    result += players[i].toString() + "\n";
+                }
+            }
+        } else {
+            result += "No players found.\n";
+        }
+
+        return result;
+    }
 
     @Override
     public void exportToJson() throws IOException {
-
+        // Implement the export to JSON logic here
     }
 }
