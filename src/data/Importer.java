@@ -32,62 +32,69 @@ public class Importer {
                 String nationality = (String) p.get("nationality");
                 String position = (String) p.get("basePosition");
                 String photo = (String) p.get("photo");
-                long numberLong = (Long) p.get("number");
-                int number = (int) numberLong;
+                int number = ((Number) p.get("number")).intValue();
 
-                float height = (Float) p.get("height");
-                float weight = (Float) p.get("weight");
-                int stamina = (int) p.get("stamina");
-                int speed = (int) p.get("speed");
-                int shooting = (int) p.get("shooting");
-                int passing = (int) p.get("passing");
-                PreferredFoot preferredFoot= (PreferredFoot) p.get("preferredFoot");
+                float height;
+                float weight;
+                int stamina;
+                int speed;
+                int shooting;
+                int passing;
+                int defense;
+                PreferredFoot preferredFoot;
 
                 PlayerPosition playerPosition = new PlayerPosition(position);
 
-                if (p.containsKey("height")) {
+                if (p.containsKey("height") && p.get("height") instanceof Number) {
                     height = ((Number) p.get("height")).floatValue();
                 } else {
                     height = generateRandomHeight();
                 }
 
-                if (p.containsKey("weight")) {
+                if (p.containsKey("weight") && p.get("weight") instanceof Number) {
                     weight = ((Number) p.get("weight")).floatValue();
                 } else {
                     weight = generateRandomWeight();
                 }
 
-                if (p.containsKey("stamina")) {
+                if (p.containsKey("stamina") && p.get("stamina") instanceof Number) {
                     stamina = ((Number) p.get("stamina")).intValue();
                 } else {
                     stamina = generateRandomStamina(playerPosition);
                 }
 
-                if (p.containsKey("speed")) {
+                if (p.containsKey("speed") && p.get("speed") instanceof Number) {
                     speed = ((Number) p.get("speed")).intValue();
                 } else {
                     speed = generateRandomSpeed(playerPosition);
                 }
 
-                if (p.containsKey("shooting")) {
+                if (p.containsKey("shooting") && p.get("shooting") instanceof Number) {
                     shooting = ((Number) p.get("shooting")).intValue();
                 } else {
                     shooting = generateRandomShooting(playerPosition);
                 }
 
-                if (p.containsKey("passing")) {
+                if (p.containsKey("passing") && p.get("passing") instanceof Number) {
                     passing = ((Number) p.get("passing")).intValue();
                 } else {
                     passing = generateRandomPassing(playerPosition);
                 }
 
-                if (p.containsKey("preferredFoot")) {
+                if (p.containsKey("defense") && p.get("defense") instanceof Number) {
+                    defense = ((Number) p.get("defense")).intValue();
+                } else {
+                    defense = generateRandomDefense(playerPosition);
+                }
+
+                if (p.containsKey("preferredFoot") && p.get("preferredFoot") instanceof String) {
                     preferredFoot = PreferredFoot.fromString((String) p.get("preferredFoot"));
                 } else {
                     preferredFoot = generateRandomPreferredFoot();
                 }
 
-                players[i] = new Player(name, birthDate, nationality, new PlayerPosition(position), photo, number, shooting, passing, stamina, speed, height, weight, preferredFoot);
+                players[i] = new Player(name, birthDate, nationality, playerPosition, photo, number,
+                        shooting, passing, stamina, speed, defense, height, weight, preferredFoot);
             }
 
             file.close();
@@ -112,13 +119,13 @@ public class Importer {
         Random random = new Random();
         switch (position.getDescription()) {
             case "GOALKEEPER":
-                return random.nextInt(20) + 30;
+                return random.nextInt(30) + 30;
             case "DEFENDER":
-                return random.nextInt(40) + 30;
+                return random.nextInt(40) + 40;
             case "MIDFIELDER":
-                return random.nextInt(60) + 30;
+                return random.nextInt(50) + 50;
             case "FORWARD":
-                return random.nextInt(70) + 30;
+                return random.nextInt(50) + 50;
             default:
                 return 0;
         }
@@ -128,13 +135,13 @@ public class Importer {
         Random random = new Random();
         switch (position.getDescription()) {
             case "GOALKEEPER":
-                return random.nextInt(30) + 30;
+                return random.nextInt(40) + 40;
             case "DEFENDER":
-                return random.nextInt(60) + 30;
+                return random.nextInt(50) + 50;
             case "MIDFIELDER":
-                return random.nextInt(70) + 30;
+                return random.nextInt(50) + 50;
             case "FORWARD":
-                return random.nextInt(70) + 30;
+                return random.nextInt(60) + 40;
             default:
                 return 0;
         }
@@ -150,7 +157,23 @@ public class Importer {
             case "MIDFIELDER":
                 return random.nextInt(70) + 30;
             case "FORWARD":
-                return random.nextInt(70) + 30;
+                return random.nextInt(60) + 40;
+            default:
+                return 0;
+        }
+    }
+
+    private static int generateRandomDefense(PlayerPosition position) {
+        Random random = new Random();
+        switch (position.getDescription()) {
+            case "GOALKEEPER":
+                return random.nextInt(50) + 50;
+            case "DEFENDER":
+                return random.nextInt(50) + 50;
+            case "MIDFIELDER":
+                return random.nextInt(35) + 30;
+            case "FORWARD":
+                return random.nextInt(20) + 30;
             default:
                 return 0;
         }

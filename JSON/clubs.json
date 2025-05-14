@@ -24,7 +24,7 @@
     "founded": 1906,
     "isNationalTeam": false,
     "stadium": "Estádio José Alvalade",
-    "logo": "https://media.api-sports.io/football/teams/360.png"
+    "logo": "https://media.api-sports.io/football/teams/228.png"
   },
   {
     "name": "Sporting Clube de Braga",
@@ -33,7 +33,7 @@
     "founded": 1921,
     "isNationalTeam": false,
     "stadium": "Estádio Municipal de Braga",
-    "logo": "https://media.api-sports.io/football/teams/229.png"
+    "logo": "https://media.api-sports.io/football/teams/217.png"
   },
   {
     "name": "Vitória Sport Clube",
@@ -42,7 +42,7 @@
     "founded": 1922,
     "isNationalTeam": false,
     "stadium": "Estádio D. Afonso Henriques",
-    "logo": "https://media.api-sports.io/football/teams/241.png"
+    "logo": "https://media.api-sports.io/football/teams/224.png"
   },
   {
     "name": "Boavista Futebol Clube",
@@ -51,7 +51,7 @@
     "founded": 1903,
     "isNationalTeam": false,
     "stadium": "Estádio do Bessa",
-    "logo": "https://media.api-sports.io/football/teams/230.png"
+    "logo": "https://media.api-sports.io/football/teams/222.png"
   },
   {
     "name": "Rio Ave Futebol Clube",
@@ -60,7 +60,7 @@
     "founded": 1939,
     "isNationalTeam": false,
     "stadium": "Estádio dos Arcos",
-    "logo": "https://media.api-sports.io/football/teams/234.png"
+    "logo": "https://media.api-sports.io/football/teams/226.png"
   },
   {
     "name": "Gil Vicente Futebol Clube",
@@ -69,7 +69,7 @@
     "founded": 1952,
     "isNationalTeam": false,
     "stadium": "Estádio Cidade de Barcelos",
-    "logo": "https://media.api-sports.io/football/teams/310.png"
+    "logo": "https://www.zerozero.pt/img/logos/equipas/11_imgbank_1682582593.png"
   },
   {
     "name": "Futebol Clube de Famalicão",
@@ -78,7 +78,7 @@
     "founded": 1931,
     "isNationalTeam": false,
     "stadium": "Estádio Municipal de Famalicão",
-    "logo": "https://media.api-sports.io/football/teams/375.png"
+    "logo": "https://media.api-sports.io/football/teams/242.png"
   },
   {
     "name": "Casa Pia Atlético Clube",
@@ -87,7 +87,7 @@
     "founded": 1920,
     "isNationalTeam": false,
     "stadium": "Estádio Municipal de Rio Maior",
-    "logo": "https://media.api-sports.io/football/teams/373.png"
+    "logo": "https://www.zerozero.pt/img/logos/equipas/2412_imgbank_1695724045.png"
   },
   {
     "name": "Grupo Desportivo Estoril Praia",
@@ -96,7 +96,7 @@
     "founded": 1939,
     "isNationalTeam": false,
     "stadium": "Estádio António Coimbra da Mota",
-    "logo": "https://media.api-sports.io/football/teams/381.png"
+    "logo": "https://media.api-sports.io/football/teams/230.png"
   },
   {
     "name": "Futebol Clube de Arouca",
@@ -105,7 +105,7 @@
     "founded": 1951,
     "isNationalTeam": false,
     "stadium": "Estádio Municipal de Arouca",
-    "logo": "https://media.api-sports.io/football/teams/415.png"
+    "logo": "https://media.api-sports.io/football/teams/240.png"
   },
   {
     "name": "Clube Desportivo Nacional",
@@ -114,7 +114,7 @@
     "founded": 1910,
     "isNationalTeam": false,
     "stadium": "Estádio da Madeira",
-    "logo": "https://media.api-sports.io/football/teams/317.png"
+    "logo": "https://media.api-sports.io/football/teams/225.png"
   },
   {
     "name": "Clube Desportivo Santa Clara",
@@ -123,16 +123,16 @@
     "founded": 1927,
     "isNationalTeam": false,
     "stadium": "Estádio de São Miguel",
-    "logo": "https://media.api-sports.io/football/teams/310.png"
+    "logo": "https://media.api-sports.io/football/teams/227.png"
   },
   {
     "name": "Clube de Futebol Estrela da Amadora",
     "code": "CEA",
     "country": "Portugal",
-    "founded": 1932,
+    "founded": 2020,
     "isNationalTeam": false,
     "stadium": "Estádio José Gomes",
-    "logo": "https://media.api-sports.io/football/teams/389.png"
+    "logo": "https://www.zerozero.pt/img/logos/equipas/253884_imgbank_1691766850.png"
   },
   {
     "name": "Sporting Clube Farense",
@@ -141,7 +141,7 @@
     "founded": 1910,
     "isNationalTeam": false,
     "stadium": "Estádio de São Luís",
-    "logo": "https://media.api-sports.io/football/teams/372.png"
+    "logo": "https://media.api-sports.io/football/teams/231.png"
   },
   {
     "name": "Moreirense Futebol Clube",
@@ -150,7 +150,7 @@
     "founded": 1938,
     "isNationalTeam": false,
     "stadium": "Estádio Comendador Joaquim de Almeida Freitas",
-    "logo": "https://media.api-sports.io/football/teams/362.png"
+    "logo": "https://media.api-sports.io/football/teams/215.png"
   },
   {
     "name": "AVS Futebol SAD",
@@ -159,6 +159,6 @@
     "founded": 2023,
     "isNationalTeam": false,
     "stadium": "Estádio do CD Aves",
-    "logo": "https://media.api-sports.io/football/teams/514.png"
+    "logo": "https://www.zerozero.pt/img/logos/equipas/296012_imgbank_1730118268.png"
   }
 ]

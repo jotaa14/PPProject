@@ -21,13 +21,14 @@ public class Player implements IPlayer {
     private int passing;
     private int stamina;
     private int speed;
+    private int defense;
     private float height;
     private float weight;
     private PreferredFoot preferredFoot;
 
     public Player(String name, LocalDate birthDate, String nationality,
                   IPlayerPosition position, String photo, int number, int shooting, int passing,
-                  int stamina, int speed, float height, float weight, PreferredFoot preferredFoot) {
+                  int stamina, int speed, int defense, float height, float weight, PreferredFoot preferredFoot) {
         this.name = name;
         this.birthDate = birthDate;
         this.nationality = nationality;
@@ -38,6 +39,7 @@ public class Player implements IPlayer {
         this.passing = passing;
         this.stamina = stamina;
         this.speed = speed;
+        this.defense = defense;
         this.height = height;
         this.weight = weight;
         this.preferredFoot = preferredFoot;
@@ -143,11 +145,11 @@ public class Player implements IPlayer {
 
     @Override
     public String toString() {
-        return "Player: " + name + ", Age: " + getAge() + ", Nationality: " + nationality +
-                ", Position: " + position + ", Number: " + number +
-                ", Skills - Shooting: " + shooting + ", Passing: " + passing +
-                ", Stamina: " + stamina + ", Speed: " + speed +
-                ", Height: " + height + "m, Weight: " + weight + "kg, Preferred Foot: " + preferredFoot + "Strength" + getStrength();
+        return "Player: " + name + ", \nAge: " + getAge() + ", \nNationality: " + nationality +
+                ", \nPosition: " + position + ", \nNumber: " + number +
+                ", \nSkills: \n-Shooting: " + shooting + " \n-Passing: " + passing +
+                " \n-Stamina: " + stamina + " \n-Speed: " + speed + "\n-Defense: " + defense +
+                " \n-Height: " + height + "m \n-Weight: " + weight + "kg \n-Preferred Foot: " + preferredFoot + "  \n-Strength: " + getStrength() + "\n";
     }
 
     @Override
@@ -156,7 +158,7 @@ public class Player implements IPlayer {
     }
 
     public int getStrength() {
-        return(shooting+speed+stamina+passing) / 4;
+        return(shooting+speed+stamina+passing+defense) / 5;
     }
 
     @Override
