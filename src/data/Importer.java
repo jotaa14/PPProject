@@ -238,5 +238,20 @@ public class Importer {
             throw new IOException("Error reading club file: " + e.getMessage());
         }
     }
-}
 
+
+    public Club[] importData() throws IOException {
+        try {
+            Club[] clubs = importClubs("./JSON/clubs.json");
+
+            for (Club club : clubs) {
+                Player[] players = importPlayers("./JSON/players/"+ club.getCode()+".json");
+                    club.setPlayers(players);
+            }
+            return clubs;
+
+        }catch (Exception e) {
+            throw new IOException("Error reading club file: " + e.getMessage());
+        }
+    }
+}

@@ -17,16 +17,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Importer importer = new Importer();
 
-        Club[] clubs = importer.importClubs("./JSON/clubs.json");
-        Player[] players = importer.importPlayers("./JSON/players/Sporting.json");
-
-        String targetClubCode = "SCP";
-
-        for (Club club : clubs) {
-            if (club.getCode().equals(targetClubCode)) {
-                club.setPlayers(players);
-            }
-        }
+        Club[] clubs = importer.importData();
 
         for (Club club : clubs) {
             System.out.println(club);

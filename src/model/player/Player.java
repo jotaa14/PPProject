@@ -149,7 +149,8 @@ public class Player implements IPlayer {
                 " \nPosition: " + position.getDescription() + " \nNumber: " + number +
                 " \nSkills: \n-Shooting: " + shooting + " \n-Passing: " + passing +
                 " \n-Stamina: " + stamina + " \n-Speed: " + speed + "\n-Defense: " + defense +
-                " \n-Height: " + height + "m \n-Weight: " + weight + "kg \n-Preferred Foot: " + preferredFoot + "  \n-Strength: " + getStrength() + "\n";
+                " \n-Height: " +  String.format("%.2f", height) + "m \n-Weight: " +  String.format("%.2f", weight) +
+                "kg \n-Preferred Foot: " + preferredFoot + "  \n-Strength: " + getStrength() + "\n";
     }
 
     @Override

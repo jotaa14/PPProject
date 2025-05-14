@@ -1,5 +1,5 @@
 {
-    "plantel": [
+    "squad": [
       {
         "name": "Diogo Costa",
         "birthDate": "1999-09-19",
@@ -188,7 +188,7 @@
         "name": "Samu Omorodion",
         "birthDate": "2004-05-05",
         "nationality": "Spain",
-        "basePosition": "Striker",
+        "basePosition": "Forward",
         "photo": "https://www.fcporto.pt/en/player/samu-omorodion",
         "number": 77
       }

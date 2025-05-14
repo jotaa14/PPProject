@@ -3,200 +3,200 @@
     {
       "name": "Gabriel Batista",
       "birthDate": "1998-06-03",
-      "nationality": "Brasileiro",
-      "basePosition": "Guarda-redes",
+      "nationality": "Brazilian",
+      "basePosition": "Goalkeeper",
       "photo": "https://cdsantaclara.com/player/gabriel-batista",
       "number": 1
     },
     {
       "name": "Neneca",
       "birthDate": "2003-08-27",
-      "nationality": "Brasileiro",
-      "basePosition": "Guarda-redes",
+      "nationality": "Brazilian",
+      "basePosition": "Goalkeeper",
       "photo": "https://cdsantaclara.com/player/neneca",
       "number": 12
     },
     {
       "name": "Denivys",
       "birthDate": "2001-05-01",
-      "nationality": "Brasileiro",
-      "basePosition": "Guarda-redes",
+      "nationality": "Brazilian",
+      "basePosition": "Goalkeeper",
       "photo": "https://cdsantaclara.com/player/denivys",
       "number": 31
     },
     {
       "name": "João Afonso",
       "birthDate": "2007-04-30",
-      "nationality": "Português",
-      "basePosition": "Guarda-redes",
+      "nationality": "Portuguese",
+      "basePosition": "Goalkeeper",
       "photo": "https://cdsantaclara.com/player/joao-afonso",
       "number": 50
     },
     {
       "name": "Calila",
       "birthDate": "1998-10-10",
-      "nationality": "Brasileiro",
-      "basePosition": "Defesa",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
       "photo": "https://cdsantaclara.com/player/calila",
       "number": 2
     },
     {
       "name": "Matheus Pereira",
       "birthDate": "2000-12-21",
-      "nationality": "Brasileiro",
-      "basePosition": "Defesa",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
       "photo": "https://cdsantaclara.com/player/matheus-pereira",
       "number": 3
     },
     {
       "name": "Pedro Pacheco",
       "birthDate": "1997-01-27",
-      "nationality": "Português",
-      "basePosition": "Defesa",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
       "photo": "https://cdsantaclara.com/player/pedro-pacheco",
       "number": 4
     },
     {
       "name": "Luís Rocha",
       "birthDate": "1986-08-13",
-      "nationality": "Português",
-      "basePosition": "Defesa",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
       "photo": "https://cdsantaclara.com/player/luis-rocha",
       "number": 13
     },
     {
       "name": "Frederico Venâncio",
       "birthDate": "1993-02-04",
-      "nationality": "Português",
-      "basePosition": "Defesa",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
       "photo": "https://cdsantaclara.com/player/frederico-venancio",
       "number": 21
     },
     {
       "name": "Sidney Lima",
       "birthDate": "1997-01-17",
-      "nationality": "Brasileiro",
-      "basePosition": "Defesa",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
       "photo": "https://cdsantaclara.com/player/sidney-lima",
       "number": 23
     },
     {
       "name": "Guilherme Ramos",
       "birthDate": "1997-08-11",
-      "nationality": "Português",
-      "basePosition": "Defesa",
+      "nationality": "Portuguese",
+      "basePosition": "Defender",
       "photo": "https://cdsantaclara.com/player/guilherme-ramos",
       "number": 27
     },
     {
       "name": "MT",
       "birthDate": "2001-03-01",
-      "nationality": "Brasileiro",
-      "basePosition": "Defesa",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
       "photo": "https://cdsantaclara.com/player/mt",
       "number": 32
     },
     {
       "name": "Lucas Soares",
       "birthDate": "1998-05-04",
-      "nationality": "Brasileiro",
-      "basePosition": "Defesa",
+      "nationality": "Brazilian",
+      "basePosition": "Defender",
       "photo": "https://cdsantaclara.com/player/lucas-soares",
       "number": 42
     },
     {
       "name": "Adriano Firmino",
       "birthDate": "1999-11-04",
-      "nationality": "Brasileiro",
-      "basePosition": "Médio",
+      "nationality": "Brazilian",
+      "basePosition": "Midfielder",
       "photo": "https://cdsantaclara.com/player/adriano-firmino",
       "number": 6
     },
     {
       "name": "Pedro Ferreira",
       "birthDate": "1998-01-05",
-      "nationality": "Português",
-      "basePosition": "Médio",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
       "photo": "https://cdsantaclara.com/player/pedro-ferreira",
       "number": 8
     },
     {
       "name": "Bruno Almeida",
       "birthDate": "1996-09-09",
-      "nationality": "Português",
-      "basePosition": "Médio",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
       "photo": "https://cdsantaclara.com/player/bruno-almeida",
       "number": 19
     },
     {
       "name": "Serginho",
       "birthDate": "1999-12-01",
-      "nationality": "Português",
-      "basePosition": "Médio",
+      "nationality": "Portuguese",
+      "basePosition": "Midfielder",
       "photo": "https://cdsantaclara.com/player/serginho",
       "number": 35
     },
     {
       "name": "Daniel Borges",
       "birthDate": "2003-04-06",
-      "nationality": "Brasileiro",
-      "basePosition": "Médio",
+      "nationality": "Brazilian",
+      "basePosition": "Midfielder",
       "photo": "https://cdsantaclara.com/player/daniel-borges",
       "number": 41
     },
     {
       "name": "Bobsin",
       "birthDate": "2000-01-12",
-      "nationality": "Brasileiro",
-      "basePosition": "Médio",
+      "nationality": "Brazilian",
+      "basePosition": "Midfielder",
       "photo": "https://cdsantaclara.com/player/bobsin",
       "number": 80
     },
     {
       "name": "Ricardinho",
       "birthDate": "1998-08-06",
-      "nationality": "Português",
-      "basePosition": "Avançado",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
       "photo": "https://cdsantaclara.com/player/ricardinho",
       "number": 10
     },
     {
       "name": "Gabriel Silva",
       "birthDate": "2002-03-22",
-      "nationality": "Brasileiro",
-      "basePosition": "Avançado",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
       "photo": "https://cdsantaclara.com/player/gabriel-silva",
       "number": 11
     },
     {
       "name": "João Costa",
       "birthDate": "2000-03-07",
-      "nationality": "Português",
-      "basePosition": "Avançado",
+      "nationality": "Portuguese",
+      "basePosition": "Forward",
       "photo": "https://cdsantaclara.com/player/joao-costa",
       "number": 17
     },
     {
       "name": "Vinícius Lopes",
       "birthDate": "1999-05-07",
-      "nationality": "Brasileiro",
-      "basePosition": "Avançado",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
       "photo": "https://cdsantaclara.com/player/vinicius-lopes",
       "number": 70
     },
     {
       "name": "Jader Gentil",
       "birthDate": "2003-07-24",
-      "nationality": "Brasileiro",
-      "basePosition": "Avançado",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
       "photo": "https://cdsantaclara.com/player/jader-gentil",
       "number": 90
     },
     {
       "name": "Reinaldo",
       "birthDate": "2001-06-06",
-      "nationality": "Brasileiro",
-      "basePosition": "Avançado",
+      "nationality": "Brazilian",
+      "basePosition": "Forward",
       "photo": "https://cdsantaclara.com/player/reinaldo",
       "number": 99
     }
