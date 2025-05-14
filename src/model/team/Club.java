@@ -181,10 +181,28 @@ public class Club implements IClub {
         return true;
     }
 
+    public void setPlayers(Player[] players) {
+        this.players = players;
+        this.playerCount = players.length;
+    }
+
+    public int getClubStrength() {
+        if(playerCount == 0){
+            return 0;
+        }
+
+        int teamStrength = 0;
+        for(int i = 0; i < playerCount; i++){
+            teamStrength += ((Player)players[i]).getStrength();
+        }
+        return teamStrength / playerCount;
+    }
+
     @Override
     public String toString() {
         String result = "Club: " + name + "\n";
         result += "Code: " + code + "\n";
+        result += "Club Strength: " +  getClubStrength() + "\n";
         result += "Country: " + country + "\n";
         result += "Founded Year: " + foundedYear + "\n";
         result += "Stadium: " + stadiumName + "\n";
@@ -202,7 +220,6 @@ public class Club implements IClub {
         } else {
             result += "No players found.\n";
         }
-
         return result;
     }
 

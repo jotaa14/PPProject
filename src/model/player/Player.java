@@ -145,9 +145,9 @@ public class Player implements IPlayer {
 
     @Override
     public String toString() {
-        return "Player: " + name + ", \nAge: " + getAge() + ", \nNationality: " + nationality +
-                ", \nPosition: " + position + ", \nNumber: " + number +
-                ", \nSkills: \n-Shooting: " + shooting + " \n-Passing: " + passing +
+        return "Player: " + name + " \nAge: " + getAge() + " \nNationality: " + nationality +
+                " \nPosition: " + position.getDescription() + " \nNumber: " + number +
+                " \nSkills: \n-Shooting: " + shooting + " \n-Passing: " + passing +
                 " \n-Stamina: " + stamina + " \n-Speed: " + speed + "\n-Defense: " + defense +
                 " \n-Height: " + height + "m \n-Weight: " + weight + "kg \n-Preferred Foot: " + preferredFoot + "  \n-Strength: " + getStrength() + "\n";
     }
