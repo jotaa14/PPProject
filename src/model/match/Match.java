@@ -62,12 +62,37 @@ public class Match implements IMatch {
 
     @Override
     public boolean isValid() {
-        return false;
+        try{
+            if(homeTeam == null ||  awayTeam == null){
+                return false;
+            }
+            if(homeTeam.getClub() == null || awayTeam.getClub() == null){
+                return false;
+            }
+            if(homeTeam.getClub().equals(awayTeam.getClub())){
+                return false;
+            }
+            if(homeTeam.getFormation() == null || awayTeam.getFormation() == null){
+                return false;
+            }
+            return true;
+        }catch(IllegalStateException  e){
+            return false;
+        }
     }
 
     @Override
     public ITeam getWinner() {
-        return null;
+         int homeGoal = 0;
+         int awayGoal = 0;
+
+         if(homeGoal > awayGoal){
+             return homeTeam;
+         }else if (homeGoal < awayGoal){
+             return awayTeam;
+         }else{
+             return null;
+        }
     }
 
     @Override
