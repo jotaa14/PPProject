@@ -5,28 +5,54 @@ import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Match implements IMatch {
+    private ITeam homeTeam;
+    private ITeam awayTeam;
+    private boolean played = false;
+    private int round;
 
-    ITeam homeTeam;
-    ITeam awayTeam;
-    boolean played  = false;
+    private IEvent[] events = new IEvent[10];
+    private int eventCount = 0;
+
+    public Match(ITeam homeTeam, ITeam awayTeam, int round) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.round = round;
+    }
 
     @Override
-    public IClub getHomeClub(){
-        if(homeTeam == null){
-            throw  new IllegalStateException("Home Club is not initialized.");
+    public IClub getHomeClub() {
+        if (homeTeam == null){
+            throw new IllegalStateException("Home team is not set.");
         }
         return homeTeam.getClub();
     }
 
     @Override
     public IClub getAwayClub() {
-        if(awayTeam == null){
-            throw  new IllegalStateException("Away Club is not initialized.");
+        if (awayTeam == null){
+            throw new IllegalStateException("Away team is not set.");
         }
         return awayTeam.getClub();
+    }
+
+    @Override
+    public ITeam getHomeTeam() {
+        if (homeTeam == null){
+            throw new IllegalStateException("Home team is not set.");
+        }
+        return homeTeam;
+    }
+
+    @Override
+    public ITeam getAwayTeam() {
+        if (awayTeam == null){
+            throw new IllegalStateException("Away team is not set.");
+        }
+        return awayTeam;
     }
 
     @Override
@@ -35,93 +61,128 @@ public class Match implements IMatch {
     }
 
     @Override
-    public ITeam getHomeTeam() {
-        if(homeTeam == null){
-            throw  new IllegalStateException("Home Team is not initialized.");
-        }
-        return homeTeam;
-    }
-
-    @Override
-    public ITeam getAwayTeam() {
-        if(awayTeam == null){
-            throw  new IllegalStateException("Away Team is not initialized.");
-        }
-        return awayTeam;
-    }
-
-    @Override
     public void setPlayed() {
-        played = true;
-    }
-
-    @Override
-    public int getTotalByEvent(Class aClass, IClub iClub) {
-        return 0;
+        this.played = true;
     }
 
     @Override
     public boolean isValid() {
-        try{
-            if(homeTeam == null ||  awayTeam == null){
-                return false;
-            }
-            if(homeTeam.getClub() == null || awayTeam.getClub() == null){
-                return false;
-            }
-            if(homeTeam.getClub().equals(awayTeam.getClub())){
-                return false;
-            }
-            if(homeTeam.getFormation() == null || awayTeam.getFormation() == null){
-                return false;
-            }
-            return true;
-        }catch(IllegalStateException  e){
+        if (homeTeam == null || awayTeam == null) {
             return false;
         }
-    }
-
-    @Override
-    public ITeam getWinner() {
-         int homeGoal = 0;
-         int awayGoal = 0;
-
-         if(homeGoal > awayGoal){
-             return homeTeam;
-         }else if (homeGoal < awayGoal){
-             return awayTeam;
-         }else{
-             return null;
+        if (homeTeam.getClub() == null || awayTeam.getClub() == null){
+            return false;
         }
+        if (homeTeam.getClub().equals(awayTeam.getClub())) {
+            return false;
+        }
+        if (homeTeam.getFormation() == null || awayTeam.getFormation() == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public int getRound() {
-        return 0;
+        return round;
     }
 
     @Override
-    public void setTeam(ITeam iTeam) {
+    public void setTeam(ITeam team) {
+        if (team == null) {
+            throw new IllegalArgumentException("Team cannot be null.");
+        }
+        if (isPlayed()) {
+            throw new IllegalStateException("Match is already played.");
+        }
 
+        if (team.getClub().equals(getHomeClub())) {
+            this.homeTeam = team;
+        } else if (team.getClub().equals(getAwayClub())) {
+            this.awayTeam = team;
+        } else {
+            throw new IllegalStateException("Club does not belong to this match.");
+        }
     }
 
     @Override
-    public void exportToJson() throws IOException {
+    public void addEvent(IEvent event) {
+        if (event == null){
+            throw new IllegalArgumentException("Event cannot be null.");
+        }
+        for (int i = 0; i < eventCount; i++) {
+            if (events[i] == event){
+                throw new IllegalStateException("Event already added.");
+            }
+        }
 
-    }
-
-    @Override
-    public void addEvent(IEvent iEvent) {
-
+        if (eventCount == events.length) {
+            IEvent[] newEvents = new IEvent[events.length * 2];
+            for (int i = 0; i < events.length; i++) {
+                newEvents[i] = events[i];
+            }
+            events = newEvents;
+        }
+        events[eventCount++] = event;
     }
 
     @Override
     public IEvent[] getEvents() {
-        return new IEvent[0];
+        IEvent[] result = new IEvent[eventCount];
+        for (int i = 0; i < eventCount; i++) {
+            result[i] = events[i];
+        }
+        return result;
     }
 
     @Override
     public int getEventCount() {
-        return 0;
+        return eventCount;
+    }
+
+    @Override
+    public int getTotalByEvent(Class eventClass, IClub club) {
+        int total = 0;
+        for (int i = 0; i < eventCount; i++) {
+            if (eventClass.isInstance(events[i])) {
+                if (events[i] instanceof com.ppstudios.footballmanager.api.contracts.event.IGoalEvent) {
+                    com.ppstudios.footballmanager.api.contracts.player.IPlayer p =
+                            ((com.ppstudios.footballmanager.api.contracts.event.IGoalEvent) events[i]).getPlayer();
+                    if (p.getClub().equals(club)) {
+                        total++;
+                    }
+                }
+            }
+        }
+        return total;
+    }
+
+    @Override
+    public ITeam getWinner() {
+        int homeGoals = getTotalByEvent(com.ppstudios.footballmanager.api.contracts.event.IGoalEvent.class, getHomeClub());
+        int awayGoals = getTotalByEvent(com.ppstudios.footballmanager.api.contracts.event.IGoalEvent.class, getAwayClub());
+
+        if (homeGoals > awayGoals) {
+            return homeTeam;
+        }
+        if (awayGoals > homeGoals){
+            return awayTeam;
+        }
+        return null;
+    }
+
+    @Override
+    public void exportToJson() throws IOException {
+        String json = "{\n" +
+                "  \"round\": " + round + ",\n" +
+                "  \"homeTeam\": \"" + getHomeClub().getName() + "\",\n" +
+                "  \"awayTeam\": \"" + getAwayClub().getName() + "\",\n" +
+                "  \"played\": " + played + ",\n" +
+                "  \"eventCount\": " + getEventCount() + "\n" +
+                "}";
+
+        FileWriter writer = new FileWriter("match.json");
+        writer.write(json);
+        writer.close();
     }
 }

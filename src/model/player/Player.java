@@ -2,7 +2,9 @@ package model.player;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
+import data.Exporter;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -113,6 +115,13 @@ public class Player implements IPlayer {
         return speed;
     }
 
+    public int getDefense() {
+        return defense;
+    }
+    public int getGoalkeeping() {
+        return goalkeeping;
+    }
+
     @Override
     public IPlayerPosition getPosition() {
 
@@ -165,8 +174,7 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void exportToJson()
-            throws IOException {
-
+    public void exportToJson() throws IOException {
+        Exporter.exportPlayer(this);
     }
 }
