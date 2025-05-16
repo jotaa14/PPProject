@@ -43,8 +43,9 @@ public class Importer {
                 int defense;
                 int goalkeeping;
                 PreferredFoot preferredFoot;
-
                 PlayerPosition playerPosition = new PlayerPosition(position);
+
+                String clubCode = filePath.split("/")[-1].replace(".json", "");
 
                 if (p.containsKey("height") && p.get("height") instanceof Number) {
                     height = ((Number) p.get("height")).floatValue();
@@ -101,7 +102,7 @@ public class Importer {
                 }
 
                 players[i] = new Player(name, birthDate, nationality, playerPosition, photo, number,
-                        shooting, passing, stamina, speed, defense, goalkeeping ,height, weight, preferredFoot);
+                        shooting, passing, stamina, speed, defense, goalkeeping ,height, weight, preferredFoot, clubCode);
             }
 
             file.close();

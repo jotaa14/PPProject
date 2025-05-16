@@ -2,6 +2,7 @@ package model.player;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
+import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import data.Exporter;
 
 import java.io.FileWriter;
@@ -28,10 +29,11 @@ public class Player implements IPlayer {
     private float height;
     private float weight;
     private PreferredFoot preferredFoot;
+    private String clubCode;
 
     public Player(String name, LocalDate birthDate, String nationality,
                   IPlayerPosition position, String photo, int number, int shooting, int passing,
-                  int stamina, int speed, int defense, int goalkeeping,  float height, float weight, PreferredFoot preferredFoot) {
+                  int stamina, int speed, int defense, int goalkeeping,  float height, float weight, PreferredFoot preferredFoot,  String clubCode) {
         this.name = name;
         this.birthDate = birthDate;
         this.nationality = nationality;
@@ -47,6 +49,7 @@ public class Player implements IPlayer {
         this.height = height;
         this.weight = weight;
         this.preferredFoot = preferredFoot;
+        this.clubCode = clubCode;
     }
 
     @Override
@@ -144,6 +147,10 @@ public class Player implements IPlayer {
     public PreferredFoot getPreferredFoot() {
 
         return preferredFoot;
+    }
+
+    public  String getClub() {
+        return this.clubCode;
     }
 
     @Override
