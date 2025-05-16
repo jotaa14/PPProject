@@ -224,6 +224,14 @@ public class Club implements IClub {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Club other = (Club) obj;
+        return this.code.equals(other.code);
+    }
+
+    @Override
     public void exportToJson() throws IOException {
         // Implement the export to JSON logic here
     }

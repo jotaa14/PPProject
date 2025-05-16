@@ -22,6 +22,8 @@ public class Main {
         for (Club club : clubs) {
             System.out.println(club);
         }
+
+
     }
 }
 
