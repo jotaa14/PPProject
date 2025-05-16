@@ -3,9 +3,6 @@ package model.event;
 import com.ppstudios.footballmanager.api.contracts.event.IEvent;
 import com.ppstudios.footballmanager.api.contracts.event.IEventManager;
 
-import com.ppstudios.footballmanager.api.contracts.event.IEvent;
-import com.ppstudios.footballmanager.api.contracts.event.IEventManager;
-
 public class EventManager implements IEventManager {
 
     private IEvent[] events = new IEvent[10];
@@ -13,6 +10,16 @@ public class EventManager implements IEventManager {
 
     @Override
     public void addEvent(IEvent event) {
+        if (event == null) {
+            throw new IllegalArgumentException("Event cannot be null.");
+        }
+
+        for (int i = 0; i < size; i++) {
+            if (events[i].equals(event)) {
+                throw new IllegalStateException("Event is already stored.");
+            }
+        }
+
         if (size == events.length) {
             IEvent[] newEvents = new IEvent[events.length * 2];
             for (int i = 0; i < events.length; i++) {
@@ -20,16 +27,17 @@ public class EventManager implements IEventManager {
             }
             events = newEvents;
         }
+
         events[size++] = event;
     }
 
     @Override
     public IEvent[] getEvents() {
-        IEvent[] result = new IEvent[size];
+        IEvent[] copy = new IEvent[size];
         for (int i = 0; i < size; i++) {
-            result[i] = events[i];
+            copy[i] = events[i];
         }
-        return result;
+        return copy;
     }
 
     @Override

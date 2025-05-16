@@ -22,13 +22,14 @@ public class Player implements IPlayer {
     private int stamina;
     private int speed;
     private int defense;
+    private int goalkeeping;
     private float height;
     private float weight;
     private PreferredFoot preferredFoot;
 
     public Player(String name, LocalDate birthDate, String nationality,
                   IPlayerPosition position, String photo, int number, int shooting, int passing,
-                  int stamina, int speed, int defense, float height, float weight, PreferredFoot preferredFoot) {
+                  int stamina, int speed, int defense, int goalkeeping,  float height, float weight, PreferredFoot preferredFoot) {
         this.name = name;
         this.birthDate = birthDate;
         this.nationality = nationality;
@@ -40,6 +41,7 @@ public class Player implements IPlayer {
         this.stamina = stamina;
         this.speed = speed;
         this.defense = defense;
+        this.goalkeeping = goalkeeping;
         this.height = height;
         this.weight = weight;
         this.preferredFoot = preferredFoot;
@@ -148,7 +150,7 @@ public class Player implements IPlayer {
         return "Player: " + name + " \nAge: " + getAge() + " \nNationality: " + nationality +
                 " \nPosition: " + position.getDescription() + " \nNumber: " + number +
                 " \nSkills: \n-Shooting: " + shooting + " \n-Passing: " + passing +
-                " \n-Stamina: " + stamina + " \n-Speed: " + speed + "\n-Defense: " + defense +
+                " \n-Stamina: " + stamina + " \n-Speed: " + speed + "\n-Defense: " + defense + " \n-Goalkeeping: " + goalkeeping +
                 " \n-Height: " +  String.format("%.2f", height) + "m \n-Weight: " +  String.format("%.2f", weight) +
                 "kg \n-Preferred Foot: " + preferredFoot + "  \n-Strength: " + getStrength() + "\n";
     }
@@ -159,7 +161,7 @@ public class Player implements IPlayer {
     }
 
     public int getStrength() {
-        return(shooting+speed+stamina+passing+defense) / 5;
+        return(shooting+speed+stamina+passing+defense+goalkeeping) / 5;
     }
 
     @Override

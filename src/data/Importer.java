@@ -41,6 +41,7 @@ public class Importer {
                 int shooting;
                 int passing;
                 int defense;
+                int goalkeeping;
                 PreferredFoot preferredFoot;
 
                 PlayerPosition playerPosition = new PlayerPosition(position);
@@ -87,6 +88,12 @@ public class Importer {
                     defense = generateRandomDefense(playerPosition);
                 }
 
+                if (p.containsKey("goalkeeping") && p.get("goalkeeping") instanceof Number) {
+                    goalkeeping = ((Number) p.get("goalkeeping")).intValue();
+                } else {
+                    goalkeeping = generateRandomGoalkeeping(playerPosition);
+                }
+
                 if (p.containsKey("preferredFoot") && p.get("preferredFoot") instanceof String) {
                     preferredFoot = PreferredFoot.fromString((String) p.get("preferredFoot"));
                 } else {
@@ -94,7 +101,7 @@ public class Importer {
                 }
 
                 players[i] = new Player(name, birthDate, nationality, playerPosition, photo, number,
-                        shooting, passing, stamina, speed, defense, height, weight, preferredFoot);
+                        shooting, passing, stamina, speed, defense, goalkeeping ,height, weight, preferredFoot);
             }
 
             file.close();
@@ -190,6 +197,22 @@ public class Importer {
                 return random.nextInt(60) + 30;
             case "FORWARD":
                 return random.nextInt(60) + 30;
+            default:
+                return 0;
+        }
+    }
+
+    private static int generateRandomGoalkeeping(PlayerPosition position) {
+        Random random = new Random();
+        switch (position.getDescription()) {
+            case "GOALKEEPER":
+                return random.nextInt(30) + 70;
+            case "DEFENDER":
+                return random.nextInt(40) + 10;
+            case "MIDFIELDER":
+                return random.nextInt(30) + 10;
+            case "FORWARD":
+                return random.nextInt(30) + 10;
             default:
                 return 0;
         }
