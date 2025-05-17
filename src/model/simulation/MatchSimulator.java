@@ -4,7 +4,7 @@ import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.simulation.MatchSimulatorStrategy;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
-import model.event.GoalEvent;
+import model.event.eventTypes.GoalEvent;
 import model.player.Player;
 
 import java.util.Random;
