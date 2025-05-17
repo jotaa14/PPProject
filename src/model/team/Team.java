@@ -29,7 +29,7 @@ public class Team implements ITeam {
 
     @Override
     public IClub getClub() {
-        return club; // Corrigido: não devemos adicionar jogadores aqui
+        return club;
     }
 
     @Override

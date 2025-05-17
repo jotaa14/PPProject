@@ -7,13 +7,11 @@ import model.player.Player;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
-
-public class PenaltyIEvent extends Event {
+public class CornerEvent extends Event {
     private Player player;
 
-    public PenaltyIEvent(Player player, int minute) {
-        super(player.getName() + "take the penalty kick" , minute);
+    public CornerEvent(Player player, int minute) {
+        super(player.getName() + "missed the shot so it's a corner", minute);
         this.player = player;
     }
 
@@ -24,7 +22,7 @@ public class PenaltyIEvent extends Event {
     @Override
     public void exportToJson() throws IOException {
         String json = "{\n" +
-                "  \"type\": \"penalty\",\n" +
+                "  \"type\": \"goal\",\n" +
                 "  \"description\": \"" + getDescription() + "\",\n" +
                 "  \"minute\": " + getMinute() + ",\n" +
                 "  \"player\": {\n" +
@@ -33,9 +31,8 @@ public class PenaltyIEvent extends Event {
                 "  }\n" +
                 "}";
 
-        FileWriter writer = new FileWriter("penaltyevent.json");
+        FileWriter writer = new FileWriter("cornerevent.json");
         writer.write(json);
         writer.close();
     }
 }
-

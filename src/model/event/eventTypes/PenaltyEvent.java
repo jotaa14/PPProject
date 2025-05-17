@@ -1,27 +1,30 @@
 package model.event.eventTypes;
 
+import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import model.event.Event;
 import model.player.Player;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FoulIEvent extends Event {
+
+
+public class PenaltyEvent extends Event {
     private Player player;
 
-    public FoulIEvent(Player player, int minute) {
-        super("Foul by " + player.getName(), minute);
+    public PenaltyEvent(Player player, int minute) {
+        super(player.getName() + "take the penalty kick" , minute);
         this.player = player;
     }
 
-    public Player getPlayer() {
+    public IPlayer getPlayer() {
         return player;
     }
 
     @Override
     public void exportToJson() throws IOException {
         String json = "{\n" +
-                "  \"type\": \"foul\",\n" +
+                "  \"type\": \"penalty\",\n" +
                 "  \"description\": \"" + getDescription() + "\",\n" +
                 "  \"minute\": " + getMinute() + ",\n" +
                 "  \"player\": {\n" +
@@ -30,8 +33,9 @@ public class FoulIEvent extends Event {
                 "  }\n" +
                 "}";
 
-        FileWriter writer = new FileWriter("foulevent.json");
+        FileWriter writer = new FileWriter("penaltyevent.json");
         writer.write(json);
         writer.close();
     }
 }
+
