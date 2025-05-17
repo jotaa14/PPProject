@@ -7,15 +7,15 @@ import model.player.Player;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ShotEvent extends Event{
+public class ShotEvent extends Event {
     private Player player;
 
     public ShotEvent(Player player, int minute) {
-        super(player.getName() + "shot on goal", minute);
+        super("Shot on goal by " + player.getName(), minute);
         this.player = player;
     }
 
-    public IPlayer getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
@@ -36,3 +36,4 @@ public class ShotEvent extends Event{
         writer.close();
     }
 }
+

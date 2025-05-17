@@ -7,8 +7,6 @@ import model.player.Player;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
-
 public class PenaltyEvent extends Event {
     private Player player;
 
