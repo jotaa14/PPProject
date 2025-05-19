@@ -176,8 +176,31 @@ public class Player implements IPlayer {
         return super.clone();
     }
 
+    public int getStrengthByType(IPlayerPosition position) {
+        int playerStatus = 0;
+        String desc = position.getDescription(); // Garantir que getDescription() esteja na interface
+        switch (desc) {
+            case "GOALKEEPER":
+                playerStatus = ((goalkeeping * 2 + defense * 1 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2)/6);
+                break;
+            case "DEFENDER":
+                playerStatus = ((goalkeeping * 1 + defense * 2 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2)/6);
+                break;
+            case "MIDFIELDER":
+                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 2 + speed * 1 + shooting * 1 + passing * 2)/6);
+                break;
+            case "FORWARD":
+                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 1 + speed * 2 + shooting * 2 + passing * 1)/6);
+                break;
+            default:
+                playerStatus = 0;
+                break;
+        }
+        return playerStatus;
+    }
+
     public int getStrength() {
-        return(shooting+speed+stamina+passing+defense+goalkeeping) / 5;
+        return getStrengthByType(this.position);
     }
 
     @Override

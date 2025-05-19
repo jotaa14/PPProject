@@ -7,6 +7,7 @@ import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import data.Importer;
 import model.event.EventManager;
 import model.match.Match;
+import model.player.Player;
 import model.simulation.MatchSimulator;
 import model.team.Club;
 import model.team.Formation;
@@ -21,21 +22,35 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            // Load data from JSON files
-            loadData();
+            Importer importer = new Importer();
 
-            // Display welcome message
-            System.out.println("⚽ Football Manager Simulator ⚽");
+            // Importa clubes
+            clubs = importer.importClubs("./JSON/clubs.json");
+            // clubs = importer.importData();  // Se preferir, use importData()
+
+            // Para cada clube, tenta carregar os jogadores do ficheiro JSON pelo código do clube
+            for (Club club : clubs) {
+                String playerFilePath = "./JSON/players/" + club.getCode().toUpperCase() + ".json";
+                try {
+                    Player[] players = importer.importPlayers(playerFilePath);
+                    club.setPlayers(players);
+                } catch (IOException e) {
+                    System.out.println("⚠️ Could not load players for club " + club.getCode() + ": " + e.getMessage());
+                }
+            }
+
+            // Menu interativo
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("\n⚽ Football Manager Simulator ⚽");
             System.out.println("-----------------------------");
 
-            // Main menu loop
-            Scanner scanner = new Scanner(System.in);
             while (true) {
                 System.out.println("\nMain Menu:");
                 System.out.println("1. List all clubs");
                 System.out.println("2. Simulate match");
                 System.out.println("3. View match events");
                 System.out.println("4. Exit");
+                System.out.println("5. View players from a club");
                 System.out.print("Select option: ");
 
                 int choice;
@@ -59,6 +74,9 @@ public class Main {
                     case 4:
                         System.out.println("Exiting Football Manager Simulator...");
                         return;
+                    case 5:
+                        viewPlayers(scanner);
+                        break;
                     default:
                         System.out.println("Invalid option. Please try again.");
                 }
@@ -67,13 +85,6 @@ public class Main {
             System.err.println("An error occurred: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    private static void loadData() throws IOException {
-        System.out.println("Loading data...");
-        Importer importer = new Importer();
-        clubs = importer.importData();
-        System.out.println("Data loaded successfully!");
     }
 
     private static void listAllClubs() {
@@ -94,12 +105,10 @@ public class Main {
             return;
         }
 
-        // Select home team
         System.out.println("\nSelect Home Team:");
         Club homeClub = selectClub(scanner);
         if (homeClub == null) return;
 
-        // Select away team
         System.out.println("\nSelect Away Team:");
         Club awayClub = selectClub(scanner);
         if (awayClub == null) return;
@@ -109,28 +118,21 @@ public class Main {
             return;
         }
 
-        // Create teams
-        // Criação dos times
         ITeam homeTeam = new Team(homeClub);
         ITeam awayTeam = new Team(awayClub);
 
-// Defina a formação (ajuste se necessário para bater com seu construtor de Formation)
-        homeTeam.setFormation(new Formation(4,4,2));
-        awayTeam.setFormation(new Formation(4,3,3));
+        homeTeam.setFormation(new Formation(4, 4, 2));
+        awayTeam.setFormation(new Formation(4, 3, 3));
 
-
-        // Simulate match
         System.out.println("\n⚽ Starting Match: " + homeClub.getName() + " vs " + awayClub.getName());
         IMatch match = new Match(homeTeam, awayTeam, 1);
         MatchSimulator simulator = new MatchSimulator();
         simulator.simulate(match);
 
-        // Store events
         for (IEvent event : match.getEvents()) {
             eventManager.addEvent(event);
         }
 
-        // Display results
         System.out.println("\nMatch Result:");
         System.out.println("-------------");
         System.out.printf("%s %d - %d %s\n",
@@ -158,7 +160,6 @@ public class Main {
                 return club;
             }
         }
-
         System.out.println("Invalid club code. Please try again.");
         return null;
     }
@@ -176,6 +177,29 @@ public class Main {
             System.out.printf("%d' - %s\n",
                     event.getMinute(),
                     event.getDescription());
+        }
+    }
+
+    private static void viewPlayers(Scanner scanner) {
+        Club selectedClub = selectClub(scanner);
+        if (selectedClub == null) return;
+
+        Player[] players = (Player[]) selectedClub.getPlayers();
+        if (players == null || players.length == 0) {
+            System.out.println("This club has no players.");
+            return;
+        }
+
+        System.out.println("\nPlayers from " + selectedClub.getName() + ":");
+        System.out.println("--------------------------------------");
+
+        int index = 1;
+        for (Player player : players) {
+            System.out.printf("%d. %s - Position: %s - Rating: %d\n",
+                    index++,
+                    player.getName(),
+                    player.getPosition(),
+                    player.getStrength());
         }
     }
 }

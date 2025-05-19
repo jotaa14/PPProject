@@ -5,6 +5,7 @@ import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IPlayerSelector;
 import model.player.Player;
+import model.player.PlayerPosition;
 
 import java.io.IOException;
 
