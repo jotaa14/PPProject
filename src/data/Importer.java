@@ -45,7 +45,7 @@ public class Importer {
                 PreferredFoot preferredFoot;
                 PlayerPosition playerPosition = new PlayerPosition(position);
 
-                String clubCode = filePath.split("/")[2].replace(".json", "");
+                String clubCode = filePath.split("/")[3].replace(".json", "");
 
                 if (p.containsKey("height") && p.get("height") instanceof Number) {
                     height = ((Number) p.get("height")).floatValue();

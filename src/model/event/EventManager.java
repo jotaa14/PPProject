@@ -40,6 +40,17 @@ public class EventManager implements IEventManager {
         return copy;
     }
 
+    public void setEvents(IEvent[] events) {
+        if (events == null) {
+            throw new IllegalArgumentException("Events array cannot be null.");
+        }
+        this.events = new IEvent[events.length];
+        for (int i = 0; i < events.length; i++) {
+            this.events[i] = events[i];
+        }
+        this.size = events.length;
+    }
+
     @Override
     public int getEventCount() {
         return size;

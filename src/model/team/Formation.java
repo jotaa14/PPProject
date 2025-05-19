@@ -49,7 +49,7 @@ public class Formation implements IFormation {
 
         totalTaticalValue = defenders *defendersValue + midfielders *midfieldersValue + forwards *forwardsValue;
 
-        if(defenders > 4 || forwards > 3){
+        if(defenders > 4 || forwards > 3 || defenders < 3 || forwards < 2){
             totalTaticalValue -= 10;
         }
 

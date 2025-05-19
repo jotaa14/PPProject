@@ -3,9 +3,13 @@ package main;
 import com.ppstudios.footballmanager.api.contracts.event.IEvent;
 import com.ppstudios.footballmanager.api.contracts.event.IGoalEvent;
 import com.ppstudios.footballmanager.api.contracts.match.IMatch;
+import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
+import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import data.Importer;
+import model.event.Event;
 import model.event.EventManager;
+import model.event.eventTypes.*;
 import model.match.Match;
 import model.player.Player;
 import model.simulation.MatchSimulator;
@@ -14,6 +18,7 @@ import model.team.Formation;
 import model.team.Team;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -26,7 +31,6 @@ public class Main {
 
             // Importa clubes
             clubs = importer.importClubs("./JSON/clubs.json");
-            // clubs = importer.importData();  // Se preferir, use importData()
 
             // Para cada clube, tenta carregar os jogadores do ficheiro JSON pelo código do clube
             for (Club club : clubs) {
@@ -87,6 +91,21 @@ public class Main {
         }
     }
 
+    private static void viewMatchEvents() {
+        if (eventManager == null || eventManager.getEvents() == null || eventManager.getEvents().length == 0) {
+            System.out.println("No match events available. Simulate a match first.");
+            return;
+        }
+
+        System.out.println("\nMatch Events:");
+        System.out.println("-------------");
+        for (IEvent event : eventManager.getEvents()) {
+            if (event != null) {
+                System.out.println(event.toString());
+            }
+        }
+    }
+
     private static void listAllClubs() {
         System.out.println("\nAvailable Clubs:");
         System.out.println("----------------");
@@ -100,52 +119,109 @@ public class Main {
     }
 
     private static void simulateMatch(Scanner scanner) {
-        if (clubs.length < 2) {
-            System.out.println("Not enough clubs available to simulate a match.");
-            return;
-        }
-
-        System.out.println("\nSelect Home Team:");
+        System.out.println("\nSelect home team:");
         Club homeClub = selectClub(scanner);
         if (homeClub == null) return;
 
-        System.out.println("\nSelect Away Team:");
+        System.out.println("\nSelect away team:");
         Club awayClub = selectClub(scanner);
         if (awayClub == null) return;
 
-        if (homeClub.equals(awayClub)) {
-            System.out.println("Home and away teams must be different!");
+        if (homeClub == awayClub) {
+            System.out.println("Error: Cannot simulate a match between the same team!");
             return;
         }
 
-        ITeam homeTeam = new Team(homeClub);
-        ITeam awayTeam = new Team(awayClub);
+        try {
+            ITeam homeTeam = new Team(homeClub);
+            ITeam awayTeam = new Team(awayClub);
 
-        homeTeam.setFormation(new Formation(4, 4, 2));
-        awayTeam.setFormation(new Formation(4, 3, 3));
+            System.out.println("\nSelect formation for " + homeClub.getName() + ":");
+            IFormation homeFormation = selectFormation(scanner);
+            if (homeFormation == null) return;
 
-        System.out.println("\n⚽ Starting Match: " + homeClub.getName() + " vs " + awayClub.getName());
-        IMatch match = new Match(homeTeam, awayTeam, 1);
-        MatchSimulator simulator = new MatchSimulator();
-        simulator.simulate(match);
+            System.out.println("\nSelect formation for " + awayClub.getName() + ":");
+            IFormation awayFormation = selectFormation(scanner);
+            if (awayFormation == null) return;
 
-        for (IEvent event : match.getEvents()) {
-            eventManager.addEvent(event);
+            try {
+                homeTeam.setFormation(homeFormation);
+                if (homeTeam.getFormation() == null) throw new IllegalStateException("Home team formation was not properly set");
+            } catch (Exception e) {
+                System.out.println("Error setting home team formation: " + e.getMessage());
+                return;
+            }
+
+            try {
+                awayTeam.setFormation(awayFormation);
+                if (awayTeam.getFormation() == null) throw new IllegalStateException("Away team formation was not properly set");
+            } catch (Exception e) {
+                System.out.println("Error setting away team formation: " + e.getMessage());
+                return;
+            }
+
+            IMatch match = new Match(homeTeam, awayTeam, 1);
+
+            if (!match.isValid()) {
+                System.out.println("Match setup is not valid. Please check team formations.");
+                return;
+            }
+
+            // USAR O TEU SIMULADOR
+            MatchSimulator matchSimulator = new MatchSimulator();
+            matchSimulator.simulate(match);
+
+            // GUARDA OS EVENTOS PARA O MENU
+            eventManager.setEvents(match.getEvents());
+
+            System.out.println("\nMatch Result:");
+            System.out.println("-------------");
+            System.out.println(match.getHomeClub().getName() + " " +
+                    match.getTotalByEvent(GoalEvent.class, match.getHomeClub()) + " - " +
+                    match.getTotalByEvent(GoalEvent.class, match.getAwayClub()) + " " +
+                    match.getAwayClub().getName());
+
+        } catch (Exception e) {
+            System.out.println("Error simulating match: " + e.getMessage());
+            e.printStackTrace();
         }
+    }
 
-        System.out.println("\nMatch Result:");
-        System.out.println("-------------");
-        System.out.printf("%s %d - %d %s\n",
-                homeClub.getName(),
-                match.getTotalByEvent(IGoalEvent.class, homeClub),
-                match.getTotalByEvent(IGoalEvent.class, awayClub),
-                awayClub.getName());
+    // Helper inline version
+    private static Player getRandomPlayerFromClub(Club club, Random rand) {
+        IPlayer[] players = club.getPlayers();
+        if (players == null || players.length == 0) return null;
 
-        ITeam winner = match.getWinner();
-        if (winner != null) {
-            System.out.println("Winner: " + winner.getClub().getName());
-        } else {
-            System.out.println("The match ended in a draw");
+        for (int i = 0; i < 10; i++) {
+            IPlayer candidate = players[rand.nextInt(players.length)];
+            if (candidate instanceof Player) return (Player) candidate;
+        }
+        return null;
+    }
+
+    private static IFormation selectFormation(Scanner scanner) {
+        System.out.println("Available formations:");
+        System.out.println("1. 4-4-2");
+        System.out.println("2. 4-3-3");
+        System.out.println("3. 3-5-2");
+        System.out.println("4. 5-3-2");
+        System.out.print("Select formation (1-4): ");
+
+        try {
+            int choice = Integer.parseInt(scanner.nextLine());
+            return switch (choice) {
+                case 1 -> new Formation(4, 4, 2);
+                case 2 -> new Formation(4, 3, 3);
+                case 3 -> new Formation(3, 5, 2);
+                case 4 -> new Formation(5, 3, 2);
+                default -> {
+                    System.out.println("Invalid formation choice.");
+                    yield null;
+                }
+            };
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            return null;
         }
     }
 
@@ -164,27 +240,11 @@ public class Main {
         return null;
     }
 
-    private static void viewMatchEvents() {
-        IEvent[] events = eventManager.getEvents();
-        if (events.length == 0) {
-            System.out.println("No match events available. Simulate a match first.");
-            return;
-        }
-
-        System.out.println("\nMatch Events:");
-        System.out.println("-------------");
-        for (IEvent event : events) {
-            System.out.printf("%d' - %s\n",
-                    event.getMinute(),
-                    event.getDescription());
-        }
-    }
-
     private static void viewPlayers(Scanner scanner) {
         Club selectedClub = selectClub(scanner);
         if (selectedClub == null) return;
 
-        Player[] players = (Player[]) selectedClub.getPlayers();
+        IPlayer[] players = selectedClub.getPlayers();
         if (players == null || players.length == 0) {
             System.out.println("This club has no players.");
             return;
@@ -194,12 +254,10 @@ public class Main {
         System.out.println("--------------------------------------");
 
         int index = 1;
-        for (Player player : players) {
-            System.out.printf("%d. %s - Position: %s - Rating: %d\n",
-                    index++,
-                    player.getName(),
-                    player.getPosition(),
-                    player.getStrength());
+        for (IPlayer player : players) {
+            if (player != null) {
+                System.out.println(player.toString());
+            }
         }
     }
 }

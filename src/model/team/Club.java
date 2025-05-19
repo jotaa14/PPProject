@@ -55,6 +55,7 @@ public class Club implements IClub {
             System.out.println("Error while cloning Player");
             return null;
         }
+
     }
 
     public boolean isNationalTeam() {

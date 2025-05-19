@@ -21,6 +21,11 @@ public class Event implements IEvent {
         return minute; }
 
     @Override
+    public String toString() {
+        return description + " at " + minute + " min";
+    }
+
+    @Override
     public void exportToJson() throws IOException {
 
     }

@@ -6,6 +6,8 @@ import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import model.event.PlayerEvent;
+import model.event.eventTypes.GoalEvent;
 import model.player.Player;
 
 import java.io.FileWriter;
@@ -147,12 +149,10 @@ public class Match implements IMatch {
     public int getTotalByEvent(Class eventClass, IClub club) {
         int total = 0;
         for (int i = 0; i < eventCount; i++) {
-            if (eventClass.isInstance(events[i])) {
-                if (events[i] instanceof IGoalEvent) {
-                    IPlayer p = ((IGoalEvent) events[i]).getPlayer();
-                    if (((Player)p).getClub().equals(club.getCode())) {
-                        total++;
-                    }
+            if (events[i].getClass().equals(eventClass) && events[i] instanceof PlayerEvent) {
+                IPlayer p = ((PlayerEvent) events[i]).getPlayer();
+                if (((Player)p).getClub().equals(club.getCode())) {
+                    total++;
                 }
             }
         }
@@ -161,8 +161,8 @@ public class Match implements IMatch {
 
     @Override
     public ITeam getWinner() {
-        int homeGoals = getTotalByEvent(IGoalEvent.class, getHomeClub());
-        int awayGoals = getTotalByEvent(IGoalEvent.class, getAwayClub());
+        int homeGoals = getTotalByEvent(GoalEvent.class, getHomeClub());
+        int awayGoals = getTotalByEvent(GoalEvent.class, getAwayClub());
 
         if (homeGoals > awayGoals) {
             return homeTeam;

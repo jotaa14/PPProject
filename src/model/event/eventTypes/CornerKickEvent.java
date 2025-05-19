@@ -1,38 +1,10 @@
 package model.event.eventTypes;
 
-import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
-import model.event.Event;
+import model.event.PlayerEvent;
 import model.player.Player;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
-public class CornerKickEvent extends Event {
-    private Player player;
-
+public class CornerKickEvent extends PlayerEvent {
     public CornerKickEvent(Player player, int minute) {
-        super(player.getName() + " executou um escanteio", minute);
-        this.player = player;
-    }
-
-    public IPlayer getPlayer() {
-        return player;
-    }
-
-    @Override
-    public void exportToJson() throws IOException {
-        String json = "{\n" +
-                "  \"type\": \"corner_kick\",\n" +
-                "  \"description\": \"" + getDescription() + "\",\n" +
-                "  \"minute\": " + getMinute() + ",\n" +
-                "  \"player\": {\n" +
-                "    \"name\": \"" + player.getName() + "\",\n" +
-                "    \"number\": " + player.getNumber() + "\n" +
-                "  }\n" +
-                "}";
-
-        FileWriter writer = new FileWriter("cornerkickevent.json");
-        writer.write(json);
-        writer.close();
+        super(player, player.getName() + " executou um escanteio", "Corner Kick", minute);
     }
 }

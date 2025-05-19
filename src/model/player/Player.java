@@ -13,7 +13,7 @@ import java.time.LocalDate;
  *
  * @author diogo
  */
-public class Player implements IPlayer {
+public class Player implements IPlayer, Cloneable {
     private String name;
     private LocalDate birthDate;
     private String nationality;
@@ -149,7 +149,7 @@ public class Player implements IPlayer {
         return preferredFoot;
     }
 
-    public  String getClub() {
+    public String getClub() {
         return this.clubCode;
     }
 
