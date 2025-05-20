@@ -1,4 +1,5 @@
 package model.league;
+
 import com.ppstudios.footballmanager.api.contracts.league.ILeague;
 import com.ppstudios.footballmanager.api.contracts.league.ISeason;
 
@@ -6,12 +7,7 @@ import java.io.IOException;
 
 public class League implements ILeague {
     private String name;
-    private ISeason[] seasons = new ISeason[10];
-    private int seasonCount = 0;
-
-    public League(String name) {
-        this.name = name;
-    }
+    private ISeason[] seasons = new ISeason[0];
 
     @Override
     public String getName() {
@@ -20,38 +16,78 @@ public class League implements ILeague {
 
     @Override
     public ISeason[] getSeasons() {
-        ISeason[] result = new ISeason[seasonCount];
-        for (int i = 0; i < seasonCount; i++) {
-            result[i] = seasons[i];
+        ISeason[] copy = new ISeason[seasons.length];
+        for (int i = 0; i < seasons.length; i++) {
+            copy[i] = seasons[i];
         }
-        return result;
+        return copy;
     }
 
     @Override
     public boolean createSeason(ISeason season) {
-        if (seasonCount == seasons.length) {
-            ISeason[] newSeasons = new ISeason[seasons.length * 2];
-            for (int i = 0; i < seasons.length; i++) {
-                newSeasons[i] = seasons[i];
-            }
-            seasons = newSeasons;
+        if (season == null) {
+            throw new IllegalArgumentException("Season Cannot Be Null.");
         }
-        seasons[seasonCount++] = season;
+        if (seasonExists(season.getYear())) {
+            throw new IllegalArgumentException("Season For Year " + season.getYear() + " Already Exists.");
+        }
+
+        ISeason[] newSeasons = new ISeason[seasons.length + 1];
+        for (int i = 0; i < seasons.length; i++) {
+            newSeasons[i] = seasons[i];
+        }
+        newSeasons[seasons.length] = season;
+        seasons = newSeasons;
+
         return true;
     }
 
     @Override
-    public ISeason removeSeason(int i) {
-        return null;
+    public ISeason getSeason(int year) {
+        int index = indexOfSeason(year);
+        if (index == -1) {
+            throw new IllegalArgumentException("Season For Year " + year + " Not Found.");
+        }
+        return seasons[index];
     }
 
     @Override
-    public ISeason getSeason(int i) {
-        return null;
+    public ISeason removeSeason(int year) {
+        int index = indexOfSeason(year);
+        if (index == -1) {
+            throw new IllegalArgumentException("Season For Year " + year + " Not Found.");
+        }
+
+        ISeason removed = seasons[index];
+        ISeason[] newSeasons = new ISeason[seasons.length - 1];
+        int newIndex = 0;
+        for (int i = 0; i < seasons.length; i++) {
+            if (i != index) {
+                newSeasons[newIndex++] = seasons[i];
+            }
+        }
+        seasons = newSeasons;
+        return removed;
+    }
+
+
+    private boolean seasonExists(int year) {
+        return indexOfSeason(year) != -1;
+    }
+
+    private int indexOfSeason(int year) {
+        for (int i = 0; i < seasons.length; i++) {
+            if (seasons[i].getYear() == year) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public void exportToJson() throws IOException {
-
+        String json = "{\n" +
+                "  \"name\": \"" + name + "\",\n" +
+                "  \"seasons\": [\n";
     }
 }
