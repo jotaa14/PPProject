@@ -106,9 +106,24 @@ public class Schedule implements ISchedule {
         for (int m = 0; m < maxMatchesPerRound; m++) {
             IMatch match = rounds[round][m];
             if (match != null) {
-
+                try {
+                    match.setTeam(team);
+                    return; // Atualizou o time em uma partida da rodada
+                } catch (IllegalStateException e) {
+                    // Não faz parte da partida, continue procurando
+                }
             }
         }
+
+        // Se não encontrou uma partida correspondente para atualizar, tenta inserir em uma vaga vazia
+        for (int m = 0; m < maxMatchesPerRound; m++) {
+            if (rounds[round][m] == null) {
+                // Criação parcial de um novo match não é possível sem outro time
+                throw new IllegalStateException("Cannot add new match with only one team. Match must be created with both teams.");
+            }
+        }
+
+        throw new IllegalStateException("No available match to update with this team in the given round.");
     }
 
     @Override

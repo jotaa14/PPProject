@@ -6,93 +6,203 @@ import com.ppstudios.footballmanager.api.contracts.league.IStanding;
 import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.simulation.MatchSimulatorStrategy;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
+import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 
 import java.io.IOException;
 
 public class Season implements ISeason {
+    private String name;
+    private int year;
+    private int currentRound;
+    private int maxTeams;
+    private IClub[] clubs;
+    private IMatch[] matches;
+    private ISchedule schedule;
+    private IStanding[] standings;
+    private MatchSimulatorStrategy simulator;
+
+    private ITeam[] teams;
+
+    private int numberOfCurrentTeams;
+
+    public Season(String name, int year, int maxTeams) {
+        this.name = name;
+        this.year = year;
+        this.maxTeams = maxTeams;
+        this.clubs = new IClub[maxTeams];
+        this.teams = new ITeam[maxTeams];
+        this.numberOfCurrentTeams = 0;
+        this.currentRound = 0;
+    }
+
     @Override
     public int getYear() {
-        return 0;
+        return year;
+    }
+
+
+    @Override
+    public boolean addClub(IClub club) {
+        if (club == null) {
+            throw new IllegalArgumentException("Club cannot be null");
+        }
+
+        if (numberOfCurrentTeams >= maxTeams) {
+            throw new IllegalStateException("League is full");
+        }
+
+        for (int i = 0; i < numberOfCurrentTeams; i++) {
+            if (clubs[i].equals(club)) {
+                throw new IllegalArgumentException("Club already exists");
+            }
+        }
+
+        clubs[numberOfCurrentTeams++] = club;
+        return true;
     }
 
     @Override
-    public boolean addClub(IClub iClub) {
-        return false;
-    }
+    public boolean removeClub(IClub club) {
+        if (club == null) {
+            throw new IllegalArgumentException("Club cannot be null");
+        }
 
-    @Override
-    public boolean removeClub(IClub iClub) {
-        return false;
+        boolean found = false;
+        for (int i = 0; i < numberOfCurrentTeams; i++) {
+            if (clubs[i].equals(club)) {
+                found = true;
+                // Shift to the left
+                for (int j = i; j < numberOfCurrentTeams - 1; j++) {
+                    clubs[j] = clubs[j + 1];
+                }
+                clubs[numberOfCurrentTeams - 1] = null;
+                numberOfCurrentTeams--;
+                break;
+            }
+        }
+
+        if (!found) {
+            throw new IllegalStateException("Club not found in the league");
+        }
+
+        return true;
     }
 
     @Override
     public void generateSchedule() {
+        int totalRounds = (numberOfCurrentTeams - 1) * 2;
+        int totalMatches = numberOfCurrentTeams * (numberOfCurrentTeams - 1);
+        matches = new IMatch[totalMatches];
+        int matchIndex = 0;
 
+        for (int i = 0; i < numberOfCurrentTeams; i++) {
+            for (int j = 0; j < numberOfCurrentTeams; j++) {
+                if (i != j) {
+                    matches[matchIndex++] = new model.match.Match(
+                            teams[i], teams[j], (i + j) % totalRounds
+                    );
+                }
+            }
+        }
     }
 
     @Override
     public IMatch[] getMatches() {
-        return new IMatch[0];
+        return matches;
     }
 
     @Override
-    public IMatch[] getMatches(int i) {
-        return new IMatch[0];
+    public IMatch[] getMatches(int round) {
+        int count = 0;
+        for (IMatch match : matches) {
+            if (match.getRound() == round) count++;
+        }
+        IMatch[] roundMatches = new IMatch[count];
+        int idx = 0;
+        for (IMatch match : matches) {
+            if (match.getRound() == round) {
+                roundMatches[idx++] = match;
+            }
+        }
+        return roundMatches;
     }
 
     @Override
     public void simulateRound() {
+        if (isSeasonComplete()) return;
 
+        IMatch[] roundMatches = getMatches(currentRound);
+        for (IMatch match : roundMatches) {
+            if (match.isValid() && !match.isPlayed()) {
+                simulator.simulate(match);
+                match.setPlayed();
+            }
+        }
+        currentRound++;
     }
 
     @Override
     public void simulateSeason() {
-
+        while (!isSeasonComplete()) {
+            simulateRound();
+        }
     }
 
     @Override
     public int getCurrentRound() {
-        return 0;
+        return currentRound;
     }
 
     @Override
     public boolean isSeasonComplete() {
-        return false;
+        return currentRound >= getMaxRounds();
     }
 
     @Override
     public void resetSeason() {
-
+        currentRound = 0;
+        if (matches != null) {
+            for (IMatch match : matches) {
+                if (match != null && match.isPlayed()) {
+                    match = new model.match.Match(match.getHomeTeam(), match.getAwayTeam(), match.getRound());
+                }
+            }
+        }
     }
 
     @Override
-    public String displayMatchResult(IMatch iMatch) {
-        return "";
+    public String displayMatchResult(IMatch match) {
+        if (match == null) return "Invalid match";
+        String home = match.getHomeClub().getName();
+        String away = match.getAwayClub().getName();
+        int homeGoals = match.getTotalByEvent(model.event.eventTypes.GoalEvent.class, match.getHomeClub());
+        int awayGoals = match.getTotalByEvent(model.event.eventTypes.GoalEvent.class, match.getAwayClub());
+        return home + " " + homeGoals + " x " + awayGoals + " " + away;
     }
 
     @Override
     public void setMatchSimulator(MatchSimulatorStrategy matchSimulatorStrategy) {
-
+        this.simulator = matchSimulatorStrategy;
     }
 
     @Override
     public IStanding[] getLeagueStandings() {
-        return new IStanding[0];
+        return standings;
     }
 
     @Override
     public ISchedule getSchedule() {
-        return null;
+        return schedule;
     }
 
     @Override
     public int getPointsPerWin() {
-        return 0;
+        return 3;
     }
 
     @Override
     public int getPointsPerDraw() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -102,36 +212,51 @@ public class Season implements ISeason {
 
     @Override
     public String getName() {
-        return "";
+        return name;
     }
 
     @Override
     public int getMaxTeams() {
-        return 0;
+        return maxTeams;
     }
 
     @Override
     public int getMaxRounds() {
-        return 0;
+        return (maxTeams - 1) * 2;
     }
 
     @Override
     public int getCurrentMatches() {
-        return 0;
+        int count = 0;
+        for (IMatch match : matches) {
+            if (match != null && match.isPlayed()) count++;
+        }
+        return count;
     }
 
     @Override
     public int getNumberOfCurrentTeams() {
-        return 0;
+        return numberOfCurrentTeams;
     }
 
     @Override
     public IClub[] getCurrentClubs() {
-        return new IClub[0];
+        IClub[] current = new IClub[numberOfCurrentTeams];
+        for (int i = 0; i < numberOfCurrentTeams; i++) {
+            current[i] = clubs[i];
+        }
+        return current;
     }
 
     @Override
     public void exportToJson() throws IOException {
-
+        java.io.FileWriter writer = new java.io.FileWriter("season.json");
+        writer.write("{\n");
+        writer.write("\"name\": \"" + name + "\",\n");
+        writer.write("\"year\": " + year + ",\n");
+        writer.write("\"currentRound\": " + currentRound + ",\n");
+        writer.write("\"maxTeams\": " + maxTeams + "\n");
+        writer.write("}");
+        writer.close();
     }
 }
