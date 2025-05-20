@@ -71,7 +71,6 @@ public class Player implements IPlayer, Cloneable {
                 (now.getMonthValue() == birthDate.getMonthValue() && now.getDayOfMonth() < birthDate.getDayOfMonth())) {
             years--;
         }
-
         return years;
     }
 
@@ -121,31 +120,28 @@ public class Player implements IPlayer, Cloneable {
     public int getDefense() {
         return defense;
     }
+
     public int getGoalkeeping() {
         return goalkeeping;
     }
 
     @Override
     public IPlayerPosition getPosition() {
-
         return position;
     }
 
     @Override
     public float getHeight() {
-
         return height;
     }
 
     @Override
     public float getWeight() {
-
         return weight;
     }
 
     @Override
     public PreferredFoot getPreferredFoot() {
-
         return preferredFoot;
     }
 
