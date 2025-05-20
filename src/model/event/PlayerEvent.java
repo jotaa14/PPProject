@@ -1,7 +1,6 @@
 package model.event;
 
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
-import model.event.Event;
 import model.player.Player;
 
 import java.io.FileWriter;

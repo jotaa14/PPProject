@@ -1,39 +1,10 @@
 package model.event.eventTypes;
 
-import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
-import model.event.Event;
+import model.event.PlayerEvent;
 import model.player.Player;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
-public class ShotEvent extends Event {
-    private Player player;
-
+public class ShotEvent extends PlayerEvent {
     public ShotEvent(Player player, int minute) {
-        super("Shot on goal by " + player.getName(), minute);
-        this.player = player;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    @Override
-    public void exportToJson() throws IOException {
-        String json = "{\n" +
-                "  \"type\": \"shot\",\n" +
-                "  \"description\": \"" + getDescription() + "\",\n" +
-                "  \"minute\": " + getMinute() + ",\n" +
-                "  \"player\": {\n" +
-                "    \"name\": \"" + player.getName() + "\",\n" +
-                "    \"number\": " + player.getNumber() + "\n" +
-                "  }\n" +
-                "}";
-
-        FileWriter writer = new FileWriter("shotevent.json");
-        writer.write(json);
-        writer.close();
+        super(player,"Shot on Goal by " + player.getName(),"Shot" ,  minute);
     }
 }
-

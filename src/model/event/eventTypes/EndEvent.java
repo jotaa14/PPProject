@@ -1,7 +1,6 @@
 package model.event.eventTypes;
 
 import model.event.Event;
-import model.player.Player;
 
 import java.io.FileWriter;
 import java.io.IOException;

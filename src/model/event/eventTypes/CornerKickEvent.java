@@ -5,6 +5,6 @@ import model.player.Player;
 
 public class CornerKickEvent extends PlayerEvent {
     public CornerKickEvent(Player player, int minute) {
-        super(player, player.getName() + " executou um escanteio", "Corner Kick", minute);
+        super(player, player.getName() + " Took The Corner Kick", "Corner Kick", minute);
     }
 }
