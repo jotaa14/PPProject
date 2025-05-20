@@ -8,7 +8,7 @@ import java.io.IOException;
 public class EndEvent extends Event {
 
     public EndEvent(int minute) {
-        super("End of match", minute);
+        super("\uD83D\uDD5B End of match", minute);
     }
 
     @Override

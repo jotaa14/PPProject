@@ -5,6 +5,6 @@ import model.player.Player;
 
 public class YellowCardEvent extends PlayerEvent {
     public YellowCardEvent(Player player, int minute) {
-        super(player, player.getName() + " Received a Yellow Card", "Yellow Card", minute);
+        super(player,"\uD83D\uDFE8 "+ player.getName() + "(" +player.getClub() +")" + " Received a Yellow Card", "Yellow Card", minute);
     }
 }

@@ -5,6 +5,6 @@ import model.player.Player;
 
 public class CornerEvent extends PlayerEvent {
     public CornerEvent(Player player, int minute) {
-        super(player, player.getName() + "  Missed The shot So It's a Corner", "Corner", minute);
+        super(player,"\uD83D\uDEA9 " + player.getName() + "(" +player.getClub() +")" + "  Missed The shot So It's a Corner", "Corner", minute);
     }
 }
