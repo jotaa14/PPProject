@@ -263,7 +263,6 @@ public class Importer {
         }
     }
 
-
     public Club[] importData() throws IOException {
         try {
             Club[] clubs = importClubs("./JSON/clubs.json");

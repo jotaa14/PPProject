@@ -6,6 +6,7 @@ public class Formation implements IFormation {
     private int defenders;
     private int midfielders;
     private int forwards;
+    private Club club;
 
     public Formation(int defenders, int midfielders, int forwards) {
         this.defenders = defenders;
@@ -30,30 +31,51 @@ public class Formation implements IFormation {
     @Override
     public int getTacticalAdvantage(IFormation formation) {
         if(formation == null){
-        throw new IllegalStateException("Opponent formation is not set.");
+        throw new IllegalStateException("Away formation is not set.");
         }
 
         if(!(formation instanceof Formation)){
         throw new IllegalStateException("Unknown formation type");
         }
 
-        Formation opponent  = (Formation) formation;
-        return this.calculateTacticalValue() - opponent.calculateTacticalValue();
+        Formation away = (Formation) formation;
+        return calculateTacticalAdvantage(away);
+
     }
 
     public int calculateTacticalValue() {
-        int totalTaticalValue = 0;
-        int defendersValue = 4;
-        int midfieldersValue = 3;
-        int forwardsValue = 4;
+        int totalTaticalValue = 100;
 
-        totalTaticalValue = defenders *defendersValue + midfielders *midfieldersValue + forwards *forwardsValue;
-
-        if(defenders > 4 || forwards > 3 || defenders < 3 || forwards < 2){
+        if(defenders > 4 || forwards > 3 || defenders < 3 || forwards < 2 || midfielders < 3 || midfielders > 4){
             totalTaticalValue -= 10;
         }
 
         return totalTaticalValue;
+    }
+
+    public int calculateOverAllValue() {
+        if (club == null) {
+            throw new IllegalStateException("Club is not set.");
+        }
+        return (this.calculateTacticalValue() + club.getClubStrength()) / 2;
+    }
+
+    public int calculateTacticalAdvantage(Formation opponent) {
+        int advantage = this.calculateOverAllValue() - opponent.calculateOverAllValue();
+
+        if (advantage < 0) {
+            System.out.println("Tactical disadvantage: away formation is superior.");
+        } else if (advantage > 0) {
+            System.out.println("Tactical advantage: away formation is inferior.");
+        } else {
+            System.out.println("Tactical balance: formations are equally strong.");
+        }
+
+        return advantage;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
     }
 
     @Override
