@@ -8,9 +8,9 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int option = startMenu(input);
+        int op = startMenu(input);
 
-        switch (option) {
+        switch (op) {
             case 1:
                 System.out.println("Starting a New Game...");
 
@@ -20,7 +20,7 @@ public class Main {
 
                 break;
             case 3:
-                System.out.println("Exiting the Game. Goodbye!");
+                System.out.println("Exiting The Game. Goodbye!");
                 System.exit(0);
                 break;
             default:

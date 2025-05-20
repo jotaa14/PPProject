@@ -20,7 +20,7 @@ public class StartMenu {
             System.out.println("| 3) Exit                                  |");
             System.out.println("|                                          |");
             System.out.println("|==========================================|");
-            System.out.print("| Enter your option: ");
+            System.out.println("| Enter Your Option: ");
 
             try {
                 op = input.nextInt();
@@ -37,6 +37,4 @@ public class StartMenu {
 
         return op;
     }
-
-
 }

@@ -1,11 +1,13 @@
 package model.match;
 
 import com.ppstudios.footballmanager.api.contracts.event.IEvent;
+import com.ppstudios.footballmanager.api.contracts.event.IEventManager;
 import com.ppstudios.footballmanager.api.contracts.event.IGoalEvent;
 import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import model.event.EventManager;
 import model.event.PlayerEvent;
 import model.event.eventTypes.GoalEvent;
 import model.player.Player;
@@ -19,8 +21,7 @@ public class Match implements IMatch {
     private boolean played = false;
     private int round;
 
-    private IEvent[] events = new IEvent[10];
-    private int eventCount = 0;
+    private IEventManager eventManager = new EventManager();
 
     public Match(ITeam homeTeam, ITeam awayTeam, int round) {
         this.homeTeam = homeTeam;
@@ -115,40 +116,24 @@ public class Match implements IMatch {
         if (event == null){
             throw new IllegalArgumentException("Event cannot be null.");
         }
-        for (int i = 0; i < eventCount; i++) {
-            if (events[i] == event){
-                throw new IllegalStateException("Event already added.");
-            }
-        }
-
-        if (eventCount == events.length) {
-            IEvent[] newEvents = new IEvent[events.length * 2];
-            for (int i = 0; i < events.length; i++) {
-                newEvents[i] = events[i];
-            }
-            events = newEvents;
-        }
-        events[eventCount++] = event;
+        eventManager.addEvent(event);
     }
 
     @Override
     public IEvent[] getEvents() {
-        IEvent[] result = new IEvent[eventCount];
-        for (int i = 0; i < eventCount; i++) {
-            result[i] = events[i];
-        }
-        return result;
+        return eventManager.getEvents();
     }
 
     @Override
     public int getEventCount() {
-        return eventCount;
+        return eventManager.getEventCount();
     }
 
     @Override
     public int getTotalByEvent(Class eventClass, IClub club) {
         int total = 0;
-        for (int i = 0; i < eventCount; i++) {
+        IEvent[] events = getEvents();
+        for (int i = 0; i < getEventCount(); i++) {
             if (events[i].getClass().equals(eventClass) && events[i] instanceof PlayerEvent) {
                 IPlayer p = ((PlayerEvent) events[i]).getPlayer();
                 if (((Player)p).getClub().equals(club.getCode())) {
