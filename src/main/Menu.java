@@ -139,7 +139,7 @@ public class Menu {
 
             try {
                 op = input.nextInt();
-                if (op >= 1 && op <= 4) {
+                if (op >= 1 && op <= 5) {
                     verifyInput = true;
                 } else {
                     System.out.println("Select a Valid Option (1-4)!");
