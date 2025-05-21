@@ -21,13 +21,12 @@ public class Main {
                 System.out.println("Starting a New Game...");
 
                 break;
-
             case 2:
                 System.out.println("Loading Saved Game...");
 
                 break;
             case 3:
-                System.out.println("Exiting The Game. Goodbye!");
+                System.out.println("Exiting the Game. Goodbye!");
                 System.exit(0);
                 break;
             default:
