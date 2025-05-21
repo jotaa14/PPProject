@@ -259,4 +259,8 @@ public class Season implements ISeason {
         writer.write("}");
         writer.close();
     }
+
+    public String getLeagueName() {
+        return name;
+    }
 }

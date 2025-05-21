@@ -4,6 +4,7 @@ import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IPlayerSelector;
+import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import model.player.Player;
 import model.player.PlayerPosition;
 
@@ -18,6 +19,7 @@ public class Club implements IClub {
     private int foundedYear;
     private String stadiumName;
     private String logo;
+    private ITeam team;
 
     private IPlayer[] players;
     private int playerCount;
@@ -85,6 +87,14 @@ public class Club implements IClub {
     @Override
     public String getLogo() {
         return logo;
+    }
+
+    public ITeam getTeam() {
+        return team;
+    }
+
+    public void setTeam(ITeam team) {
+        this.team = team;
     }
 
     @Override

@@ -7,7 +7,7 @@ public abstract class Event implements IEvent {
     private String description;
     private int minute;
 
-    public Event(String description, int minute) {
+    public Event( int minute, String description) {
         this.description = description;
         this.minute = minute;
     }

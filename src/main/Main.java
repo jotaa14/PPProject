@@ -8,13 +8,14 @@ import model.team.Club;
 
 import java.util.Scanner;
 
-import static main.StartMenu.startMenu;
+import static main.Menu.*;
 
 public class Main {
 
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int op = startMenu(input);
+        int op = mainMenu(input);
 
         switch (op) {
             case 1:
@@ -23,7 +24,7 @@ public class Main {
                 break;
             case 2:
                 System.out.println("Loading Saved Game...");
-
+                //LoadSeason();
                 break;
             case 3:
                 System.out.println("Exiting the Game. Goodbye!");
