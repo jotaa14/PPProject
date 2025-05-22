@@ -9,6 +9,10 @@ public class League implements ILeague {
     private String name;
     private ISeason[] seasons = new ISeason[0];
 
+    public League(String name) {
+        this.name = name;
+    }
+
     @Override
     public String getName() {
         return name;

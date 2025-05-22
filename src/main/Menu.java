@@ -1,5 +1,8 @@
 package main;
 
+import model.league.League;
+import model.league.Season;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -15,8 +18,8 @@ public class Menu {
             System.out.println("|==========================================|");
             System.out.println("|                                          |");
             System.out.println("|----------------Main Menu-----------------|");
-            System.out.println("| 1) New Game                              |");
-            System.out.println("| 2) Load Game                             |");
+            System.out.println("| 1) New League                            |");
+            System.out.println("| 2) Load League                           |");
             System.out.println("| 3) Exit                                  |");
             System.out.println("|                                          |");
             System.out.println("|==========================================|");
@@ -37,14 +40,15 @@ public class Menu {
 
         return op;
     }
-    public static int seasonMenu(Scanner input) {
+
+    public static int leagueMenu(Scanner input) {
         int op = 0;
         boolean verifyInput = false;
 
         do {
-            System.out.println("|--------------Season Menu-----------------|");
-            System.out.println("| 1) Simulation Match                      |");
-            System.out.println("| 2) Start League                          |");
+            System.out.println("|--------------League Menu-----------------|");
+            System.out.println("| 1) New Season                            |");
+            System.out.println("| 2) Load Season                           |");
             System.out.println("| 3) List                                  |");
             System.out.println("| 4) Exit                                  |");
             System.out.println("|                                          |");
@@ -66,22 +70,25 @@ public class Menu {
 
         return op;
     }
-    public static int listMenu(Scanner input) {
+    public static int seasonMenu(Scanner input) {
         int op = 0;
         boolean verifyInput = false;
 
         do {
-            System.out.println("|----------------List Menu-----------------|");
-            System.out.println("| 1) List Clubs                            |");
-            System.out.println("| 2) List Players                          |");
-            System.out.println("| 3) Exit                                  |");
+            System.out.println("|--------------Season Menu-----------------|");
+            System.out.println("| 1) Simulating                            |");
+            System.out.println("| 2) Start Season                          |");
+            System.out.println("| 3) Add Clubs                             |");
+            System.out.println("| 4) Remove Clubs                          |");
+            System.out.println("| 5) List                                  |");
+            System.out.println("| 6) Exit                                  |");
             System.out.println("|                                          |");
             System.out.println("|==========================================|");
             System.out.println("| Enter Your Option: ");
 
             try {
                 op = input.nextInt();
-                if (op >= 1 && op <= 3) {
+                if (op >= 1 && op <= 4) {
                     verifyInput = true;
                 } else {
                     System.out.println("Select a Valid Option (1-4)!");
@@ -94,62 +101,75 @@ public class Menu {
 
         return op;
     }
-    public static int listClubMenu(Scanner input) {
-        int op = 0;
+
+
+    public static League createLeague(Scanner input) {
+        String name = null;
         boolean verifyInput = false;
 
         do {
-            System.out.println("|--------------List Club Menu--------------|");
-            System.out.println("| 1) All Clubs                             |");
-            System.out.println("| 2) By Strength                           |");
-            System.out.println("| 3) Exit                                  |");
-            System.out.println("|                                          |");
-            System.out.println("|==========================================|");
-            System.out.println("| Enter Your Option: ");
-
-            try {
-                op = input.nextInt();
-                if (op >= 1 && op <= 3) {
-                    verifyInput = true;
-                } else {
-                    System.out.println("Select a Valid Option (1-3)!");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Select a Valid Option (1-3)!");
-                input.next();
+            System.out.println("|--------------Create League---------------|");
+            System.out.println("| Enter the Name of the League: ");
+            name = input.next();
+            if (name.length() > 0) {
+                verifyInput = true;
+            } else {
+                System.out.println("Select a Valid Name!");
             }
         } while (!verifyInput);
 
-        return op;
+        return new League(name);
     }
-    public static int listPlayersMenu(Scanner input) {
-        int op = 0;
+
+    public static Season createSeaoson(Scanner input) {
+        int year = 0;
+        String name = null;
+        int maxTeams = 0;
         boolean verifyInput = false;
 
         do {
-            System.out.println("|-------------List Players Menu------------|");
-            System.out.println("| 1) By Club                               |");
-            System.out.println("| 2) By Strength                           |");
-            System.out.println("| 3) By Position                           |");
-            System.out.println("| 4) By Status                             |");
-            System.out.println("| 5) Exit                                  |");
-            System.out.println("|                                          |");
-            System.out.println("|==========================================|");
-            System.out.println("| Enter Your Option: ");
-
+            System.out.println("|--------------Create Season---------------|");
+            System.out.println("| Enter the Name of the Season: ");
+            name = input.next();
+            if (name.length() > 0) {
+                verifyInput = true;
+            } else {
+                System.out.println("Select a Valid Name!");
+            }
+        } while (!verifyInput);
+        verifyInput = false;
+        do {
+            System.out.println("| Enter the Year of the Season: ");
             try {
-                op = input.nextInt();
-                if (op >= 1 && op <= 5) {
+                year = input.nextInt();
+                if (year > 2023) {
                     verifyInput = true;
                 } else {
-                    System.out.println("Select a Valid Option (1-4)!");
+                    System.out.println("Select a Valid Year!");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Select a Valid Option (1-4)!");
+                System.out.println("Select a Valid Year!");
                 input.next();
             }
         } while (!verifyInput);
+        verifyInput = false;
+        do{
+            System.out.println("| Enter the Max Teams of the Season: ");
+            try {
+                maxTeams = input.nextInt();
+                if (maxTeams > 0) {
+                    verifyInput = true;
+                } else {
+                    System.out.println("Select a Valid Number of Teams!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Select a Valid Number of Teams!");
+                input.next();
+            }
 
-        return op;
+        return new Season(name, year, maxTeams);
+        } while (!verifyInput);
     }
 }
+
+
