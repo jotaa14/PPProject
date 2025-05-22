@@ -84,7 +84,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("Starting a new Season...");
-                    //startSeason(input);
+                    startSeason(input, season);
                     break;
                 case 3:
                     System.out.println("Adding a Club...");

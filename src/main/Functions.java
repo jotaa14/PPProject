@@ -218,12 +218,16 @@ public class Functions {
             System.out.println("| Club not found.");
             return;
         }
-
-        if (season.addClub(selectedClub)) {
-            System.out.println("| Club added to the season successfully.");
-        } else {
-            System.out.println("| Failed to add club to the season.");
+        try{
+            if (season.addClub(selectedClub)) {
+                System.out.println("| Club added to the season successfully.");
+            } else {
+                System.out.println("| Failed to add club to the season.");
+            }
+        }catch (IllegalStateException e){
+            System.out.println("| Error: " + e.getMessage());
         }
+
     }
 
     public static void removeClub(Scanner input, Season season) {
@@ -299,6 +303,28 @@ public class Functions {
         } else {
             System.out.println("| Exiting Player Details.");
         }
+    }
+
+    public static void startSeason(Scanner input, Season season) {
+        System.out.println("|--------------Start Season----------------|");
+        IClub[] clubs = season.getCurrentClubs();
+        if (clubs.length == 0) {
+            System.out.println("| No clubs available in this season.");
+            return;
+        }
+
+        System.out.println("| Starting the season with the following clubs:");
+        for (IClub club : clubs) {
+            System.out.println("| " + club.getName());
+        }
+
+        // Simulate the season
+        for (int i = 0; i < clubs.length; i++) {
+            for (int j = i + 1; j < clubs.length; j++) {
+                simulateGame(input, new IClub[]{clubs[i], clubs[j]});
+            }
+        }
+        System.out.println("| Season started successfully.");
     }
 }
 
