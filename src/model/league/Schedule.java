@@ -46,9 +46,9 @@ public class Schedule implements ISchedule {
             throw new IllegalArgumentException("Team Cannot Be Null");
         }
         int totalCount = 0;
-        for (int r = 0; r < numberOfRounds; r++) {
+        for (int i = 0; i < numberOfRounds; i++) {
             for (int m = 0; m < maxMatchesPerRound; m++) {
-                IMatch match = rounds[r][m];
+                IMatch match = rounds[i][m];
                 if (match != null && (match.getHomeTeam().equals(team) || match.getAwayTeam().equals(team))) {
                     totalCount++;
                 }
@@ -56,9 +56,9 @@ public class Schedule implements ISchedule {
         }
         IMatch[] result = new IMatch[totalCount];
         int idx = 0;
-        for (int r = 0; r < numberOfRounds; r++) {
-            for (int m = 0; m < maxMatchesPerRound; m++) {
-                IMatch match = rounds[r][m];
+        for (int i = 0; i < numberOfRounds; i++) {
+            for (int j = 0; j < maxMatchesPerRound; j++) {
+                IMatch match = rounds[i][j];
                 if (match != null && (match.getHomeTeam().equals(team) || match.getAwayTeam().equals(team))) {
                     result[idx++] = match;
                 }
@@ -75,19 +75,19 @@ public class Schedule implements ISchedule {
     @Override
     public IMatch[] getAllMatches() {
         int totalCount = 0;
-        for (int r = 0; r < numberOfRounds; r++) {
-            for (int m = 0; m < maxMatchesPerRound; m++) {
-                if (rounds[r][m] != null) {
+        for (int i = 0; i < numberOfRounds; i++) {
+            for (int j = 0; j < maxMatchesPerRound; j++) {
+                if (rounds[i][j] != null) {
                     totalCount++;
                 }
             }
         }
         IMatch[] result = new IMatch[totalCount];
         int idx = 0;
-        for (int r = 0; r < numberOfRounds; r++) {
-            for (int m = 0; m < maxMatchesPerRound; m++) {
-                if (rounds[r][m] != null) {
-                    result[idx++] = rounds[r][m];
+        for (int i = 0; i < numberOfRounds; i++) {
+            for (int j = 0; j < maxMatchesPerRound; j++) {
+                if (rounds[i][j] != null) {
+                    result[idx++] = rounds[i][j];
                 }
             }
         }
@@ -108,22 +108,37 @@ public class Schedule implements ISchedule {
             if (match != null) {
                 try {
                     match.setTeam(team);
-                    return; // Atualizou o time em uma partida da rodada
+                    return;
                 } catch (IllegalStateException e) {
-                    // Não faz parte da partida, continue procurando
+
                 }
             }
         }
 
-        // Se não encontrou uma partida correspondente para atualizar, tenta inserir em uma vaga vazia
+
         for (int m = 0; m < maxMatchesPerRound; m++) {
             if (rounds[round][m] == null) {
-                // Criação parcial de um novo match não é possível sem outro time
+
                 throw new IllegalStateException("Cannot add new match with only one team. Match must be created with both teams.");
             }
         }
 
         throw new IllegalStateException("No available match to update with this team in the given round.");
+    }
+
+    public void addMatchToRound(int round, IMatch match) {
+        if (round < 0 || round >= numberOfRounds) {
+            throw new IllegalArgumentException("Invalid round number");
+        }
+
+        for (int i = 0; i < maxMatchesPerRound; i++) {
+            if (rounds[round][i] == null) {
+                rounds[round][i] = match;
+                return;
+            }
+        }
+
+        throw new IllegalStateException("Round is already full");
     }
 
     @Override

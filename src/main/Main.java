@@ -38,7 +38,6 @@ public class Main {
                     System.out.println("Invalid option. Please try again.");
             }
         }
-
         input.close();
     }
 
@@ -70,6 +69,7 @@ public class Main {
                     System.out.println("Invalid option. Please try again.");
             }
         }
+        input.close();
     }
 
     private static void runSeasonMenu(Scanner input,Season season) {
@@ -84,7 +84,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("Starting a new Season...");
-                    startSeason(input, season);
+                    runStartSeason(input, season);
                     break;
                 case 3:
                     System.out.println("Adding a Club...");
@@ -105,5 +105,39 @@ public class Main {
                     System.out.println("Invalid option. Please try again.");
             }
         }
+        input.close();
+    }
+
+    private static void runStartSeason(Scanner input, Season season) {
+        boolean listing = true;
+        while (listing) {
+            int op = startSeasonMenu(input);
+
+            switch (op) {
+                case 1:
+                    System.out.println("Generating Schedule...");
+                    generateSchedule(input, season);
+                    //ver o que se passa com isto
+                    break;
+                case 2:
+                    System.out.println("Simulating Season...");
+                    startSeason(input, season);
+                    break;
+                case 3:
+                    System.out.println("Listing information...");
+                    //listar matchs
+                    break;
+                case 4:
+                    System.out.println("Standings information...");
+                    //listar standings
+                    break;
+                case 5:
+                    listing = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+        input.close();
     }
 }

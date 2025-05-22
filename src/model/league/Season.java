@@ -7,6 +7,7 @@ import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.simulation.MatchSimulatorStrategy;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import model.match.Match;
 
 import java.io.IOException;
 
@@ -90,17 +91,36 @@ public class Season implements ISeason {
 
     @Override
     public void generateSchedule() {
-        int totalRounds = (numberOfCurrentTeams - 1) * 2;
-        int totalMatches = numberOfCurrentTeams * (numberOfCurrentTeams - 1);
-        matches = new IMatch[totalMatches];
+        int totalRounds = getMaxRounds();  // número total de rondas (ex: 10 para 6 equipas ida e volta)
+        int maxMatchesPerRound = numberOfCurrentTeams / 2;
+
+        this.schedule = new Schedule(totalRounds, maxMatchesPerRound);
+        this.matches = new IMatch[numberOfCurrentTeams * (numberOfCurrentTeams - 1)];
+
         int matchIndex = 0;
 
-        for (int i = 0; i < numberOfCurrentTeams; i++) {
-            for (int j = 0; j < numberOfCurrentTeams; j++) {
-                if (i != j) {
-                    matches[matchIndex++] = new model.match.Match(
-                            teams[i], teams[j], (i + j) % totalRounds
-                    );
+        // Ida: equipa i casa contra equipa j fora
+        for (int round = 0; round < totalRounds / 2; round++) {
+            for (int i = 0; i < numberOfCurrentTeams; i++) {
+                for (int j = 0; j < numberOfCurrentTeams; j++) {
+                    if (i != j && (i + j + round) % (numberOfCurrentTeams - 1) == 0 && i < j) {
+                        IMatch match = new model.match.Match(teams[i], teams[j], round);
+                        ((Schedule) schedule).addMatchToRound(round, match);
+                        matches[matchIndex++] = match;
+                    }
+                }
+            }
+        }
+
+        // Volta: equipa j casa contra equipa i fora
+        for (int round = totalRounds / 2; round < totalRounds; round++) {
+            for (int i = 0; i < numberOfCurrentTeams; i++) {
+                for (int j = 0; j < numberOfCurrentTeams; j++) {
+                    if (i != j && (i + j + round) % (numberOfCurrentTeams - 1) == 0 && i < j) {
+                        IMatch match = new model.match.Match(teams[j], teams[i], round);
+                        ((Schedule) schedule).addMatchToRound(round, match);
+                        matches[matchIndex++] = match;
+                    }
                 }
             }
         }

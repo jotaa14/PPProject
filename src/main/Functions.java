@@ -1,7 +1,9 @@
 package main;
 
 import com.ppstudios.footballmanager.api.contracts.event.IEvent;
+import com.ppstudios.footballmanager.api.contracts.league.ISchedule;
 import com.ppstudios.footballmanager.api.contracts.league.ISeason;
+import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
@@ -13,6 +15,7 @@ import model.event.eventTypes.GoalEvent;
 import model.league.League;
 import model.league.Season;
 import model.match.Match;
+import model.league.Schedule;
 import model.simulation.MatchSimulator;
 import model.team.Club;
 import model.team.Formation;
@@ -190,7 +193,7 @@ public class Functions {
         for (int i = 0; i < match.getEventCount(); i++) {
             System.out.println(events[i].toString());
         }
-        System.out.println("\n\n\n\n\n");
+        System.out.println("\n\n");
     }
 
     public static void addClub(Scanner input, Season season) {
@@ -325,6 +328,37 @@ public class Functions {
             }
         }
         System.out.println("| Season started successfully.");
+    }
+    public static void generateSchedule(Scanner input, Season season) {
+        System.out.println("|--------------Generate Schedule------------|");
+        IClub[] clubs = season.getCurrentClubs();
+        if (clubs.length == 0) {
+            System.out.println("| No clubs available in this season.");
+            return;
+        }
+
+        System.out.println("| Generating schedule for the following clubs:");
+        for (IClub club : clubs) {
+            System.out.println("| " + club.getName());
+        }
+
+        try{
+        season.generateSchedule();
+
+        ISchedule schedule = season.getSchedule();
+        IMatch[] matches = schedule.getAllMatches();
+
+        System.out.println("\nSchedule Generated:");
+        for (IMatch match : matches) {
+            System.out.println(match.getHomeClub().getName() + " vs " +
+                    match.getAwayClub().getName());
+        }
+        System.out.println("| Schedule generated successfully.");
+
+        }catch (IllegalStateException e){
+            System.out.println("| Error: " + e.getMessage());
+        }
+
     }
 }
 

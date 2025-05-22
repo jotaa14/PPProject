@@ -103,4 +103,35 @@ public class Menu {
 
         return op;
     }
+    public static int startSeasonMenu(Scanner input) {
+        int op = 0;
+        boolean verifyInput = false;
+
+        do {
+            System.out.println("|--------------Season Menu-----------------|");
+            System.out.println("| 1) Schedule                              |");
+            System.out.println("| 2) Start Season                          |");
+            System.out.println("| 3) List Information                      |");
+            System.out.println("| 4) List Matches                          |");
+            System.out.println("| 5) Exit                                  |");
+            System.out.println("|                                          |");
+            System.out.println("|==========================================|");
+            System.out.println("| Enter Your Option: ");
+
+            try {
+                op = input.nextInt();
+                if (op >= 1 && op <= 5) {
+                    verifyInput = true;
+                } else {
+                    System.out.println("Select a Valid Option (1-5)!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Select a Valid Option (1-5)!");
+                input.next();
+            }
+        } while (!verifyInput);
+
+        return op;
+    }
+
 }
