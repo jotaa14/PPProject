@@ -2,8 +2,11 @@ package main;
 
 import model.league.Season;
 import model.team.Club;
+import model.league.League;
 
 import java.util.Scanner;
+
+import static main.Functions.*;
 import static main.Menu.*;
 
 public class Main {
@@ -18,7 +21,8 @@ public class Main {
             switch (op) {
                 case 1:
                     System.out.println("Starting a New Game...");
-                    createLeague(input);
+                    League league = createLeague(input);
+                    runLeagueMenu(input, league);
                     break;
                 case 2:
                     System.out.println("Loading Saved Game...");
@@ -37,7 +41,7 @@ public class Main {
         input.close();
     }
 
-    private static void runLeagueMenu(Scanner input) {
+    private static void runLeagueMenu(Scanner input, League league) {
         boolean inSeason = true;
         while (inSeason) {
             int op = leagueMenu(input);
@@ -46,15 +50,16 @@ public class Main {
                 case 1:
                     System.out.println("Starting a New Season...");
                     createSeaoson(input);
+                    runSeasonMenu(input);
                     break;
                 case 2:
                     System.out.println("Loading a Season...");
-                    //loadSeason(input);
+                    loadSeason(input, league);
 
                     break;
                 case 3:
                     System.out.println("Listing information...");
-                    //listSeason(input);
+                    listSeason(input, league);//nao esta a guardar
                     break;
                 case 4:
                     System.out.println("Exiting season menu.");
