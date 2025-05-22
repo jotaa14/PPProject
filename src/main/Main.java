@@ -1,5 +1,6 @@
 package main;
 
+import com.ppstudios.footballmanager.api.contracts.league.ISeason;
 import model.league.Season;
 import model.team.Club;
 import model.league.League;
@@ -49,8 +50,8 @@ public class Main {
             switch (op) {
                 case 1:
                     System.out.println("Starting a New Season...");
-                    createSeaoson(input);
-                    runSeasonMenu(input);
+                    Season season = createSeaoson(input);
+                    runSeasonMenu(input, season);
                     break;
                 case 2:
                     System.out.println("Loading a Season...");
@@ -71,7 +72,7 @@ public class Main {
         }
     }
 
-    private static void runSeasonMenu(Scanner input) {
+    private static void runSeasonMenu(Scanner input,Season season) {
         boolean listing = true;
         while (listing) {
             int op = seasonMenu(input);
@@ -79,7 +80,7 @@ public class Main {
             switch (op) {
                 case 1:
                     System.out.println("Simulating Game...");
-                    //simulateGame(input);
+                    simulateGame(input, season.getCurrentClubs());
                     break;
                 case 2:
                     System.out.println("Starting a new Season...");
@@ -87,7 +88,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("Adding a Club...");
-                    //addClub(input);
+                    addClub(input, season);
                     break;
                 case 4:
                     System.out.println("Removing a Club...");

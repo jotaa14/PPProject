@@ -5,6 +5,6 @@ import model.player.Player;
 
 public class PenaltyEvent extends PlayerEvent {
     public PenaltyEvent(Player player, int minute) {
-        super("\uD83D\uDD5B",minute, player,"\uD83E\uDDB5⚖\uFE0F " + player.getName() + "(" +player.getClub() +")" + " Take the Penalty Kick", "Penalty");
+        super(minute, player,"\uD83E\uDDB5⚖\uFE0F " + player.getName() + "(" +player.getClub() +")" + " Take the Penalty Kick", "Penalty");
     }
 }

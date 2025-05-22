@@ -11,6 +11,7 @@ import model.event.EventManager;
 import model.event.PlayerEvent;
 import model.event.eventTypes.GoalEvent;
 import model.player.Player;
+import model.team.Club;
 
 import java.io.FileWriter;
 import java.io.IOException;

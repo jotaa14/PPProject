@@ -22,7 +22,7 @@ public abstract class Event implements IEvent {
 
     @Override
     public String toString() {
-        return description + " at " + minute + " min";
+        return "|\uD83D\uDD5B "+ minute + " min| " + description;
     }
 
     @Override

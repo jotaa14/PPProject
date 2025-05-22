@@ -5,6 +5,6 @@ import model.player.Player;
 
 public class ShotEvent extends PlayerEvent {
     public ShotEvent(Player player, int minute) {
-        super("\uD83D\uDD5B",minute,player,"\uD83C\uDFAF Shot on Goal by " + player.getName() + "(" +player.getClub() +")","Shot" );
+        super(minute,player,"\uD83C\uDFAF Shot on Goal by " + player.getName() + "(" +player.getClub() +")","Shot" );
     }
 }

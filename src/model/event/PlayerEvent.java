@@ -9,13 +9,12 @@ import java.io.IOException;
 public abstract class PlayerEvent extends Event {
     private Player player;
     private String type;
-    private String clock;
 
-    public PlayerEvent(String clock, int minute, Player player, String description, String type) {
+    public PlayerEvent( int minute, Player player, String description, String type) {
         super(minute, description);
         this.player = player;
         this.type = type;
-        this.clock = clock;
+
     }
 
     public IPlayer getPlayer() {

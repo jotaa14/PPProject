@@ -1,11 +1,27 @@
 package main;
 
+import com.ppstudios.footballmanager.api.contracts.event.IEvent;
 import com.ppstudios.footballmanager.api.contracts.league.ISeason;
+import com.ppstudios.footballmanager.api.contracts.team.IClub;
+import com.ppstudios.footballmanager.api.contracts.team.IFormation;
+import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import data.Importer;
+import model.event.Event;
+import model.event.EventManager;
+import model.event.eventTypes.GoalEvent;
 import model.league.League;
 import model.league.Season;
+import model.match.Match;
+import model.simulation.MatchSimulator;
+import model.team.Club;
+import model.team.Formation;
+import model.team.Team;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static main.Util.listAllClubs;
 
 public class Functions {
 
@@ -59,7 +75,7 @@ public class Functions {
             }
         } while (!verifyInput);
         verifyInput = false;
-        do{
+        do {
             System.out.println("| Enter the Max Teams of the Season: ");
             try {
                 maxTeams = input.nextInt();
@@ -124,6 +140,88 @@ public class Functions {
             System.out.println("| " + (i + 1) + ") " + seasons[i].getName() + " (" + seasons[i].getYear() + ")");
         }
         System.out.println("|==========================================|");
+    }
+
+    public static void simulateGame(Scanner input,  IClub[] clubs ) {
+        System.out.println("|--------------Simulate Game---------------|");
+        Util.listAllClubs(clubs);
+        System.out.println("| Enter the Home Team(CODE): ");
+        String homeTeamName = input.next();
+        Util.listAllClubs(clubs);
+        System.out.println("| Enter the Away Team(CODE): ");
+        String awayTeamName = input.next();
+
+        Club homeClub = null;
+        Club awayClub = null;
+
+        for (IClub club : clubs) {
+            if (club.getCode().equalsIgnoreCase(homeTeamName)) {
+                homeClub = (Club) club;
+            } else if (club.getCode().equalsIgnoreCase(awayTeamName)) {
+                awayClub = (Club) club;
+            }
+        }
+
+        if (homeClub == null || awayClub == null) {
+            System.out.println("| One or both teams not found.");
+            return;
+        }
+
+        Team homeTeam = new Team(homeClub);
+        Team awayTeam = new Team(awayClub);
+
+        homeTeam.setFormation(Util.selectFormation(input, homeClub));
+        awayTeam.setFormation(Util.selectFormation(input, awayClub));
+
+        Match match = new Match(homeTeam, awayTeam, 0);
+        MatchSimulator simulator = new MatchSimulator();
+        simulator.simulate(match);
+
+        System.out.println("| Match Simulation Complete!");
+        System.out.println("\nMatch Result:");
+        System.out.println(match.getHomeClub().getName() + " " +
+                match.getTotalByEvent(GoalEvent.class, match.getHomeClub()) + " - " +
+                match.getTotalByEvent(GoalEvent.class, match.getAwayClub()) + " " +
+                match.getAwayClub().getName());
+
+        System.out.println("| Match Events:");
+        IEvent[] events = match.getEvents();
+        for (int i = 0; i < match.getEventCount(); i++) {
+            System.out.println(events[i].toString());
+        }
+    }
+
+    public static void addClub(Scanner input, Season season) {
+        IClub[] clubs = null;
+        try{
+            Importer importer = new Importer();
+            clubs = importer.importData();
+        }catch (IOException e){
+            System.out.println("| Error importing clubs: " + e.getMessage());
+            return;
+        }
+        System.out.println("|--------------Add Club to Season----------|");
+        System.out.println("| Available Clubs:                         |");
+        listAllClubs(clubs);
+        System.out.println("| Enter the Club Code to add: ");
+        String clubCode = input.next();
+        IClub selectedClub = null;
+        for (IClub club : clubs) {
+            if (club != null && club.getCode().equalsIgnoreCase(clubCode)) {
+                selectedClub = club;
+                break;
+            }
+        }
+        if (selectedClub == null) {
+            System.out.println("| Club not found.");
+            return;
+        }
+
+        if (season.addClub(selectedClub)) {
+            System.out.println("| Club added to the season successfully.");
+        } else {
+            System.out.println("| Failed to add club to the season.");
+        }
     }
 }
 

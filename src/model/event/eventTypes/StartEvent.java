@@ -8,7 +8,7 @@ import java.io.IOException;
 public class StartEvent extends Event {
 
     public StartEvent(int minute) {
-        super(minute, "\uD83D\uDD5B Start of match");
+        super(minute, "Start of match");
     }
 
     @Override
