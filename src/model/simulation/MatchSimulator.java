@@ -26,6 +26,7 @@ public class MatchSimulator implements MatchSimulatorStrategy {
 
     private static final double FREEKICK_GOAL_CHANCE = 0.3;
     private static final double FREEKICK_MISS_CORNER_CHANCE = 0.5;
+    private static final double OFFSIDE_CHANCE = 0.01;
 
     @Override
     public void simulate(IMatch match) {
@@ -33,7 +34,6 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         if (match.isPlayed()) throw new IllegalStateException("Match is already played");
         if (!match.isValid()) throw new IllegalStateException("Match is not valid");
 
-        // Evento de início da partida
         match.addEvent(new StartEvent(0));
 
         for (int minute = 1; minute <= 90; minute++) {
@@ -42,62 +42,70 @@ public class MatchSimulator implements MatchSimulatorStrategy {
             Player player = getRandomPlayerFromClub(club);
             if (player == null) continue;
 
-            // CHUTE
+            // SHOT
             if (chance < SHOT_CHANCE) {
                 match.addEvent(new ShotEvent(player, minute));
 
                 if (rand.nextDouble() < GOAL_AFTER_SHOT_CHANCE) {
                     match.addEvent(new GoalEvent(player, minute));
                 } else if (rand.nextDouble() < CORNER_AFTER_MISSED_CHANCE) {
+                    match.addEvent(new DefenseEvent(player, minute));
+                    match.addEvent(new CornerEvent(player, minute));
                     match.addEvent(new CornerKickEvent(player, minute));
                 } else {
+                    match.addEvent(new DefenseEvent(player, minute));
                     match.addEvent(new GoalKickEvent(player, minute));
                 }
             }
 
-            // FALTA
+            // FOUL
             else if (chance < SHOT_CHANCE + FOUL_CHANCE) {
                 match.addEvent(new FoulEvent(player, minute));
 
-                if (rand.nextDouble() < 0.1) match.addEvent(new YellowCardEvent(player, minute));
-                if (rand.nextDouble() < 0.03) match.addEvent(new RedCardEvent(player, minute));
+                double cardRoll = rand.nextDouble();
+                if (cardRoll < 0.03) match.addEvent(new RedCardEvent(player, minute));
+                else if (cardRoll < 0.13) match.addEvent(new YellowCardEvent(player, minute));
 
                 if (rand.nextDouble() < FOUL_NEAR_AREA_CHANCE) {
-                    // PÊNALTI
                     if (rand.nextDouble() < PENALTY_AFTER_FOUL_CHANCE) {
                         match.addEvent(new PenaltyEvent(player, minute));
+
                         if (rand.nextDouble() < PENALTY_CONVERT_CHANCE) {
                             match.addEvent(new GoalEvent(player, minute));
                         } else if (rand.nextDouble() < PENALTY_MISS_CORNER_CHANCE) {
+                            match.addEvent(new DefenseEvent(player, minute));
+                            match.addEvent(new CornerEvent(player, minute));
                             match.addEvent(new CornerKickEvent(player, minute));
                         } else {
+                            match.addEvent(new DefenseEvent(player, minute));
                             match.addEvent(new GoalKickEvent(player, minute));
                         }
-                    }
-                    // FALTA PRÓXIMA ÁREA
-                    else {
+                    } else {
                         match.addEvent(new ShotEvent(player, minute));
                         if (rand.nextDouble() < FREEKICK_GOAL_CHANCE) {
                             match.addEvent(new GoalEvent(player, minute));
                         } else if (rand.nextDouble() < FREEKICK_MISS_CORNER_CHANCE) {
+                            match.addEvent(new DefenseEvent(player, minute));
+                            match.addEvent(new CornerEvent(player, minute));
                             match.addEvent(new CornerKickEvent(player, minute));
                         } else {
+                            match.addEvent(new DefenseEvent(player, minute));
                             match.addEvent(new GoalKickEvent(player, minute));
                         }
                     }
                 }
             }
 
-            // IMPEDIMENTO
-            else if (chance < SHOT_CHANCE + FOUL_CHANCE + 0.01) {
+            // OFFSIDE
+            else if (chance < SHOT_CHANCE + FOUL_CHANCE + OFFSIDE_CHANCE) {
                 match.addEvent(new OffSideEvent(player, minute));
             }
         }
 
-        // Evento de fim de jogo
         match.addEvent(new EndEvent(90));
         match.setPlayed();
     }
+
 
 
     private Player getRandomPlayerFromClub(IClub club) {

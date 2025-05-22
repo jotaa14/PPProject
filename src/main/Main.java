@@ -92,11 +92,11 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("Removing a Club...");
-                    //removeClub(input);
+                    removeClub(input, season);
                     break;
                 case 5:
                     System.out.println("Listing information...");
-                    //listSeason(input);
+                    listSeasonStuff(input, season);
                     break;
                 case 6:
                     listing = false;

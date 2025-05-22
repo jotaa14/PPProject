@@ -2,6 +2,7 @@ package main;
 
 import com.ppstudios.footballmanager.api.contracts.event.IEvent;
 import com.ppstudios.footballmanager.api.contracts.league.ISeason;
+import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
@@ -189,6 +190,7 @@ public class Functions {
         for (int i = 0; i < match.getEventCount(); i++) {
             System.out.println(events[i].toString());
         }
+        System.out.println("\n\n\n\n\n");
     }
 
     public static void addClub(Scanner input, Season season) {
@@ -221,6 +223,81 @@ public class Functions {
             System.out.println("| Club added to the season successfully.");
         } else {
             System.out.println("| Failed to add club to the season.");
+        }
+    }
+
+    public static void removeClub(Scanner input, Season season) {
+        IClub[] clubs = season.getCurrentClubs();
+        if (clubs.length == 0) {
+            System.out.println("| No clubs available in this season.");
+            return;
+        }
+
+        System.out.println("|--------------Remove Club from Season-----|");
+        System.out.println("| Available Clubs:                         |");
+        listAllClubs(clubs);
+        System.out.println("| Enter the Club Code to remove: ");
+        String clubCode = input.next();
+        IClub selectedClub = null;
+        for (IClub club : clubs) {
+            if (club != null && club.getCode().equalsIgnoreCase(clubCode)) {
+                selectedClub = club;
+                break;
+            }
+        }
+        if (selectedClub == null) {
+            System.out.println("| Club not found.");
+            return;
+        }
+
+        if (season.removeClub(selectedClub)) {
+            System.out.println("| Club removed from the season successfully.");
+        } else {
+            System.out.println("| Failed to remove club from the season.");
+        }
+    }
+    public static void listSeasonStuff(Scanner input, Season season) {
+        IClub[] clubs = season.getCurrentClubs();
+        if (clubs.length == 0) {
+            System.out.println("| No clubs available in this season.");
+            return;
+        }
+
+        System.out.println("|--------------List Clubs in Season--------|");
+        System.out.println("| Available Clubs:                         |");
+        listAllClubs(clubs);
+        System.out.println("| Enter the Club Code to view details: ");
+        String clubCode = input.next();
+        IClub selectedClub = null;
+        for (IClub club : clubs) {
+            if (club != null && club.getCode().equalsIgnoreCase(clubCode)) {
+                selectedClub = club;
+                break;
+            }
+        }
+        if (selectedClub == null) {
+            System.out.println("| Club not found.");
+            return;
+        }
+
+        System.out.println("| Club Details:                            |");
+        System.out.println("| Name: " + selectedClub.getName());
+        System.out.println("| Code: " + selectedClub.getCode());
+        System.out.println("| Players: " + selectedClub.getPlayerCount());
+        System.out.println("| You Want To Dee The Players Details=? (Y/N): ");
+        String choice = input.next();
+        if (choice.equalsIgnoreCase("Y")) {
+            IPlayer[] players = selectedClub.getPlayers();
+            if (players.length == 0) {
+                System.out.println("| No players available in this club.");
+                return;
+            }
+            System.out.println("| Players:                                 |");
+            for (IPlayer player : players) {
+                System.out.println("| " + player.toString());
+            }
+        } else {
+            System.out.println("| Exiting Player Details.");
         }
     }
 }
