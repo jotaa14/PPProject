@@ -58,7 +58,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("Listing information...");
-                    listSeason(input, league);//nao esta a guardar
+                    listSeason(input, league);
                     break;
                 case 4:
                     System.out.println("Exiting season menu.");
