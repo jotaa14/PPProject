@@ -53,7 +53,7 @@ public class Functions {
         int maxTeams = 0;
         boolean verifyInput = false;
 
-        do {                
+        do {
             System.out.println("|--------------Create Season---------------|");
             System.out.println("| Enter the Name of the Season: ");
             name = input.next();
