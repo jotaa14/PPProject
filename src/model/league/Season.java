@@ -81,47 +81,50 @@ public class Season implements ISeason {
         }
 
         boolean isOdd = numberOfCurrentTeams % 2 != 0;
-        int n = isOdd ? numberOfCurrentTeams + 1 : numberOfCurrentTeams; // Adiciona BYE se for ímpar
-        int totalRounds = isOdd ? numberOfCurrentTeams : numberOfCurrentTeams - 1;
+        int n = isOdd ? numberOfCurrentTeams + 1 : numberOfCurrentTeams;
+        int totalRounds = (isOdd ? numberOfCurrentTeams : numberOfCurrentTeams - 1) * 2;
         int matchesPerRound = n / 2;
 
-        // Prepara array de equipas (com BYE se necessário)
         ITeam[] tempTeams = new ITeam[n];
         for (int i = 0; i < numberOfCurrentTeams; i++) {
-            tempTeams[i] = ((Club)clubs[i]).getTeam();
+            tempTeams[i] = ((Club) clubs[i]).getTeam();
         }
         if (isOdd) {
-            tempTeams[n - 1] = null; // null representa a equipa BYE
+            tempTeams[n - 1] = null;
         }
 
-        // Calcula o número total de jogos
+        ITeam[] originalTempTeams = Arrays.copyOf(tempTeams, tempTeams.length);
+
         int totalMatches = totalRounds * matchesPerRound;
         this.matches = new IMatch[totalMatches];
         this.schedule = new Schedule(totalRounds, matchesPerRound);
-
         int matchIndex = 0;
 
         for (int round = 0; round < totalRounds; round++) {
+            if (round == totalRounds / 2) {
+                tempTeams = Arrays.copyOf(originalTempTeams, originalTempTeams.length);
+            }
+
             for (int i = 0; i < matchesPerRound; i++) {
                 int t1 = i;
                 int t2 = n - 1 - i;
                 ITeam home, away;
-                if (round % 2 == 0) {
-                    home = tempTeams[t1];
-                    away = tempTeams[t2];
+
+                if (round < totalRounds / 2) {
+                    home = (round % 2 == 0) ? tempTeams[t1] : tempTeams[t2];
+                    away = (round % 2 == 0) ? tempTeams[t2] : tempTeams[t1];
                 } else {
-                    home = tempTeams[t2];
-                    away = tempTeams[t1];
+                    home = (round % 2 == 0) ? tempTeams[t2] : tempTeams[t1];
+                    away = (round % 2 == 0) ? tempTeams[t1] : tempTeams[t2];
                 }
-                // Só cria o jogo se nenhuma das equipas for BYE (null)
+
                 if (home != null && away != null) {
-                    IMatch match = new model.match.Match(home, away, round);
+                    IMatch match = new Match(home, away, round);
                     ((Schedule) schedule).addMatchToRound(round, match);
                     matches[matchIndex++] = match;
                 }
-                // Se home==null ou away==null, a outra equipa folga nesta ronda
             }
-            // Rotação das equipas (excepto a primeira)
+
             ITeam last = tempTeams[n - 1];
             for (int k = n - 1; k > 1; k--) {
                 tempTeams[k] = tempTeams[k - 1];
@@ -129,8 +132,6 @@ public class Season implements ISeason {
             tempTeams[1] = last;
         }
     }
-
-
 
 
     @Override
@@ -162,6 +163,7 @@ public class Season implements ISeason {
             if (match.isValid() && !match.isPlayed()) {
                 simulator.simulate(match);
                 match.setPlayed();
+                System.out.println("Match simulated: " + displayMatchResult(match));
             }
         }
         currentRound++;

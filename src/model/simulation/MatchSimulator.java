@@ -107,7 +107,6 @@ public class MatchSimulator implements MatchSimulatorStrategy {
     }
 
 
-
     private Player getRandomPlayerFromClub(IClub club) {
         IPlayer[] players = club.getPlayers();
         if (players == null || players.length == 0) return null;
