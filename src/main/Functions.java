@@ -13,13 +13,13 @@ import model.event.Event;
 import model.event.EventManager;
 import model.event.eventTypes.GoalEvent;
 import model.league.League;
-import model.league.Season;
 import model.match.Match;
 import model.league.Schedule;
 import model.simulation.MatchSimulator;
 import model.team.Club;
 import model.team.Formation;
 import model.team.Team;
+import model.league.Season;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -47,14 +47,14 @@ public class Functions {
         return new League(name);
     }
 
-    public static Season createSeaoson(Scanner input) {
+    public static Season createSeason(Scanner input) {
         int year = 0;
         String name = null;
         int maxTeams = 0;
         boolean verifyInput = false;
 
         do {
-            System.out.println("|--------------Create Season---------------|");
+            System.out.println("| तर्कCreate Season---------------|");
             System.out.println("| Enter the Name of the Season: ");
             name = input.next();
             if (name.length() > 0) {
@@ -281,11 +281,16 @@ public class Functions {
             System.out.println("| Club not found.");
             return;
         }
-        System.out.println("| Select The Formation" + selectedClub.getName());
+        System.out.println("| Select The Formation " + selectedClub.getName());
         IFormation formation = Util.selectFormation(input, (Club) selectedClub);
         Team team = new Team(selectedClub);
-        team.setFormation(formation);
-        ((Club) selectedClub).setTeam(team);
+        try {
+            team.setFormation(formation);
+            ((Club) selectedClub).setTeam(team);
+        }catch (IllegalStateException e){
+            System.out.println("| Error: " + e.getMessage());
+            return;
+        }
 
         try{
             if (season.addClub(selectedClub)) {
@@ -369,7 +374,7 @@ public class Functions {
             System.out.println("| Formation: Not Set (Invalid club type)");
         }
 
-        System.out.println("| You Want To Dee The Players Details=? (Y/N): ");
+        System.out.println("| Do You Want To See The Players Details? (Y/N): ");
         String choice = input.next();
         if (choice.equalsIgnoreCase("Y")) {
             IPlayer[] players = selectedClub.getPlayers();
@@ -409,63 +414,43 @@ public class Functions {
         return null;
     }
 
+    public static void startSeason(java.util.Scanner input, Season season) {
+        System.out.println("Gerando o calendário...");
+        season.generateSchedule();
 
-    public static void startSeason(Scanner input, Season season) {
-        System.out.println("|--------------Start Season----------------|");
-        IClub[] clubs = season.getCurrentClubs();
-        if (clubs.length == 0) {
-            System.out.println("| No clubs available in this season.");
-            return;
+        System.out.println("Simulando a temporada automaticamente...");
+        while (!season.isSeasonComplete()) {
+            season.simulateRound();
         }
-
-        System.out.println("| Starting the season with the following clubs:");
-        for (IClub club : clubs) {
-            System.out.println("| " + club.getName());
-        }
-        
-        System.out.println("|-----------Simulating Full Season---------|");
-        for (int i = 0; i < clubs.length; i++) {
-            for (int j = i + 1; j < clubs.length; j++) {
-                simulateGameSeason(input, new IClub[]{clubs[i], clubs[j]});
-            }
-        }
-        System.out.println("| Season started successfully.");
+        System.out.println("Temporada concluída!");
     }
+
     public static void generateSchedule(Scanner input, Season season) {
-        System.out.println("|--------------Generate Schedule------------|");
-        IClub[] clubs = season.getCurrentClubs();
-        if (clubs.length == 0) {
-            System.out.println("| No clubs available in this season.");
+        if (season.getMaxTeams() <= 1) {
+            System.out.println("Unable to generate schedule: not enough teams.");
             return;
         }
-
-        if (season.getSchedule() != null && season.getSchedule().getAllMatches().length > 0) {
-            System.out.println("| Schedule already generated.");
-            return;
-        }
-
-        System.out.println("| Generating schedule for the following clubs:");
-        for (IClub club : clubs) {
-            System.out.println("| " + club.getName());
-        }
-
         try {
             season.generateSchedule();
-            ISchedule schedule = season.getSchedule();
-            IMatch[] matches = schedule.getAllMatches();
+            System.out.println("Schedule generated successfully!");
 
-            System.out.println("\n| Schedule Generated:");
-            for (IMatch match : matches) {
-                System.out.println("| " + match.getHomeClub().getName() + " vs " +
-                        match.getAwayClub().getName());
+            // Print all the matches in the schedule
+            System.out.println("Season Schedule:");
+            for (IMatch match : season.getMatches()) {
+                if (match != null) {
+                    /*
+                    String home = match.getHomeTeam() instanceof IClub ? ((IClub) match.getHomeTeam()).getName() : "TBD";
+                    String away = match.getAwayTeam() instanceof IClub ? ((IClub) match.getAwayTeam()).getName() : "TBD";
+                    */
+                    String home = match.getHomeClub().getName();
+                    String away = match.getAwayClub().getName();
+                    int round = match.getRound();
+                    System.out.printf("Round %d: %s vs %s%n", round + 1, home, away);
+                }
             }
-            System.out.println("| Schedule generated successfully.");
-
-        } catch (IllegalStateException e) {
-            System.out.println("| Error: " + e.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error generating schedule: " + ex.getMessage());
         }
     }
-
 }
-
-

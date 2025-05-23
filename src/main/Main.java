@@ -38,7 +38,6 @@ public class Main {
                     System.out.println("Invalid option. Please try again.");
             }
         }
-        input.close();
     }
 
     private static void runLeagueMenu(Scanner input, League league) {
@@ -49,7 +48,7 @@ public class Main {
             switch (op) {
                 case 1:
                     System.out.println("Starting a New Season...");
-                    Season season = createSeaoson(input);
+                    Season season = createSeason(input);
                     runSeasonMenu(input, season);
                     break;
                 case 2:
@@ -69,7 +68,6 @@ public class Main {
                     System.out.println("Invalid option. Please try again.");
             }
         }
-        input.close();
     }
 
     private static void runSeasonMenu(Scanner input,Season season) {
@@ -105,7 +103,6 @@ public class Main {
                     System.out.println("Invalid option. Please try again.");
             }
         }
-        input.close();
     }
 
     private static void runStartSeason(Scanner input, Season season) {
@@ -150,7 +147,6 @@ public class Main {
                     System.out.println("Invalid option. Please try again.");
             }
         }
-        input.close();
     }
 
     private static void runManagerMenu(Scanner input, Season season) {

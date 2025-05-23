@@ -8,10 +8,14 @@ import com.ppstudios.footballmanager.api.contracts.simulation.MatchSimulatorStra
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import model.match.Match;
+import model.simulation.MatchSimulator;
+import model.team.Club;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Season implements ISeason {
+
     private String name;
     private int year;
     private int currentRound;
@@ -20,10 +24,8 @@ public class Season implements ISeason {
     private IMatch[] matches;
     private ISchedule schedule;
     private IStanding[] standings;
-    private MatchSimulatorStrategy simulator;
-
+    private MatchSimulatorStrategy simulator = new MatchSimulator();
     private ITeam[] teams;
-
     private int numberOfCurrentTeams;
 
     public Season(String name, int year, int maxTeams) {
@@ -41,21 +43,12 @@ public class Season implements ISeason {
         return year;
     }
 
-
     @Override
     public boolean addClub(IClub club) {
-        if (club == null) {
-            throw new IllegalArgumentException("Club cannot be null");
-        }
-
-        if (numberOfCurrentTeams >= maxTeams) {
-            throw new IllegalStateException("League is full");
-        }
-
+        if (club == null) throw new IllegalArgumentException("Club cannot be null");
+        if (numberOfCurrentTeams >= maxTeams) throw new IllegalStateException("League is full");
         for (int i = 0; i < numberOfCurrentTeams; i++) {
-            if (clubs[i].equals(club)) {
-                throw new IllegalArgumentException("Club already exists");
-            }
+            if (clubs[i].equals(club)) throw new IllegalArgumentException("Club already exists");
         }
 
         clubs[numberOfCurrentTeams++] = club;
@@ -64,15 +57,11 @@ public class Season implements ISeason {
 
     @Override
     public boolean removeClub(IClub club) {
-        if (club == null) {
-            throw new IllegalArgumentException("Club cannot be null");
-        }
-
+        if (club == null) throw new IllegalArgumentException("Club cannot be null");
         boolean found = false;
         for (int i = 0; i < numberOfCurrentTeams; i++) {
             if (clubs[i].equals(club)) {
                 found = true;
-                // Shift to the left
                 for (int j = i; j < numberOfCurrentTeams - 1; j++) {
                     clubs[j] = clubs[j + 1];
                 }
@@ -81,50 +70,68 @@ public class Season implements ISeason {
                 break;
             }
         }
-
-        if (!found) {
-            throw new IllegalStateException("Club not found in the league");
-        }
-
+        if (!found) throw new IllegalStateException("Club not found in the league");
         return true;
     }
 
     @Override
     public void generateSchedule() {
-        int totalRounds = getMaxRounds();  // número total de rondas (ex: 10 para 6 equipas ida e volta)
-        int maxMatchesPerRound = numberOfCurrentTeams / 2;
+        if (numberOfCurrentTeams < 2) {
+            throw new IllegalStateException("Not enough teams to generate schedule");
+        }
 
-        this.schedule = new Schedule(totalRounds, maxMatchesPerRound);
-        this.matches = new IMatch[numberOfCurrentTeams * (numberOfCurrentTeams - 1)];
+        boolean isOdd = numberOfCurrentTeams % 2 != 0;
+        int n = isOdd ? numberOfCurrentTeams + 1 : numberOfCurrentTeams; // Adiciona BYE se for ímpar
+        int totalRounds = isOdd ? numberOfCurrentTeams : numberOfCurrentTeams - 1;
+        int matchesPerRound = n / 2;
+
+        // Prepara array de equipas (com BYE se necessário)
+        ITeam[] tempTeams = new ITeam[n];
+        for (int i = 0; i < numberOfCurrentTeams; i++) {
+            tempTeams[i] = ((Club)clubs[i]).getTeam();
+        }
+        if (isOdd) {
+            tempTeams[n - 1] = null; // null representa a equipa BYE
+        }
+
+        // Calcula o número total de jogos
+        int totalMatches = totalRounds * matchesPerRound;
+        this.matches = new IMatch[totalMatches];
+        this.schedule = new Schedule(totalRounds, matchesPerRound);
 
         int matchIndex = 0;
 
-        // Ida: equipa i casa contra equipa j fora
-        for (int round = 0; round < totalRounds / 2; round++) {
-            for (int i = 0; i < numberOfCurrentTeams; i++) {
-                for (int j = 0; j < numberOfCurrentTeams; j++) {
-                    if (i != j && (i + j + round) % (numberOfCurrentTeams - 1) == 0 && i < j) {
-                        IMatch match = new model.match.Match(teams[i], teams[j], round);
-                        ((Schedule) schedule).addMatchToRound(round, match);
-                        matches[matchIndex++] = match;
-                    }
+        for (int round = 0; round < totalRounds; round++) {
+            for (int i = 0; i < matchesPerRound; i++) {
+                int t1 = i;
+                int t2 = n - 1 - i;
+                ITeam home, away;
+                if (round % 2 == 0) {
+                    home = tempTeams[t1];
+                    away = tempTeams[t2];
+                } else {
+                    home = tempTeams[t2];
+                    away = tempTeams[t1];
                 }
-            }
-        }
-
-        // Volta: equipa j casa contra equipa i fora
-        for (int round = totalRounds / 2; round < totalRounds; round++) {
-            for (int i = 0; i < numberOfCurrentTeams; i++) {
-                for (int j = 0; j < numberOfCurrentTeams; j++) {
-                    if (i != j && (i + j + round) % (numberOfCurrentTeams - 1) == 0 && i < j) {
-                        IMatch match = new model.match.Match(teams[j], teams[i], round);
-                        ((Schedule) schedule).addMatchToRound(round, match);
-                        matches[matchIndex++] = match;
-                    }
+                // Só cria o jogo se nenhuma das equipas for BYE (null)
+                if (home != null && away != null) {
+                    IMatch match = new model.match.Match(home, away, round);
+                    ((Schedule) schedule).addMatchToRound(round, match);
+                    matches[matchIndex++] = match;
                 }
+                // Se home==null ou away==null, a outra equipa folga nesta ronda
             }
+            // Rotação das equipas (excepto a primeira)
+            ITeam last = tempTeams[n - 1];
+            for (int k = n - 1; k > 1; k--) {
+                tempTeams[k] = tempTeams[k - 1];
+            }
+            tempTeams[1] = last;
         }
     }
+
+
+
 
     @Override
     public IMatch[] getMatches() {
@@ -135,12 +142,12 @@ public class Season implements ISeason {
     public IMatch[] getMatches(int round) {
         int count = 0;
         for (IMatch match : matches) {
-            if (match.getRound() == round) count++;
+            if (match != null && match.getRound() == round) count++;
         }
         IMatch[] roundMatches = new IMatch[count];
         int idx = 0;
         for (IMatch match : matches) {
-            if (match.getRound() == round) {
+            if (match != null && match.getRound() == round) {
                 roundMatches[idx++] = match;
             }
         }
@@ -150,7 +157,6 @@ public class Season implements ISeason {
     @Override
     public void simulateRound() {
         if (isSeasonComplete()) return;
-
         IMatch[] roundMatches = getMatches(currentRound);
         for (IMatch match : roundMatches) {
             if (match.isValid() && !match.isPlayed()) {
@@ -182,9 +188,10 @@ public class Season implements ISeason {
     public void resetSeason() {
         currentRound = 0;
         if (matches != null) {
-            for (IMatch match : matches) {
-                if (match != null && match.isPlayed()) {
-                    match = new model.match.Match(match.getHomeTeam(), match.getAwayTeam(), match.getRound());
+            for (int i = 0; i < matches.length; i++) {
+                IMatch match = matches[i];
+                if (match != null) {
+                    matches[i] = new model.match.Match(match.getHomeTeam(), match.getAwayTeam(), match.getRound());
                 }
             }
         }
@@ -195,7 +202,6 @@ public class Season implements ISeason {
             ((Schedule) schedule).clearSchedule();
         }
     }
-
 
     @Override
     public String displayMatchResult(IMatch match) {
