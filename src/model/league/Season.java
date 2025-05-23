@@ -190,6 +190,13 @@ public class Season implements ISeason {
         }
     }
 
+    public void resetSchedule() {
+        if (schedule != null && schedule instanceof Schedule) {
+            ((Schedule) schedule).clearSchedule();
+        }
+    }
+
+
     @Override
     public String displayMatchResult(IMatch match) {
         if (match == null) return "Invalid match";

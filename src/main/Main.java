@@ -121,7 +121,19 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("Simulating Season...");
-                    startSeason(input, season);
+                    System.out.println("|------------------------------------------|");
+                    System.out.println("| Play as a Manager? (Y/N): ");
+                    System.out.println("| Enter 'Y' to play as a manager, 'N' to simulate the season: ");
+                    String choice = input.next();
+                    if (choice.equalsIgnoreCase("Y")) {
+                        System.out.println("Playing as a manager...");
+                        runManagerMenu(input, season);
+                    } else if (choice.equalsIgnoreCase("N")) {
+                        System.out.println("Simulating the season...");
+                        startSeason(input, season);
+                    } else {
+                        System.out.println("Invalid choice. Please enter 'Y' or 'N'.");
+                    }
                     break;
                 case 3:
                     System.out.println("Listing information...");
@@ -140,4 +152,42 @@ public class Main {
         }
         input.close();
     }
+
+    private static void runManagerMenu(Scanner input, Season season) {
+        boolean listing = true;
+        while (listing) {
+            int op = managerMenu(input);
+
+            switch (op) {
+                case 1:
+                    System.out.println("Starting Round...");
+                    //startRound(input, season);
+                    break;
+                case 2:
+                    System.out.println("Selecting Formation...");
+                    //selectFormation(input, season);
+                    break;
+                case 3:
+                    System.out.println("Listing Players...");
+                    //listPlayers(input, season);
+                    break;
+                case 4:
+                    System.out.println("Listing Schedule...");
+                    //listSchedule(input, season);
+                    break;
+                case 5:
+                    System.out.println("Exiting manager menu.");
+                    listing = false;
+                    break;
+                case 6:
+                    listing = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+        input.close();
+    }
+
+
 }

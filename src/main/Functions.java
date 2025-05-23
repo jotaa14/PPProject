@@ -146,22 +146,21 @@ public class Functions {
         System.out.println("|==========================================|");
     }
 
-    public static void simulateGame(Scanner input,  IClub[] clubs ) {
+    public static void simulateGame(Scanner input, IClub[] clubs) {
         System.out.println("|--------------Simulate Game---------------|");
         Util.listAllClubs(clubs);
-        System.out.println("| Enter the Home Team(CODE): ");
-        String homeTeamName = input.next();
-        Util.listAllClubs(clubs);
-        System.out.println("| Enter the Away Team(CODE): ");
-        String awayTeamName = input.next();
+        System.out.println("| Enter the Home Team (CODE): ");
+        String homeTeamCode = input.next();
+        System.out.println("| Enter the Away Team (CODE): ");
+        String awayTeamCode = input.next();
 
         Club homeClub = null;
         Club awayClub = null;
 
         for (IClub club : clubs) {
-            if (club.getCode().equalsIgnoreCase(homeTeamName)) {
+            if (club.getCode().equalsIgnoreCase(homeTeamCode)) {
                 homeClub = (Club) club;
-            } else if (club.getCode().equalsIgnoreCase(awayTeamName)) {
+            } else if (club.getCode().equalsIgnoreCase(awayTeamCode)) {
                 awayClub = (Club) club;
             }
         }
@@ -171,11 +170,31 @@ public class Functions {
             return;
         }
 
-        Team homeTeam = new Team(homeClub);
-        Team awayTeam = new Team(awayClub);
+        Team homeTeam = (Team) homeClub.getTeam();
+        Team awayTeam = (Team) awayClub.getTeam();
 
-        homeTeam.setFormation(Util.selectFormation(input, homeClub));
-        awayTeam.setFormation(Util.selectFormation(input, awayClub));
+        if (homeTeam == null) {
+            homeTeam = new Team(homeClub);
+            homeClub.setTeam(homeTeam);
+        }
+        if (awayTeam == null) {
+            awayTeam = new Team(awayClub);
+            awayClub.setTeam(awayTeam);
+        }
+
+        System.out.println("| Current Home Team Formation: " +
+                (homeTeam.getFormation() != null ? homeTeam.getFormation().getDisplayName() : "Not Set"));
+        System.out.println("| Do you want to change the Home Team Formation? (Y/N): ");
+        if (input.next().equalsIgnoreCase("Y")) {
+            homeTeam.setFormation(Util.selectFormation(input, homeClub));
+        }
+
+        System.out.println("| Current Away Team Formation: " +
+                (awayTeam.getFormation() != null ? awayTeam.getFormation().getDisplayName() : "Not Set"));
+        System.out.println("| Do you want to change the Away Team Formation? (Y/N): ");
+        if (input.next().equalsIgnoreCase("Y")) {
+            awayTeam.setFormation(Util.selectFormation(input, awayClub));
+        }
 
         Match match = new Match(homeTeam, awayTeam, 0);
         MatchSimulator simulator = new MatchSimulator();
@@ -193,7 +212,48 @@ public class Functions {
         for (int i = 0; i < match.getEventCount(); i++) {
             System.out.println(events[i].toString());
         }
+
         System.out.println("\n\n");
+    }
+
+    public static void simulateGameSeason(Scanner input, IClub[] clubs) {
+        System.out.println("|-------------Simulating Match-------------|");
+
+        if (clubs.length < 2) {
+            System.out.println("| Not enough clubs to simulate matches.");
+            return;
+        }
+
+        MatchSimulator simulator = new MatchSimulator();
+
+        for (int i = 0; i < clubs.length; i++) {
+            for (int j = i + 1; j < clubs.length; j++) {
+                Club homeClub = (Club) clubs[i];
+                Club awayClub = (Club) clubs[j];
+
+                Team homeTeam = (Team) homeClub.getTeam();
+                if (homeTeam == null) {
+                    homeTeam = new Team(homeClub);
+                    homeClub.setTeam(homeTeam);
+                }
+
+                Team awayTeam = (Team) awayClub.getTeam();
+                if (awayTeam == null) {
+                    awayTeam = new Team(awayClub);
+                    awayClub.setTeam(awayTeam);
+                }
+
+                Match match = new Match(homeTeam, awayTeam, 0);
+                simulator.simulate(match);
+
+                System.out.println("\nMatch: " + homeClub.getName() + " vs " + awayClub.getName());
+                System.out.println("Result: " +
+                        match.getTotalByEvent(GoalEvent.class, homeClub) + " - " +
+                        match.getTotalByEvent(GoalEvent.class, awayClub));
+            }
+        }
+
+        System.out.println("\n| All matches simulated.");
     }
 
     public static void addClub(Scanner input, Season season) {
@@ -221,13 +281,19 @@ public class Functions {
             System.out.println("| Club not found.");
             return;
         }
+        System.out.println("| Select The Formation" + selectedClub.getName());
+        IFormation formation = Util.selectFormation(input, (Club) selectedClub);
+        Team team = new Team(selectedClub);
+        team.setFormation(formation);
+        ((Club) selectedClub).setTeam(team);
+
         try{
             if (season.addClub(selectedClub)) {
                 System.out.println("| Club added to the season successfully.");
             } else {
                 System.out.println("| Failed to add club to the season.");
             }
-        }catch (IllegalStateException e){
+        }catch (IllegalStateException | IllegalArgumentException e){
             System.out.println("| Error: " + e.getMessage());
         }
 
@@ -240,7 +306,7 @@ public class Functions {
             return;
         }
 
-        System.out.println("|--------------Remove Club from Season-----|");
+        System.out.println("|----------Remove Club from Season---------|");
         System.out.println("| Available Clubs:                         |");
         listAllClubs(clubs);
         System.out.println("| Enter the Club Code to remove: ");
@@ -270,7 +336,7 @@ public class Functions {
             return;
         }
 
-        System.out.println("|--------------List Clubs in Season--------|");
+        System.out.println("|------------List Clubs in Season----------|");
         System.out.println("| Available Clubs:                         |");
         listAllClubs(clubs);
         System.out.println("| Enter the Club Code to view details: ");
@@ -291,6 +357,18 @@ public class Functions {
         System.out.println("| Name: " + selectedClub.getName());
         System.out.println("| Code: " + selectedClub.getCode());
         System.out.println("| Players: " + selectedClub.getPlayerCount());
+
+        if (selectedClub instanceof Club) {
+            Team team = (Team) ((Club) selectedClub).getTeam();
+            if (team != null && team.getFormation() != null) {
+                System.out.println("| Formation: " + team.getFormation().getDisplayName());
+            } else {
+                System.out.println("| Formation: Not Set");
+            }
+        } else {
+            System.out.println("| Formation: Not Set (Invalid club type)");
+        }
+
         System.out.println("| You Want To Dee The Players Details=? (Y/N): ");
         String choice = input.next();
         if (choice.equalsIgnoreCase("Y")) {
@@ -308,6 +386,30 @@ public class Functions {
         }
     }
 
+    public static IClub chooseClub(Scanner input, Season season) {
+        IClub[] clubs = season.getCurrentClubs();
+        if (clubs.length == 0) {
+            System.out.println("| No clubs available in this season.");
+            return null;
+        }
+
+        System.out.println("|--------------Choose Club-----------------|");
+        System.out.println("| Available Clubs:                         |");
+        listAllClubs(clubs);
+        System.out.println("| Enter the Club Code to choose: ");
+        String clubCode = input.next();
+        for (IClub club : clubs) {
+            if (club != null && club.getCode().equalsIgnoreCase(clubCode)) {
+                System.out.println("| You have chosen: " + club.getName());
+                return club;
+            }
+        }
+
+        System.out.println("| Club not found.");
+        return null;
+    }
+
+
     public static void startSeason(Scanner input, Season season) {
         System.out.println("|--------------Start Season----------------|");
         IClub[] clubs = season.getCurrentClubs();
@@ -320,11 +422,11 @@ public class Functions {
         for (IClub club : clubs) {
             System.out.println("| " + club.getName());
         }
-
-        // Simulate the season
+        
+        System.out.println("|-----------Simulating Full Season---------|");
         for (int i = 0; i < clubs.length; i++) {
             for (int j = i + 1; j < clubs.length; j++) {
-                simulateGame(input, new IClub[]{clubs[i], clubs[j]});
+                simulateGameSeason(input, new IClub[]{clubs[i], clubs[j]});
             }
         }
         System.out.println("| Season started successfully.");
@@ -337,29 +439,33 @@ public class Functions {
             return;
         }
 
+        if (season.getSchedule() != null && season.getSchedule().getAllMatches().length > 0) {
+            System.out.println("| Schedule already generated.");
+            return;
+        }
+
         System.out.println("| Generating schedule for the following clubs:");
         for (IClub club : clubs) {
             System.out.println("| " + club.getName());
         }
 
-        try{
-        season.generateSchedule();
+        try {
+            season.generateSchedule();
+            ISchedule schedule = season.getSchedule();
+            IMatch[] matches = schedule.getAllMatches();
 
-        ISchedule schedule = season.getSchedule();
-        IMatch[] matches = schedule.getAllMatches();
+            System.out.println("\n| Schedule Generated:");
+            for (IMatch match : matches) {
+                System.out.println("| " + match.getHomeClub().getName() + " vs " +
+                        match.getAwayClub().getName());
+            }
+            System.out.println("| Schedule generated successfully.");
 
-        System.out.println("\nSchedule Generated:");
-        for (IMatch match : matches) {
-            System.out.println(match.getHomeClub().getName() + " vs " +
-                    match.getAwayClub().getName());
-        }
-        System.out.println("| Schedule generated successfully.");
-
-        }catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             System.out.println("| Error: " + e.getMessage());
         }
-
     }
+
 }
 
 

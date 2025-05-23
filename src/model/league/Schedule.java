@@ -141,6 +141,15 @@ public class Schedule implements ISchedule {
         throw new IllegalStateException("Round is already full");
     }
 
+    public void clearSchedule() {
+        for (int i = 0; i < numberOfRounds; i++) {
+            for (int j = 0; j < maxMatchesPerRound; j++) {
+                rounds[i][j] = null;
+            }
+        }
+    }
+
+
     @Override
     public void exportToJson() throws IOException {
         throw new UnsupportedOperationException("Export Not Implemented");
