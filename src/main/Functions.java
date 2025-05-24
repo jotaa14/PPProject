@@ -219,49 +219,49 @@ public class Functions {
 
 
     public static void addClub(Scanner input, Season season) {
-    try {
-        Importer importer = new Importer();
-        IClub[] clubs = importer.importData();
+        try {
+            Importer importer = new Importer();
+            IClub[] clubs = importer.importData();
 
-        System.out.println("|--------------Add Club to Season----------|");
-        System.out.println("| Available Clubs:                         |");
-        listAllClubs(clubs);
-        System.out.println("| Enter the Club Code to add: ");
-        String clubCode = input.next();
+            System.out.println("|--------------Add Club to Season----------|");
+            System.out.println("| Available Clubs:                         |");
+            listAllClubs(clubs);
+            System.out.println("| Enter the Club Code to add: ");
+            String clubCode = input.next();
 
-        IClub selectedClub = null;
-        for (IClub club : clubs) {
-            if (club != null && club.getCode().equalsIgnoreCase(clubCode)) {
-                selectedClub = club;
-                break;
+            IClub selectedClub = null;
+            for (IClub club : clubs) {
+                if (club != null && club.getCode().equalsIgnoreCase(clubCode)) {
+                    selectedClub = club;
+                    break;
+                }
             }
-        }
-        if (selectedClub == null) {
-            System.out.println("| Club not found.");
-            return;
-        }
-        System.out.println("| Select The Formation " + selectedClub.getName());
-        IFormation formation = Util.selectFormation(input, (Club) selectedClub);
-        Team team = new Team(selectedClub);
+            if (selectedClub == null) {
+                System.out.println("| Club not found.");
+                return;
+            }
+            System.out.println("| Select The Formation " + selectedClub.getName());
+            IFormation formation = Util.selectFormation(input, (Club) selectedClub);
+            Team team = new Team(selectedClub);
 
-        try {
-            team.setFormation(formation);
-            ((Club) selectedClub).setTeam(team);
-        } catch (IllegalStateException e) {
-            System.out.println("| Error: " + e.getMessage());
-            return;
-        }
+            try {
+                team.setFormation(formation);
+                ((Club) selectedClub).setTeam(team);
+            } catch (IllegalStateException e) {
+                System.out.println("| Error: " + e.getMessage());
+                return;
+            }
 
-        try {
-            season.addClub(selectedClub);
-            System.out.println("| Club added to the season successfully.");
-        } catch (IllegalStateException | IllegalArgumentException e) {
-            System.out.println("| Error: " + e.getMessage());
+            try {
+                season.addClub(selectedClub);
+                System.out.println("| Club added to the season successfully.");
+            } catch (IllegalStateException | IllegalArgumentException e) {
+                System.out.println("| Error: " + e.getMessage());
+            }
+        } catch (IOException e) {
+            System.out.println("| Error importing clubs: " + e.getMessage());
         }
-    } catch (IOException e) {
-        System.out.println("| Error importing clubs: " + e.getMessage());
     }
-}
 
     public static void removeClub(Scanner input, Season season) {
         IClub[] clubs = season.getCurrentClubs();
@@ -293,6 +293,7 @@ public class Functions {
             System.out.println("| Failed to remove club from the season.");
         }
     }
+
     public static void listSeasonStuff(Scanner input, Season season) {
         IClub[] clubs = season.getCurrentClubs();
         if (clubs.length == 0) {
