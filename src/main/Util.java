@@ -33,16 +33,25 @@ public class Util {
             System.out.print("Select formation (1-4): ");
             try {
                 int choice = Integer.parseInt(scanner.nextLine());
-                Formation formation = switch (choice) {
-                    case 1 -> new Formation(4, 4, 2);
-                    case 2 -> new Formation(4, 3, 3);
-                    case 3 -> new Formation(3, 5, 2);
-                    case 4 -> new Formation(5, 3, 2);
-                    default -> {
+                Formation formation;
+                switch (choice) {
+                    case 1:
+                        formation = new Formation(4, 4, 2);
+                        break;
+                    case 2:
+                        formation = new Formation(4, 3, 3);
+                        break;
+                    case 3:
+                        formation = new Formation(3, 5, 2);
+                        break;
+                    case 4:
+                        formation = new Formation(5, 3, 2);
+                        break;
+                    default:
                         System.out.println("Invalid formation choice.");
-                        yield null;
-                    }
-                };
+                        formation = null;
+                        break;
+                }
 
                 if (formation != null) {
                     formation.setClub(club);
@@ -61,5 +70,3 @@ public class Util {
 
 
 }
-
-
