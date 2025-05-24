@@ -351,6 +351,46 @@ public class Functions {
         }
     }
 
+    public static void listClubInformation(Scanner input, IClub club) {
+        if (club == null) {
+            System.out.println("| No club selected.");
+            return;
+        }
+
+        System.out.println("|--------------Club Information-------------|");
+        System.out.println("| Club Name: " + club.getName());
+        System.out.println("| Club Code: " + club.getCode());
+        System.out.println("| Players Count: " + club.getPlayerCount());
+
+        if (club instanceof Club) {
+            Team team = (Team) ((Club) club).getTeam();
+            if (team != null && team.getFormation() != null) {
+                System.out.println("| Formation: " + team.getFormation().getDisplayName());
+            } else {
+                System.out.println("| Formation: Not Set");
+            }
+        } else {
+            System.out.println("| Formation: Not Set (Invalid club type)");
+        }
+        System.out.println("| Do You Want To See The Players Details? (Y/N): ");
+        String choice = input.next();
+        if (!choice.equalsIgnoreCase("Y")) {
+            System.out.println("| Exiting Player Details.");
+            return;
+        }
+        System.out.println("| Players in " + club.getName() + ":");
+        IPlayer[] players = club.getPlayers();
+        if (players.length == 0) {
+            System.out.println("| No players available in this club.");
+            return;
+        }
+
+        System.out.println("| Players:                                  |");
+        for (IPlayer player : players) {
+            System.out.println(player.toString());
+        }
+    }
+
     public static IClub chooseClub(Scanner input, Season season) {
         IClub[] clubs = season.getCurrentClubs();
         if (clubs.length == 0) {
@@ -365,7 +405,6 @@ public class Functions {
         String clubCode = input.next();
         for (IClub club : clubs) {
             if (club != null && club.getCode().equalsIgnoreCase(clubCode)) {
-                System.out.println("| You have chosen: " + club.getName());
                 return club;
             }
         }
@@ -383,6 +422,22 @@ public class Functions {
             season.simulateRound();
         }
         System.out.println("Season completed!");
+    }
+
+    public static void simulateRound(Scanner input, Season season, IClub managedClub) {
+        if (season.getMaxTeams() <= 1) {
+            System.out.println("Unable to simulate round: not enough teams.");
+            return;
+        }
+        try {
+            season.simulateRound();
+            System.out.println("Round simulated successfully!");
+            System.out.println("Current Standings:");
+            listStandings(input, season);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error simulating round: " + ex.getMessage());
+        }
     }
 
     public static void generateSchedule(Scanner input, Season season) {
@@ -432,7 +487,6 @@ public class Functions {
             if (standing != null) validStandings[idx++] = standing;
         }
 
-        // Sort by points, goal difference, then goals scored
         for (int i = 0; i < validStandings.length - 1; i++) {
             for (int j = 0; j < validStandings.length - i - 1; j++) {
                 IStanding a = validStandings[j];

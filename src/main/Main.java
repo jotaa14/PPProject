@@ -1,8 +1,7 @@
 package main;
 
-import com.ppstudios.footballmanager.api.contracts.league.ISeason;
+import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import model.league.Season;
-import model.team.Club;
 import model.league.League;
 
 import java.util.Scanner;
@@ -38,7 +37,9 @@ public class Main {
                     System.out.println("Invalid option. Please try again.");
             }
         }
+        input.close();
     }
+
 
     private static void runLeagueMenu(Scanner input, League league) {
         boolean inSeason = true;
@@ -123,8 +124,10 @@ public class Main {
                     String choice = input.next();
                     if (choice.equalsIgnoreCase("Y")) {
                         System.out.println("Playing as a manager...");
-                        chooseClub(input, season);
-                        runManagerMenu(input, season);
+                        IClub managedClub = chooseClub(input, season);
+                        if (managedClub != null) {
+                            runManagerMenu(input, season, managedClub);
+                        }
                     } else if (choice.equalsIgnoreCase("N")) {
                         System.out.println("Simulating the season...");
                         startSeason(input, season);
@@ -149,27 +152,36 @@ public class Main {
         }
     }
 
-    private static void runManagerMenu(Scanner input, Season season) {
+    private static void runManagerMenu(Scanner input, Season season, IClub managedClub) {
         boolean listing = true;
+        boolean verifySchedule = false;
         while (listing) {
+
+            System.out.println("| Managing: " + managedClub.getName());
             int op = managerMenu(input);
 
             switch (op) {
                 case 1:
                     System.out.println("Starting Round...");
-                    //startRound(input, season);
+                    if (!verifySchedule) {
+                        System.out.println("Generating Schedule...");
+                        generateSchedule(input, season);
+                        verifySchedule = true;
+                    }
+                    simulateRound(input, season, managedClub);
                     break;
                 case 2:
                     System.out.println("Selecting Formation...");
                     //selectFormation(input, season);
                     break;
                 case 3:
-                    System.out.println("Listing Players...");
-                    //listPlayers(input, season);
+                    System.out.println("Listing Club Information...");
+                    listClubInformation(input, managedClub);
                     break;
                 case 4:
                     System.out.println("Listing Schedule...");
-                    //listSchedule(input, season);
+                    generateSchedule(input, season);
+                    verifySchedule = true;
                     break;
                 case 5:
                     System.out.println("Exiting manager menu.");
@@ -182,8 +194,5 @@ public class Main {
                     System.out.println("Invalid option. Please try again.");
             }
         }
-        input.close();
     }
-
-
 }

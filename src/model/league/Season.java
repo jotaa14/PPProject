@@ -106,7 +106,6 @@ public class Season implements ISeason {
             originalTempTeams[i] = tempTeams[i];
         }
 
-
         int totalMatches = totalRounds * matchesPerRound;
         this.matches = new IMatch[totalMatches];
         this.schedule = new Schedule(totalRounds, matchesPerRound);
@@ -114,7 +113,9 @@ public class Season implements ISeason {
 
         for (int round = 0; round < totalRounds; round++) {
             if (round == totalRounds / 2) {
-                tempTeams = Arrays.copyOf(originalTempTeams, originalTempTeams.length);
+                for (int i = 0; i < originalTempTeams.length; i++) {
+                    tempTeams[i] = originalTempTeams[i];
+                }
             }
 
             for (int i = 0; i < matchesPerRound; i++) {
@@ -154,6 +155,7 @@ public class Season implements ISeason {
     @Override
     public IMatch[] getMatches(int round) {
         int count = 0;
+        System.out.println(matches.length);
         for (IMatch match : matches) {
             if (match != null && match.getRound() == round) count++;
         }
@@ -243,8 +245,8 @@ public class Season implements ISeason {
         if (match == null) return "Invalid match";
         String home = match.getHomeClub().getName();
         String away = match.getAwayClub().getName();
-        int homeGoals = match.getTotalByEvent(model.event.eventTypes.GoalEvent.class, match.getHomeClub());
-        int awayGoals = match.getTotalByEvent(model.event.eventTypes.GoalEvent.class, match.getAwayClub());
+        int homeGoals = match.getTotalByEvent(GoalEvent.class, match.getHomeClub());
+        int awayGoals = match.getTotalByEvent(GoalEvent.class, match.getAwayClub());
         return home + " " + homeGoals + " x " + awayGoals + " " + away;
     }
 
