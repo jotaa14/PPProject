@@ -392,15 +392,9 @@ public class Functions {
         try {
             season.generateSchedule();
             System.out.println("Schedule generated successfully!");
-
-            // Print all the matches in the schedule
             System.out.println("Season Schedule:");
             for (IMatch match : season.getMatches()) {
                 if (match != null) {
-                    /*
-                    String home = match.getHomeTeam() instanceof IClub ? ((IClub) match.getHomeTeam()).getName() : "TBD";
-                    String away = match.getAwayTeam() instanceof IClub ? ((IClub) match.getAwayTeam()).getName() : "TBD";
-                    */
                     String home = match.getHomeClub().getName();
                     String away = match.getAwayClub().getName();
                     int round = match.getRound();

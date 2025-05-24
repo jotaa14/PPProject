@@ -123,6 +123,7 @@ public class Main {
                     String choice = input.next();
                     if (choice.equalsIgnoreCase("Y")) {
                         System.out.println("Playing as a manager...");
+                        chooseClub(input, season);
                         runManagerMenu(input, season);
                     } else if (choice.equalsIgnoreCase("N")) {
                         System.out.println("Simulating the season...");

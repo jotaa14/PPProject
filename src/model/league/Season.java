@@ -101,7 +101,11 @@ public class Season implements ISeason {
             tempTeams[n - 1] = null;
         }
 
-        ITeam[] originalTempTeams = Arrays.copyOf(tempTeams, tempTeams.length);
+        ITeam[] originalTempTeams = new ITeam[tempTeams.length];
+        for (int i = 0; i < tempTeams.length; i++) {
+            originalTempTeams[i] = tempTeams[i];
+        }
+
 
         int totalMatches = totalRounds * matchesPerRound;
         this.matches = new IMatch[totalMatches];
