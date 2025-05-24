@@ -7,12 +7,15 @@ import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.simulation.MatchSimulatorStrategy;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import model.event.eventTypes.GoalEvent;
 import model.match.Match;
 import model.simulation.MatchSimulator;
 import model.team.Club;
 
 import java.io.IOException;
 import java.util.Arrays;
+import static model.event.eventTypes.GoalEvent.*;
+import static model.league.Standing.updateStandingsAfterMatch;
 
 public class Season implements ISeason {
 
@@ -51,7 +54,12 @@ public class Season implements ISeason {
             if (clubs[i].equals(club)) throw new IllegalArgumentException("Club already exists");
         }
 
-        clubs[numberOfCurrentTeams++] = club;
+        clubs[numberOfCurrentTeams] = club;
+        if (standings == null) {
+            standings = new IStanding[maxTeams];
+        }
+        standings[numberOfCurrentTeams] = new Standing(((Club)club).getTeam());
+        numberOfCurrentTeams++;
         return true;
     }
 
@@ -159,15 +167,41 @@ public class Season implements ISeason {
     public void simulateRound() {
         if (isSeasonComplete()) return;
         IMatch[] roundMatches = getMatches(currentRound);
+
         for (IMatch match : roundMatches) {
             if (match.isValid() && !match.isPlayed()) {
                 simulator.simulate(match);
                 match.setPlayed();
                 System.out.println("Match simulated: " + displayMatchResult(match));
+
+                IStanding[] standings = getLeagueStandings();
+                ITeam homeTeam = match.getHomeTeam();
+                ITeam awayTeam = match.getAwayTeam();
+
+                Standing homeStanding = null;
+                Standing awayStanding = null;
+                for (IStanding standing : standings) {
+                    if (standing != null) {
+                        if (standing.getTeam().equals(homeTeam)) {
+                            homeStanding = (Standing) standing;
+                        }
+                        if (standing.getTeam().equals(awayTeam)) {
+                            awayStanding = (Standing) standing;
+                        }
+                    }
+                }
+
+                if (homeStanding != null && awayStanding != null) {
+                    int homeGoals = match.getTotalByEvent(GoalEvent.class, match.getHomeClub());
+                    int awayGoals = match.getTotalByEvent(GoalEvent.class, match.getAwayClub());
+
+                    updateStandingsAfterMatch(homeStanding, homeGoals, awayStanding, awayGoals);
+                }
             }
         }
         currentRound++;
     }
+
 
     @Override
     public void simulateSeason() {
@@ -199,11 +233,6 @@ public class Season implements ISeason {
         }
     }
 
-    public void resetSchedule() {
-        if (schedule != null && schedule instanceof Schedule) {
-            ((Schedule) schedule).clearSchedule();
-        }
-    }
 
     @Override
     public String displayMatchResult(IMatch match) {
@@ -222,8 +251,14 @@ public class Season implements ISeason {
 
     @Override
     public IStanding[] getLeagueStandings() {
-        return standings;
+        if (standings == null) return null;
+        IStanding[] copy = new IStanding[standings.length];
+        for (int i = 0; i < standings.length; i++) {
+            copy[i] = standings[i];
+        }
+        return copy;
     }
+
 
     @Override
     public ISchedule getSchedule() {

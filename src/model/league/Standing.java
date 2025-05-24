@@ -91,4 +91,23 @@ public class Standing implements IStanding {
     public void addGoalsConceded(int goals) {
         goalsConceded += goals;
     }
+
+    public static void updateStandingsAfterMatch(Standing homeStanding, int homeGoals, Standing awayStanding, int awayGoals) {
+        homeStanding.addGoalsScored(homeGoals);
+        homeStanding.addGoalsConceded(awayGoals);
+
+        awayStanding.addGoalsScored(awayGoals);
+        awayStanding.addGoalsConceded(homeGoals);
+        
+        if (homeGoals > awayGoals) {
+            homeStanding.addWin(1);
+            awayStanding.addLoss(1);
+        } else if (homeGoals < awayGoals) {
+            awayStanding.addWin(1);
+            homeStanding.addLoss(1);
+        } else {
+            homeStanding.addDraw(1);
+            awayStanding.addDraw(1);
+        }
+    }
 }

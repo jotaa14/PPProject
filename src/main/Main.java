@@ -114,7 +114,6 @@ public class Main {
                 case 1:
                     System.out.println("Generating Schedule...");
                     generateSchedule(input, season);
-                    //ver o que se passa com isto
                     break;
                 case 2:
                     System.out.println("Simulating Season...");
@@ -134,11 +133,11 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("Listing information...");
-                    //listar matchs
+                    listSeasonStuff(input, season);
                     break;
                 case 4:
                     System.out.println("Standings information...");
-                    //listar standings
+                    listStandings(input, season);
                     break;
                 case 5:
                     listing = false;

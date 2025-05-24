@@ -3,6 +3,7 @@ package main;
 import com.ppstudios.footballmanager.api.contracts.event.IEvent;
 import com.ppstudios.footballmanager.api.contracts.league.ISchedule;
 import com.ppstudios.footballmanager.api.contracts.league.ISeason;
+import com.ppstudios.footballmanager.api.contracts.league.IStanding;
 import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
@@ -216,60 +217,18 @@ public class Functions {
         System.out.println("\n\n");
     }
 
-    public static void simulateGameSeason(Scanner input, IClub[] clubs) {
-        System.out.println("|-------------Simulating Match-------------|");
-
-        if (clubs.length < 2) {
-            System.out.println("| Not enough clubs to simulate matches.");
-            return;
-        }
-
-        MatchSimulator simulator = new MatchSimulator();
-
-        for (int i = 0; i < clubs.length; i++) {
-            for (int j = i + 1; j < clubs.length; j++) {
-                Club homeClub = (Club) clubs[i];
-                Club awayClub = (Club) clubs[j];
-
-                Team homeTeam = (Team) homeClub.getTeam();
-                if (homeTeam == null) {
-                    homeTeam = new Team(homeClub);
-                    homeClub.setTeam(homeTeam);
-                }
-
-                Team awayTeam = (Team) awayClub.getTeam();
-                if (awayTeam == null) {
-                    awayTeam = new Team(awayClub);
-                    awayClub.setTeam(awayTeam);
-                }
-
-                Match match = new Match(homeTeam, awayTeam, 0);
-                simulator.simulate(match);
-
-                System.out.println("\nMatch: " + homeClub.getName() + " vs " + awayClub.getName());
-                System.out.println("Result: " +
-                        match.getTotalByEvent(GoalEvent.class, homeClub) + " - " +
-                        match.getTotalByEvent(GoalEvent.class, awayClub));
-            }
-        }
-
-        System.out.println("\n| All matches simulated.");
-    }
 
     public static void addClub(Scanner input, Season season) {
-        IClub[] clubs = null;
-        try{
-            Importer importer = new Importer();
-            clubs = importer.importData();
-        }catch (IOException e){
-            System.out.println("| Error importing clubs: " + e.getMessage());
-            return;
-        }
+    try {
+        Importer importer = new Importer();
+        IClub[] clubs = importer.importData();
+
         System.out.println("|--------------Add Club to Season----------|");
         System.out.println("| Available Clubs:                         |");
         listAllClubs(clubs);
         System.out.println("| Enter the Club Code to add: ");
         String clubCode = input.next();
+
         IClub selectedClub = null;
         for (IClub club : clubs) {
             if (club != null && club.getCode().equalsIgnoreCase(clubCode)) {
@@ -284,25 +243,25 @@ public class Functions {
         System.out.println("| Select The Formation " + selectedClub.getName());
         IFormation formation = Util.selectFormation(input, (Club) selectedClub);
         Team team = new Team(selectedClub);
+
         try {
             team.setFormation(formation);
             ((Club) selectedClub).setTeam(team);
-        }catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             System.out.println("| Error: " + e.getMessage());
             return;
         }
 
-        try{
-            if (season.addClub(selectedClub)) {
-                System.out.println("| Club added to the season successfully.");
-            } else {
-                System.out.println("| Failed to add club to the season.");
-            }
-        }catch (IllegalStateException | IllegalArgumentException e){
+        try {
+            season.addClub(selectedClub);
+            System.out.println("| Club added to the season successfully.");
+        } catch (IllegalStateException | IllegalArgumentException e) {
             System.out.println("| Error: " + e.getMessage());
         }
-
+    } catch (IOException e) {
+        System.out.println("| Error importing clubs: " + e.getMessage());
     }
+}
 
     public static void removeClub(Scanner input, Season season) {
         IClub[] clubs = season.getCurrentClubs();
@@ -414,15 +373,15 @@ public class Functions {
         return null;
     }
 
-    public static void startSeason(java.util.Scanner input, Season season) {
-        System.out.println("Gerando o calendário...");
+    public static void startSeason(Scanner input, Season season) {
+        System.out.println("Generating the schedule...");
         season.generateSchedule();
 
-        System.out.println("Simulando a temporada automaticamente...");
+        System.out.println("Automatically simulating the season...");
         while (!season.isSeasonComplete()) {
             season.simulateRound();
         }
-        System.out.println("Temporada concluída!");
+        System.out.println("Season completed!");
     }
 
     public static void generateSchedule(Scanner input, Season season) {
@@ -452,5 +411,84 @@ public class Functions {
             ex.printStackTrace();
             System.out.println("Error generating schedule: " + ex.getMessage());
         }
+    }
+
+    public static void listStandings(Scanner input, Season season) {
+        System.out.println("|--------------Standings-------------------|");
+
+        IStanding[] standings = season.getLeagueStandings();
+        if (standings == null) {
+            System.out.println("| No standings available for this season.");
+            return;
+        }
+
+        int validCount = 0;
+        for (IStanding standing : standings) {
+            if (standing != null) validCount++;
+        }
+        if (validCount == 0) {
+            System.out.println("| No standings available for this season.");
+            return;
+        }
+
+        IStanding[] validStandings = new IStanding[validCount];
+        int idx = 0;
+        for (IStanding standing : standings) {
+            if (standing != null) validStandings[idx++] = standing;
+        }
+
+        // Sort by points, goal difference, then goals scored
+        for (int i = 0; i < validStandings.length - 1; i++) {
+            for (int j = 0; j < validStandings.length - i - 1; j++) {
+                IStanding a = validStandings[j];
+                IStanding b = validStandings[j + 1];
+                boolean swap = false;
+
+                if (a.getPoints() < b.getPoints()) {
+                    swap = true;
+                } else if (a.getPoints() == b.getPoints()) {
+                    if (a.getGoalDifference() < b.getGoalDifference()) {
+                        swap = true;
+                    } else if (a.getGoalDifference() == b.getGoalDifference()) {
+                        if (a.getGoalScored() < b.getGoalScored()) {
+                            swap = true;
+                        }
+                    }
+                }
+                if (swap) {
+                    IStanding temp = validStandings[j];
+                    validStandings[j] = validStandings[j + 1];
+                    validStandings[j + 1] = temp;
+                }
+            }
+        }
+
+        String header = String.format(
+            "| %-3s | %-6s | %-2s | %-2s | %-2s | %-2s | %-3s | %-3s | %-3s |",
+            "Pos", "Club", "MP", "W", "D", "L", "GF", "GA", "Pts"
+        );
+        String separator = new String(new char[header.length()]).replace('\0', '-');
+
+        System.out.println(header);
+        System.out.println(separator);
+
+        for (int i = 0; i < validStandings.length; i++) {
+            IStanding standing = validStandings[i];
+            ITeam team = standing.getTeam();
+            String row = String.format(
+                "| %-3d | %-6s | %-2d | %-2d | %-2d | %-2d | %-3d | %-3d | %-3d |",
+                (i + 1),
+                team.getClub().getCode(),
+                standing.getTotalMatches(),
+                standing.getWins(),
+                standing.getDraws(),
+                standing.getLosses(),
+                standing.getGoalScored(),
+                standing.getGoalsConceded(),
+                standing.getPoints()
+            );
+            System.out.println(row);
+        }
+        System.out.println(separator);
     }
 }
