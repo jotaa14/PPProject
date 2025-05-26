@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Util {
 
     public static void listAllClubs(IClub[] clubs) {
-        System.out.println("\nAvailable Clubs:");
         for (IClub club : clubs) {
             if (club != null) {
                 Club newClub = (Club) club;

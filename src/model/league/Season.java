@@ -170,8 +170,9 @@ public class Season implements ISeason {
         if (isSeasonComplete()){
             return;
         }
-        System.out.println("==========================================");
-        System.out.println("Round: " + (currentRound + 1));
+        System.out.println("\n══════════════════════════════════════════");
+        System.out.println("⚽️  ROUND " + (currentRound + 1) + "  ⚽️");
+        System.out.println("══════════════════════════════════════════\n");
 
         IMatch[] roundMatches = getMatches(currentRound);
 
@@ -179,7 +180,7 @@ public class Season implements ISeason {
             if (match.isValid() && !match.isPlayed()) {
                 simulator.simulate(match);
                 match.setPlayed();
-                System.out.println("Match simulated: " + displayMatchResult(match));
+                System.out.println("✅ Match simulated: " + displayMatchResult(match));
 
                 IStanding[] standings = getLeagueStandings();
                 ITeam homeTeam = match.getHomeTeam();
@@ -241,13 +242,24 @@ public class Season implements ISeason {
 
     @Override
     public String displayMatchResult(IMatch match) {
-        if (match == null) return "Invalid match";
+        if (match == null) return "❌ Invalid match!";
+
         String home = match.getHomeClub().getName();
         String away = match.getAwayClub().getName();
         int homeGoals = match.getTotalByEvent(GoalEvent.class, match.getHomeClub());
         int awayGoals = match.getTotalByEvent(GoalEvent.class, match.getAwayClub());
-        return home + " " + homeGoals + " x " + awayGoals + " " + away;
+
+        String result = "🏟️ " + home + " " + homeGoals + " x " + awayGoals + " " + away;
+        if (homeGoals > awayGoals) {
+            result += "  🏆 " + home + " wins!";
+        } else if (awayGoals > homeGoals) {
+            result += "  🏆 " + away + " wins!";
+        } else {
+            result += "  🤝 Draw!";
+        }
+        return result;
     }
+
 
     @Override
     public void setMatchSimulator(MatchSimulatorStrategy matchSimulatorStrategy) {
