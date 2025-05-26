@@ -1,17 +1,26 @@
 package model.player;
+
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
-import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import data.Exporter;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 
 /**
+ * Represents a football player with physical, technical, and club information.
+ * Implements the IPlayer interface, supports cloning, and can export to JSON.
+ * This class encapsulates all necessary attributes and methods to manage a player's
  *
- * @author diogo
+ * Nome: Diogo Fernando Águia Costa
+ * Número: 8240696
+ * Turma: LSIRC T1
+ *
+ * Nome: João Pedro Martins Ribeiro
+ * Número: <Número mecanográfico do colega de grupo>
+ * Turma: <Turma do colega de grupo>
+ *
  */
 public class Player implements IPlayer, Cloneable {
     private String name;
@@ -31,9 +40,30 @@ public class Player implements IPlayer, Cloneable {
     private PreferredFoot preferredFoot;
     private String clubCode;
 
+    /**
+     * Full constructor to create a player.
+     *
+     * @param name Player's name
+     * @param birthDate Date of birth
+     * @param nationality Nationality
+     * @param position Main playing position (implements IPlayerPosition)
+     * @param photo Path or URL to the player's photo
+     * @param number Jersey number
+     * @param shooting Shooting skill (0-99)
+     * @param passing Passing skill (0-99)
+     * @param stamina Stamina (0-99)
+     * @param speed Speed (0-99)
+     * @param defense Defensive skill (0-99)
+     * @param goalkeeping Goalkeeping skill (0-99)
+     * @param height Height in meters
+     * @param weight Weight in kg
+     * @param preferredFoot Preferred foot (LEFT/RIGHT/BOTH)
+     * @param clubCode Current club code
+     */
     public Player(String name, LocalDate birthDate, String nationality,
                   IPlayerPosition position, String photo, int number, int shooting, int passing,
-                  int stamina, int speed, int defense, int goalkeeping,  float height, float weight, PreferredFoot preferredFoot,  String clubCode) {
+                  int stamina, int speed, int defense, int goalkeeping, float height, float weight,
+                  PreferredFoot preferredFoot, String clubCode) {
         this.name = name;
         this.birthDate = birthDate;
         this.nationality = nationality;
@@ -52,16 +82,28 @@ public class Player implements IPlayer, Cloneable {
         this.clubCode = clubCode;
     }
 
+    /**
+     * Gets the player's name.
+     * @return Name
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the player's date of birth.
+     * @return Date of birth
+     */
     @Override
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
+    /**
+     * Calculates the player's age.
+     * @return Age in years
+     */
     @Override
     public int getAge() {
         LocalDate now = LocalDate.now();
@@ -74,11 +116,20 @@ public class Player implements IPlayer, Cloneable {
         return years;
     }
 
+    /**
+     * Gets the player's nationality.
+     * @return Nationality
+     */
     @Override
     public String getNationality() {
         return nationality;
     }
 
+    /**
+     * Sets the player's main position.
+     * @param playerPosition New position (cannot be null)
+     * @throws IllegalArgumentException if position is null
+     */
     @Override
     public void setPosition(IPlayerPosition playerPosition) {
         if (playerPosition == null) {
@@ -87,68 +138,125 @@ public class Player implements IPlayer, Cloneable {
         this.position = playerPosition;
     }
 
+    /**
+     * Gets the path or URL to the player's photo.
+     * @return Photo
+     */
     @Override
     public String getPhoto() {
         return photo;
     }
 
+    /**
+     * Gets the jersey number.
+     * @return Number
+     */
     @Override
     public int getNumber() {
         return number;
     }
 
+    /**
+     * Gets the shooting skill.
+     * @return Shooting (0-99)
+     */
     @Override
     public int getShooting() {
         return shooting;
     }
 
+    /**
+     * Gets the passing skill.
+     * @return Passing (0-99)
+     */
     @Override
     public int getPassing() {
         return passing;
     }
 
+    /**
+     * Gets the stamina value.
+     * @return Stamina (0-99)
+     */
     @Override
     public int getStamina() {
         return stamina;
     }
 
+    /**
+     * Gets the speed value.
+     * @return Speed (0-99)
+     */
     @Override
     public int getSpeed() {
         return speed;
     }
 
+    /**
+     * Gets the defensive skill.
+     * @return Defense (0-99)
+     */
     public int getDefense() {
         return defense;
     }
 
+    /**
+     * Gets the goalkeeping skill.
+     * @return Goalkeeping (0-99)
+     */
     public int getGoalkeeping() {
         return goalkeeping;
     }
 
+    /**
+     * Gets the player's main position.
+     * @return Position (IPlayerPosition)
+     */
     @Override
     public IPlayerPosition getPosition() {
         return position;
     }
 
+    /**
+     * Gets the player's height.
+     * @return Height in meters
+     */
     @Override
     public float getHeight() {
         return height;
     }
 
+    /**
+     * Gets the player's weight.
+     * @return Weight in kg
+     */
     @Override
     public float getWeight() {
         return weight;
     }
 
+    /**
+     * Gets the player's preferred foot.
+     * @return PreferredFoot (LEFT/RIGHT)
+     */
     @Override
     public PreferredFoot getPreferredFoot() {
         return preferredFoot;
     }
 
+    /**
+     * Gets the current club code.
+     * @return Club code
+     */
     public String getClub() {
         return this.clubCode;
     }
 
+    /**
+     * Compares players by name and date of birth.
+     * @param obj Object to compare
+     * @return true if name and birth date are equal
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -157,6 +265,10 @@ public class Player implements IPlayer, Cloneable {
         return this.name.equals(player.name) && this.birthDate.equals(player.birthDate);
     }
 
+    /**
+     * Returns a formatted string with the player's main attributes.
+     * @return String with player details
+     */
     @Override
     public String toString() {
         return "Player: " + name + " \nAge: " + getAge() + " \nNationality: " + nationality +
@@ -167,26 +279,42 @@ public class Player implements IPlayer, Cloneable {
                 "kg \n-Preferred Foot: " + preferredFoot + "  \n-Strength: " + getStrength() + "\n";
     }
 
+    /**
+     * Creates a shallow copy of the Player object.
+     * @return New cloned Player object
+     * @throws CloneNotSupportedException if cloning fails
+     */
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 
+    /**
+     * Calculates the player's strength for a specific position, using different weights for each attribute.
+     * <ul>
+     *   <li>GOALKEEPER: 2×goalkeeping + defense + stamina + speed + shooting + 2×passing</li>
+     *   <li>DEFENDER: goalkeeping + 2×defense + stamina + speed + shooting + 2×passing</li>
+     *   <li>MIDFIELDER: goalkeeping + defense + 2×stamina + speed + shooting + 2×passing</li>
+     *   <li>FORWARD: goalkeeping + defense + stamina + 2×speed + 2×shooting + passing</li>
+     * </ul>
+     * @param position Position for calculation
+     * @return Strength (0-99)
+     */
     public int getStrengthByType(IPlayerPosition position) {
         int playerStatus = 0;
-        String desc = position.getDescription(); // Garantir que getDescription() esteja na interface
+        String desc = position.getDescription();
         switch (desc) {
             case "GOALKEEPER":
-                playerStatus = ((goalkeeping * 2 + defense * 1 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2)/6);
+                playerStatus = ((goalkeeping * 2 + defense * 1 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2) / 8);
                 break;
             case "DEFENDER":
-                playerStatus = ((goalkeeping * 1 + defense * 2 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2)/6);
+                playerStatus = ((goalkeeping * 1 + defense * 2 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2) / 8);
                 break;
             case "MIDFIELDER":
-                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 2 + speed * 1 + shooting * 1 + passing * 2)/6);
+                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 2 + speed * 1 + shooting * 1 + passing * 2) / 8);
                 break;
             case "FORWARD":
-                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 1 + speed * 2 + shooting * 2 + passing * 1)/6);
+                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 1 + speed * 2 + shooting * 2 + passing * 1) / 8);
                 break;
             default:
                 playerStatus = 0;
@@ -195,10 +323,18 @@ public class Player implements IPlayer, Cloneable {
         return playerStatus;
     }
 
+    /**
+     * Calculates the player's strength in their main position.
+     * @return Strength (0-99)
+     */
     public int getStrength() {
         return getStrengthByType(this.position);
     }
 
+    /**
+     * Exports the player's data to a JSON file using the Exporter class.
+     * @throws IOException if writing fails
+     */
     @Override
     public void exportToJson() throws IOException {
         Exporter.exportPlayer(this);

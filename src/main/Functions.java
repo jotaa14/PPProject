@@ -418,7 +418,7 @@ public class Functions {
         }
 
         System.out.println("╔════════════════════════════════════════════");
-        System.out.println("║            🏟️  CHOOSE CLUB  🏟️              ");
+        System.out.println("║            🏟️  CHOOSE CLUB  🏟️             ");
         System.out.println("╚════════════════════════════════════════════");
         System.out.println("Available Clubs:");
         listAllClubs(clubs);
@@ -436,7 +436,7 @@ public class Functions {
 
     public static void startSeason(Scanner input, Season season) {
         System.out.println("╔════════════════════════════════════════════");
-        System.out.println("║         🚩  STARTING SEASON  🚩             ");
+        System.out.println("║         🚩  STARTING SEASON  🚩            ");
         System.out.println("╚════════════════════════════════════════════");
         System.out.println("Generating the schedule...");
         generateSchedule(input, season);
