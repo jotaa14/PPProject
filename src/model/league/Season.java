@@ -155,7 +155,6 @@ public class Season implements ISeason {
     @Override
     public IMatch[] getMatches(int round) {
         int count = 0;
-        System.out.println(matches.length);
         for (IMatch match : matches) {
             if (match != null && match.getRound() == round) count++;
         }
@@ -171,7 +170,9 @@ public class Season implements ISeason {
 
     @Override
     public void simulateRound() {
-        if (isSeasonComplete()) return;
+        if (isSeasonComplete()){
+            return;
+        }
         IMatch[] roundMatches = getMatches(currentRound);
 
         for (IMatch match : roundMatches) {

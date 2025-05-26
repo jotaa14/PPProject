@@ -415,7 +415,7 @@ public class Functions {
 
     public static void startSeason(Scanner input, Season season) {
         System.out.println("Generating the schedule...");
-        season.generateSchedule();
+        generateSchedule(input, season);
 
         System.out.println("Automatically simulating the season...");
         while (!season.isSeasonComplete()) {
@@ -462,6 +462,64 @@ public class Functions {
             System.out.println("Error generating schedule: " + ex.getMessage());
         }
     }
+
+    public static void selectFormation(Scanner input, Season season, IClub managedClub) {
+        if (managedClub == null) {
+            System.out.println("| No club selected to manage.");
+            return;
+        }
+
+        System.out.println("|--------------Select Formation-------------|");
+        System.out.println("| Managing: " + managedClub.getName());
+
+        IFormation formation = Util.selectFormation(input, (Club) managedClub);
+        if (formation != null) {
+            Team team = new Team(managedClub);
+            team.setFormation(formation);
+            ((Club) managedClub).setTeam(team);
+            System.out.println("| Formation set successfully for " + managedClub.getName());
+        } else {
+            System.out.println("| Invalid formation selection.");
+        }
+    }
+
+    public static void selectPlayerByPosition(Scanner input, Season season, IClub managedClub) {
+        if (managedClub == null) {
+            System.out.println("| No club selected to manage.");
+            return;
+        }
+
+        System.out.println("|--------------Select Player by Position----|");
+        System.out.println("| Managing: " + managedClub.getName());
+
+        IPlayer[] players = managedClub.getPlayers();
+        if (players.length == 0) {
+            System.out.println("| No players available in this club.");
+            return;
+        }
+
+        System.out.println("| Available Players:                        |");
+        for (IPlayer player : players) {
+            System.out.println("| " + player.getName() + " - Position: " + player.getPosition());
+        }
+
+        System.out.println("| Enter the position to filter by (e.g., Forward, Midfielder, Defender, Goalkeeper): ");
+        String position = input.next();
+        /*
+        boolean found = false;
+        for (IPlayer player : players) {
+            if (player.getPosition().equalsIgnoreCase(position)) {
+                System.out.println("| Selected Player: " + player.getName() + " - Position: " + player.getPosition());
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("| No players found for the specified position.");
+        }
+            */
+    }
+
 
     public static void listStandings(Scanner input, Season season) {
         System.out.println("|--------------Standings-------------------|");

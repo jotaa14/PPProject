@@ -172,7 +172,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("Selecting Formation...");
-                    //selectFormation(input, season);
+                    selectFormation(input, season, managedClub);
                     break;
                 case 3:
                     System.out.println("Listing Club Information...");
