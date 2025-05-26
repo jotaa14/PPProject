@@ -1,7 +1,6 @@
 package main;
 
 import com.ppstudios.footballmanager.api.contracts.event.IEvent;
-import com.ppstudios.footballmanager.api.contracts.league.ISchedule;
 import com.ppstudios.footballmanager.api.contracts.league.ISeason;
 import com.ppstudios.footballmanager.api.contracts.league.IStanding;
 import com.ppstudios.footballmanager.api.contracts.match.IMatch;

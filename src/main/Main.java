@@ -40,7 +40,6 @@ public class Main {
         input.close();
     }
 
-
     private static void runLeagueMenu(Scanner input, League league) {
         boolean inSeason = true;
         while (inSeason) {
@@ -110,7 +109,6 @@ public class Main {
         boolean listing = true;
         while (listing) {
             int op = startSeasonMenu(input);
-
             switch (op) {
                 case 1:
                     System.out.println("Generating Schedule...");
@@ -177,6 +175,16 @@ public class Main {
                 case 3:
                     System.out.println("Listing Club Information...");
                     listClubInformation(input, managedClub);
+                    System.out.println("Do You Want To Formation Player By Player? (Y/N)");
+                    String choice = input.next();
+                    if (choice.equalsIgnoreCase("Y")) {
+                        System.out.println("Forming Players...");
+                        selectPlayerByPosition(input, season ,managedClub);
+                    } else if (choice.equalsIgnoreCase("N")) {
+                        System.out.println("Skipping player formation.");
+                    } else {
+                        System.out.println("Invalid choice. Please enter 'Y' or 'N'.");
+                    }
                     break;
                 case 4:
                     System.out.println("Listing Schedule...");

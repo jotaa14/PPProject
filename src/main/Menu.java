@@ -79,7 +79,7 @@ public class Menu {
         do {
             System.out.println("|------------Season Main Menu--------------|");
             System.out.println("| 1) Friendly Match                        |");
-            System.out.println("| 2) Start Season                          |");
+            System.out.println("| 2) Season                                |");
             System.out.println("| 3) Add Clubs                             |");
             System.out.println("| 4) Remove Clubs                          |");
             System.out.println("| 5) List                                  |");

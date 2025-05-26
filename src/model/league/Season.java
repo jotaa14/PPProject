@@ -13,8 +13,6 @@ import model.simulation.MatchSimulator;
 import model.team.Club;
 
 import java.io.IOException;
-import java.util.Arrays;
-import static model.event.eventTypes.GoalEvent.*;
 import static model.league.Standing.updateStandingsAfterMatch;
 
 public class Season implements ISeason {
@@ -146,7 +144,6 @@ public class Season implements ISeason {
         }
     }
 
-
     @Override
     public IMatch[] getMatches() {
         return matches;
@@ -173,6 +170,9 @@ public class Season implements ISeason {
         if (isSeasonComplete()){
             return;
         }
+        System.out.println("==========================================");
+        System.out.println("Round: " + (currentRound + 1));
+
         IMatch[] roundMatches = getMatches(currentRound);
 
         for (IMatch match : roundMatches) {
@@ -209,7 +209,6 @@ public class Season implements ISeason {
         currentRound++;
     }
 
-
     @Override
     public void simulateSeason() {
         while (!isSeasonComplete()) {
@@ -240,7 +239,6 @@ public class Season implements ISeason {
         }
     }
 
-
     @Override
     public String displayMatchResult(IMatch match) {
         if (match == null) return "Invalid match";
@@ -265,7 +263,6 @@ public class Season implements ISeason {
         }
         return copy;
     }
-
 
     @Override
     public ISchedule getSchedule() {
@@ -294,12 +291,14 @@ public class Season implements ISeason {
 
     @Override
     public int getMaxTeams() {
+
         return maxTeams;
     }
 
     @Override
     public int getMaxRounds() {
-        return (maxTeams - 1) * 2;
+        boolean isOdd = numberOfCurrentTeams % 2 != 0;
+        return (isOdd ? numberOfCurrentTeams : numberOfCurrentTeams - 1) * 2;
     }
 
     @Override
