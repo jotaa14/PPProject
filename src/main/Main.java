@@ -25,17 +25,14 @@ public class Main {
                     League league = createLeague(input);
                     runLeagueMenu(input, league);
                     break;
-
                 case 2:
                     System.out.println("\nLoading Saved Game...");
                     // TODO: Implement loading functionality
                     break;
-
                 case 3:
                     System.out.println("\nExiting the Game. See you soon!");
                     running = false;
                     break;
-
                 default:
                     System.out.println("\nInvalid option. Please try again.");
             }
@@ -59,7 +56,6 @@ public class Main {
                     System.out.println("\nLoading a Season...");
                     loadSeason(input, league);
                     break;
-
                 case 3:
                     System.out.println("\nListing information...");
                     listSeason(input, league);
@@ -69,7 +65,6 @@ public class Main {
                     System.out.println("\nExiting league menu.");
                     inSeason = false;
                     break;
-
                 default:
                     System.out.println("\nInvalid option. Please try again.");
             }
@@ -87,12 +82,10 @@ public class Main {
                     System.out.println("\nSimulating Game...");
                     simulateGame(input, season.getCurrentClubs());
                     break;
-
                 case 2:
                     System.out.println("\nStarting a New Season...");
                     runStartSeason(input, season);
                     break;
-
                 case 3:
                     System.out.println("\nAdding a Club...");
                     addClub(input, season);
@@ -113,7 +106,6 @@ public class Main {
                     System.out.println("\nListing information...");
                     listSeasonStuff(input, season);
                     break;
-
                 case 8:
                     System.out.println("\nRestarting Season...");
                     season.resetSeason();
@@ -124,7 +116,6 @@ public class Main {
                     System.out.println("\nExiting season menu.");
                     listing = false;
                     break;
-
                 default:
                     System.out.println("\nInvalid option. Please try again.");
             }
@@ -142,7 +133,6 @@ public class Main {
                     System.out.println("\nGenerating Schedule...");
                     generateSchedule(input, season);
                     break;
-
                 case 2:
                     System.out.println("\nSimulating Season...");
                     System.out.println("--------------------------------------------");
@@ -165,22 +155,18 @@ public class Main {
                     System.out.println("\nListing Information...");
                     listSeasonStuff(input, season);
                     break;
-
                 case 4:
                     System.out.println("\nStandings Information...");
                     listStandings(input, season);
                     break;
-
                 case 5:
                     System.out.println("\nListing Events...");
                     viewGameEventsByRoundAndMatch(input, season);
                     break;
-
                 case 6:
                     System.out.println("\nExiting start season menu.");
                     listing = false;
                     break;
-
                 default:
                     System.out.println("\nInvalid option. Please try again.");
             }

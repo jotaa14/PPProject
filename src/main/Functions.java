@@ -12,6 +12,7 @@ import data.Importer;
 import model.event.eventTypes.GoalEvent;
 import model.league.League;
 import model.match.Match;
+import model.player.Player;
 import model.player.PlayerPosition;
 import model.player.PlayerPositionType;
 import model.simulation.MatchSimulator;
@@ -686,7 +687,6 @@ public class Functions {
             }
         }
     }
-
 
     public static void viewRoundEventsByManagedTeam(Scanner input, Season season, IClub managedClub) {
         if (managedClub == null) {

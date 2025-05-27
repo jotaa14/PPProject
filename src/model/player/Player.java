@@ -40,7 +40,6 @@ public class Player implements IPlayer, Cloneable {
     private float weight;
     private PreferredFoot preferredFoot;
     private String clubCode;
-
     /**
      * Full constructor to create a player.
      *
@@ -306,16 +305,16 @@ public class Player implements IPlayer, Cloneable {
         String desc = position.getDescription();
         switch (desc) {
             case "GOALKEEPER":
-                playerStatus = ((goalkeeping * 2 + defense * 1 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2) / 8);
+                playerStatus = ((goalkeeping * 2 + defense * 1 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2) / 7);
                 break;
             case "DEFENDER":
-                playerStatus = ((goalkeeping * 1 + defense * 2 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2) / 8);
+                playerStatus = ((goalkeeping * 1 + defense * 2 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2) / 7);
                 break;
             case "MIDFIELDER":
-                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 2 + speed * 1 + shooting * 1 + passing * 2) / 8);
+                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 2 + speed * 1 + shooting * 1 + passing * 2) / 7);
                 break;
             case "FORWARD":
-                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 1 + speed * 2 + shooting * 2 + passing * 1) / 8);
+                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 1 + speed * 2 + shooting * 2 + passing * 1) / 7);
                 break;
             default:
                 playerStatus = 0;
@@ -331,6 +330,7 @@ public class Player implements IPlayer, Cloneable {
     public int getStrength() {
         return getStrengthByType(this.position);
     }
+
 
     /**
      * Exports the player's data to a JSON file using the Exporter class.

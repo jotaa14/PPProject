@@ -19,7 +19,6 @@ public class MatchSimulator implements MatchSimulatorStrategy {
 
     private final Random rand = new Random();
 
-    // Probabilidades ajustadas para maior realismo
     private static final double SHOT_CHANCE = 0.18;
     private static final double PASSING_CHANCE = 0.25;
     private static final double GOAL_AFTER_SHOT_CHANCE = 0.11;
