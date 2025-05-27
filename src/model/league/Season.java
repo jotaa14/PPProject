@@ -233,7 +233,12 @@ public class Season implements ISeason {
             for (int i = 0; i < matches.length; i++) {
                 IMatch match = matches[i];
                 if (match != null) {
-                    matches[i] = new model.match.Match(match.getHomeTeam(), match.getAwayTeam(), match.getRound());
+                    matches[i] = new Match(match.getHomeTeam(), match.getAwayTeam(), match.getRound());
+                }
+            }
+            for(int j = 0; j < standings.length; j++) {
+                if (standings[j] != null) {
+                    standings[j] = new Standing(standings[j].getTeam());
                 }
             }
         }

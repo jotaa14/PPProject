@@ -115,6 +115,12 @@ public class Main {
                     break;
 
                 case 8:
+                    System.out.println("\nRestarting Season...");
+                    season.resetSeason();
+                    System.out.println("Season Has Been Restarted.");
+                    break;
+
+                case 9:
                     System.out.println("\nExiting season menu.");
                     listing = false;
                     break;
@@ -149,23 +155,28 @@ public class Main {
                             runManagerMenu(input, season, managedClub);
                         }
                     } else if (choice.equalsIgnoreCase("N")) {
-                        System.out.println("Simulating the season...");
+                        System.out.println("Simulating The Season...");
                         startSeason(input, season);
                     } else {
-                        System.out.println("Invalid choice. Please enter 'Y' or 'N'.");
+                        System.out.println("Invalid Choice. Please Enter 'Y' or 'N'.");
                     }
                     break;
                 case 3:
-                    System.out.println("\nListing information...");
+                    System.out.println("\nListing Information...");
                     listSeasonStuff(input, season);
                     break;
 
                 case 4:
-                    System.out.println("\nStandings information...");
+                    System.out.println("\nStandings Information...");
                     listStandings(input, season);
                     break;
 
                 case 5:
+                    System.out.println("\nListing Events...");
+                    viewGameEventsByRoundAndMatch(input, season);
+                    break;
+
+                case 6:
                     System.out.println("\nExiting start season menu.");
                     listing = false;
                     break;

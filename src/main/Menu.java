@@ -83,19 +83,20 @@ public class Menu {
             System.out.println("|  5. Remove Clubs                           |");
             System.out.println("|  6. Remove Clubs (AUTO)                    |");
             System.out.println("|  7. List                                   |");
-            System.out.println("|  8. Exit                                   |");
+            System.out.println("|  8. Restart Season                         |");
+            System.out.println("|  9. Exit                                   |");
             System.out.println("|--------------------------------------------|");
-            System.out.print("> Enter your option [1-8]: ");
+            System.out.print("> Enter your option [1-9]: ");
 
             try {
                 op = input.nextInt();
-                if (op >= 1 && op <= 8) {
+                if (op >= 1 && op <= 9) {
                     verifyInput = true;
                 } else {
-                    System.out.println("! Select a Valid Option (1-8)!");
+                    System.out.println("! Select a Valid Option (1-9)!");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("! Select a Valid Option (1-8)!");
+                System.out.println("! Select a Valid Option (1-9)!");
                 input.next();
             }
         } while (!verifyInput);
@@ -114,14 +115,15 @@ public class Menu {
             System.out.println("|  1. Schedule                               |");
             System.out.println("|  2. Start Season                           |");
             System.out.println("|  3. List Information                       |");
-            System.out.println("|  4. List Matches                           |");
-            System.out.println("|  5. Exit                                   |");
+            System.out.println("|  4. Standings                              |");
+            System.out.println("|  5. Events                                 |");
+            System.out.println("|  6. Exit                                   |");
             System.out.println("|--------------------------------------------|");
-            System.out.print("> Enter your option [1-5]: ");
+            System.out.print("> Enter your option [1-6]: ");
 
             try {
                 op = input.nextInt();
-                if (op >= 1 && op <= 5) {
+                if (op >= 1 && op <= 6) {
                     verifyInput = true;
                 } else {
                     System.out.println("! Select a Valid Option (1-5)!");
@@ -148,19 +150,20 @@ public class Menu {
             System.out.println("|  3. Club Information                       |");
             System.out.println("|  4. Schedule                               |");
             System.out.println("|  5. Events                                 |");
-            System.out.println("|  6. Exit                                   |");
+            System.out.println("|  6. Standings                              |");
+            System.out.println("|  7. Exit                                   |");
             System.out.println("|--------------------------------------------|");
-            System.out.print("> Enter your option [1-6]: ");
+            System.out.print("> Enter your option [1-7]: ");
 
             try {
                 op = input.nextInt();
-                if (op >= 1 && op <= 6) {
+                if (op >= 1 && op <= 7) {
                     verifyInput = true;
                 } else {
-                    System.out.println("! Select a Valid Option (1-6)!");
+                    System.out.println("! Select a Valid Option (1-7)!");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("! Select a Valid Option (1-6)!");
+                System.out.println("! Select a Valid Option (1-7)!");
                 input.next();
             }
         } while (!verifyInput);

@@ -677,7 +677,6 @@ public class Functions {
         }
     }
 
-    // 4. Helper to print selected players
     private static void printSelectedPlayers(String posName, IPlayer[] selected) {
         for (int i = 0; i < selected.length; i++) {
             if (selected[i] != null) {
@@ -729,11 +728,6 @@ public class Functions {
         if (maxRound == 0) {
             System.out.println("No rounds have been played yet.");
             return;
-        }
-
-        System.out.println("Available rounds:");
-        for (int i = 0; i < maxRound; i++) {
-            System.out.println("  " + (i + 1));
         }
 
         int round = 0;
@@ -797,8 +791,6 @@ public class Functions {
         }
         System.out.println("--------------------------------------------");
     }
-
-
 
     public static void listStandings(Scanner input, Season season) {
         System.out.println("|--------------------------------------------|");
