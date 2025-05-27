@@ -1,6 +1,7 @@
 package main;
 
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
+import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import model.league.Season;
 import model.league.League;
 
@@ -199,12 +200,13 @@ public class Main {
 
                 case 2:
                     System.out.println("\nSelecting Formation...");
-                    selectFormation(input, season, managedClub);
+
+                    IFormation formation = selectFormation(input, season, managedClub);
                     System.out.print("Do you want to select players by position? (Y/N): ");
                     String choice = input.next();
                     if (choice.equalsIgnoreCase("Y")) {
                         System.out.println("Forming players...");
-                        selectPlayerByPosition(input, season, managedClub);
+                        selectPlayerByPosition(input, managedClub, formation);
                     } else if (choice.equalsIgnoreCase("N")) {
                         System.out.println("Skipping player formation.");
                     } else {

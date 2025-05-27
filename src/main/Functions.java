@@ -12,8 +12,11 @@ import data.Importer;
 import model.event.eventTypes.GoalEvent;
 import model.league.League;
 import model.match.Match;
+import model.player.PlayerPosition;
+import model.player.PlayerPositionType;
 import model.simulation.MatchSimulator;
 import model.team.Club;
+import model.team.Formation;
 import model.team.Team;
 import model.league.Season;
 
@@ -545,12 +548,12 @@ public class Functions {
             System.out.println("Error generating schedule: " + ex.getMessage());
         }
     }
-    public static void selectFormation(Scanner input, Season season, IClub managedClub) {
+    public static IFormation selectFormation(Scanner input, Season season, IClub managedClub) {
         if (managedClub == null) {
             System.out.println("|--------------------------------------------|");
             System.out.println("No club selected to manage.");
             System.out.println("|--------------------------------------------|");
-            return;
+            return null;
         }
 
         System.out.println("|--------------------------------------------|");
@@ -568,58 +571,88 @@ public class Functions {
             System.out.println("Invalid formation selection.");
         }
         System.out.println("--------------------------------------------");
+        return formation;
     }
 
-
-    public static void selectPlayerByPosition(Scanner input, Season season, IClub managedClub) {
+    public static void selectPlayerByPosition(Scanner input, IClub managedClub, IFormation formation) {
         if (managedClub == null) {
             System.out.println("|--------------------------------------------|");
-            System.out.println("|No club selected to manage.                 |"                 );
+            System.out.println("|No club selected to manage.                 |");
             System.out.println("|--------------------------------------------|");
             return;
         }
 
         System.out.println("|--------------------------------------------|");
-        System.out.println("|         SELECT PLAYER BY POSITION          |");
+        System.out.println("|      SELECT STARTING XI BY FORMATION       |");
         System.out.println("|--------------------------------------------|");
         System.out.println("Managing: " + managedClub.getName());
+        System.out.println("Formation: " + formation.getDisplayName());
 
         IPlayer[] players = managedClub.getPlayers();
         if (players.length == 0) {
             System.out.println("No players available in this club.");
             return;
         }
+        Formation concreteFormation = (Formation) formation;
 
-        String[] positions = {"GOALKEEPER", "DEFENDER", "MIDFIELDER", "FORWARD"};
-        IPlayer[] startingXI = new IPlayer[positions.length];
+        int numGoalkeepers = 1;
+        int numDefenders = concreteFormation.getDefenders();
+        int numMidfielders = concreteFormation.getMidfielders();
+        int numForwards = concreteFormation.getForwards();
 
-        for (int i = 0; i < positions.length; i++) {
-            String pos = positions[i];
+        IPlayer[] selectedGoalkeepers = new IPlayer[numGoalkeepers];
+        IPlayer[] selectedDefenders = new IPlayer[numDefenders];
+        IPlayer[] selectedMidfielders = new IPlayer[numMidfielders];
+        IPlayer[] selectedForwards = new IPlayer[numForwards];
 
-            int count = 0;
-            for (int j = 0; j < players.length; j++) {
-                if (players[j].getPosition().toString().equalsIgnoreCase(pos)) {
-                    count++;
-                }
+        selectPlayersForPosition(input, players, PlayerPositionType.GOALKEEPER, numGoalkeepers, selectedGoalkeepers);
+        selectPlayersForPosition(input, players, PlayerPositionType.DEFENDER, numDefenders, selectedDefenders);
+        selectPlayersForPosition(input, players, PlayerPositionType.MIDFIELDER, numMidfielders, selectedMidfielders);
+        selectPlayersForPosition(input, players, PlayerPositionType.FORWARD, numForwards, selectedForwards);
+
+        System.out.println("\n|--------------------------------------------|");
+        System.out.println("|           YOUR STARTING XI                 |");
+        System.out.println("|--------------------------------------------|");
+        printSelectedPlayers("GOALKEEPER", selectedGoalkeepers);
+        printSelectedPlayers("DEFENDER", selectedDefenders);
+        printSelectedPlayers("MIDFIELDER", selectedMidfielders);
+        printSelectedPlayers("FORWARD", selectedForwards);
+        System.out.println("--------------------------------------------");
+    }
+
+    private static void selectPlayersForPosition(Scanner input, IPlayer[] players, PlayerPositionType posType, int numRequired, IPlayer[] selected) {
+        int count = 0;
+        for (IPlayer player : players) {
+            PlayerPositionType playerType = ((PlayerPosition) player.getPosition()).getType();
+            if (playerType == posType) {
+                count++;
             }
+        }
 
-            if (count == 0) {
-                System.out.println("No players available for position: " + pos);
-                startingXI[i] = null;
-                continue;
+        if (count < numRequired) {
+            System.out.println("Not enough players available for position: " + posType.name() +
+                    " (required: " + numRequired + ", found: " + count + ")");
+            for (int i = 0; i < numRequired; i++) selected[i] = null;
+            return;
+        }
+
+        IPlayer[] filtered = new IPlayer[count];
+        int idx = 0;
+        for (IPlayer player : players) {
+            PlayerPositionType playerType = ((PlayerPosition) player.getPosition()).getType();
+            if (playerType == posType) {
+                filtered[idx++] = player;
             }
+        }
 
-            IPlayer[] filtered = new IPlayer[count];
-            int idx = 0;
-            for (int j = 0; j < players.length; j++) {
-                if (players[j].getPosition().toString().equalsIgnoreCase(pos)) {
-                    filtered[idx++] = players[j];
-                }
-            }
+        boolean[] alreadySelected = new boolean[filtered.length];
 
-            System.out.println("\nSelect a player for position: " + pos);
+        for (int i = 0; i < numRequired; i++) {
+            System.out.println("\nSelect " + posType.name() + " #" + (i + 1) + ":");
             for (int j = 0; j < filtered.length; j++) {
-                System.out.println("  " + (j + 1) + ". " + filtered[j].getName());
+                if (!alreadySelected[j]) {
+                    System.out.println("  " + (j + 1) + ". " + filtered[j].getName());
+                }
             }
 
             int choice = 0;
@@ -627,34 +660,34 @@ public class Functions {
             do {
                 System.out.print("Enter the number for your choice: ");
                 try {
-                    choice = input.nextInt();
-                    if (choice >= 1 && choice <= filtered.length) {
+                    choice = Integer.parseInt(input.nextLine());
+                    if (choice >= 1 && choice <= filtered.length && !alreadySelected[choice - 1]) {
                         valid = true;
                     } else {
-                        System.out.println("Invalid choice. Try again.");
+                        System.out.println("Invalid choice or player already selected. Try again.");
                     }
                 } catch (Exception e) {
                     System.out.println("Invalid input. Try again.");
-                    input.next();
                 }
             } while (!valid);
 
-            startingXI[i] = filtered[choice - 1];
-            System.out.println("Selected: " + startingXI[i].getName() + " for " + pos);
+            selected[i] = filtered[choice - 1];
+            alreadySelected[choice - 1] = true;
+            System.out.println("Selected: " + selected[i].getName() + " for " + posType.name());
         }
+    }
 
-        System.out.println("\n|--------------------------------------------|");
-        System.out.println("|           YOUR STARTING PLAYERS            |");
-        System.out.println("|--------------------------------------------|");
-        for (int i = 0; i < positions.length; i++) {
-            if (startingXI[i] != null) {
-                System.out.println(positions[i] + ": " + startingXI[i].getName());
+    // 4. Helper to print selected players
+    private static void printSelectedPlayers(String posName, IPlayer[] selected) {
+        for (int i = 0; i < selected.length; i++) {
+            if (selected[i] != null) {
+                System.out.println(posName + " #" + (i + 1) + ": " + selected[i].getName());
             } else {
-                System.out.println(positions[i] + ": (no player selected)");
+                System.out.println(posName + " #" + (i + 1) + ": (no player selected)");
             }
         }
-        System.out.println("--------------------------------------------");
     }
+
 
     public static void viewRoundEventsByManagedTeam(Scanner input, Season season, IClub managedClub) {
         if (managedClub == null) {
