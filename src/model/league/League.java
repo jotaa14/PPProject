@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class League implements ILeague {
     private String name;
-    private ISeason[] seasons = new ISeason[0];
+    private ISeason[] seasons = new ISeason[1];
 
     public League(String name) {
         this.name = name;

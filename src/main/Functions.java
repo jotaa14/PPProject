@@ -101,42 +101,33 @@ public class Functions {
         return new Season(name, year, maxTeams);
     }
 
-    public static Season loadSeason(Scanner input, League league) {
-        Season[] seasons = (Season[]) league.getSeasons();
-
+    public static ISeason loadSeason(Scanner input, League league) {
+        ISeason[] seasons = league.getSeasons();
         if (seasons.length == 0) {
-            System.out.println("╔═══════════════════════════════════════════");
-            System.out.println("║      ⚠️  No seasons found in this league.  ");
-            System.out.println("╚════════════════════════════════════════════");
+            System.out.println("No seasons available in this league.");
             return null;
         }
-
-        System.out.println("╔═══════════════════════════════════════════");
-        System.out.println("║         📜  AVAILABLE SEASONS  📜          ");
-        System.out.println("╚═══════════════════════════════════════════");
-        for (int i = 0; i < seasons.length; i++) {
-            System.out.println("  " + (i + 1) + ". " + seasons[i].getName() + " (" + seasons[i].getYear() + ")");
+        System.out.println("All seasons avaiable: ");
+        for (ISeason season : seasons) {
+            if (season == null) continue;
+            System.out.println("Season: " + season.getName() + " | Year: " + season.getYear());
         }
 
-        int selectedIndex = -1;
+        int year = 0;
         boolean validInput = false;
 
-        do {
-            System.out.print("Enter the number of the season to load: ");
+        while (!validInput) {
             try {
-                selectedIndex = input.nextInt();
-                if (selectedIndex >= 1 && selectedIndex <= seasons.length) {
-                    validInput = true;
-                } else {
-                    System.out.println("⚠️  Select a valid season number (1-" + seasons.length + ")!");
-                }
+                System.out.println("Enter the year of the season: ");
+                year = input.nextInt();
+
+                validInput = true;
             } catch (InputMismatchException e) {
-                System.out.println("⚠️  Invalid input. Please enter a number.");
+                System.out.println("Invalid input. Please enter numeric values.");
                 input.next();
             }
-        } while (!validInput);
-
-        return seasons[selectedIndex - 1];
+        }
+        return league.getSeason(year);
     }
 
     public static void listSeason(Scanner input, League league) {

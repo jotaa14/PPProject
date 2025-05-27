@@ -337,6 +337,6 @@ public class Player implements IPlayer, Cloneable {
      */
     @Override
     public void exportToJson() throws IOException {
-        Exporter.exportPlayer(this);
+       // Exporter.exportPlayer(this);
     }
 }

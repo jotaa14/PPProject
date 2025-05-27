@@ -56,7 +56,6 @@ public class Main {
                     Season season = createSeason(input);
                     runSeasonMenu(input, season);
                     break;
-
                 case 2:
                     System.out.println("\n📂 Loading a Season...");
                     loadSeason(input, league);
@@ -218,6 +217,7 @@ public class Main {
                     break;
 
                 case 5:
+
                 case 6:
                     System.out.println("\n⬅️ Exiting manager menu.");
                     listing = false;

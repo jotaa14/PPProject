@@ -11,11 +11,22 @@ import model.player.PlayerPositionType;
 
 import java.util.Random;
 
+/**
+ * Simulates a football match between two teams, generating events such as shots, goals,
+ * passes, fouls, penalties, and offsides according to predefined probabilities.
+ *
+ * <p>
+ * This implementation is fully compliant with the API contract for MatchSimulatorStrategy.
+ * </p>
+ *
+ * @author Your Name
+ */
 public class MatchSimulator implements MatchSimulatorStrategy {
 
     private final Random rand = new Random();
 
     private static final double SHOT_CHANCE = 0.05;
+    private static final double PASSING_CHANCE = 0.07;
     private static final double GOAL_AFTER_SHOT_CHANCE = 0.5;
     private static final double CORNER_AFTER_MISSED_CHANCE = 0.5;
 
@@ -29,6 +40,9 @@ public class MatchSimulator implements MatchSimulatorStrategy {
     private static final double FREEKICK_GOAL_CHANCE = 0.3;
     private static final double FREEKICK_MISS_CORNER_CHANCE = 0.5;
     private static final double OFFSIDE_CHANCE = 0.01;
+
+    private static final double PASS_TO_GOAL_CHANCE = 0.25;
+    private static final double PASS_SUCCESS_CHANCE = 0.65;
 
     @Override
     public void simulate(IMatch match) {
@@ -44,13 +58,13 @@ public class MatchSimulator implements MatchSimulatorStrategy {
     }
 
     private void validateMatch(IMatch match) {
-        if (match == null){
+        if (match == null) {
             throw new IllegalArgumentException("Match cannot be null");
         }
-        if (match.isPlayed()){
+        if (match.isPlayed()) {
             throw new IllegalStateException("Match is already played");
         }
-        if (!match.isValid()){
+        if (!match.isValid()) {
             throw new IllegalStateException("Match is not valid");
         }
     }
@@ -63,9 +77,11 @@ public class MatchSimulator implements MatchSimulatorStrategy {
 
         if (chance < SHOT_CHANCE) {
             handleShotEvent(match, minute, attackingClub, attacker);
-        } else if (chance < SHOT_CHANCE + FOUL_CHANCE) {
+        } else if (chance < SHOT_CHANCE + PASSING_CHANCE) {
+            handlePassingEvent(match, minute, attackingClub, attacker);
+        } else if (chance < SHOT_CHANCE + PASSING_CHANCE + FOUL_CHANCE) {
             handleFoulEvent(match, minute, attackingClub, attacker);
-        } else if (chance < SHOT_CHANCE + FOUL_CHANCE + OFFSIDE_CHANCE) {
+        } else if (chance < SHOT_CHANCE + PASSING_CHANCE + FOUL_CHANCE + OFFSIDE_CHANCE) {
             match.addEvent(new OffSideEvent(attacker, minute));
         }
     }
@@ -91,6 +107,27 @@ public class MatchSimulator implements MatchSimulatorStrategy {
             match.addEvent(new CornerKickEvent(attacker, minute));
         } else {
             match.addEvent(new GoalKickEvent(goalkeeper, minute));
+        }
+    }
+
+    private void handlePassingEvent(IMatch match, int minute, IClub attackingClub, Player passer) {
+        match.addEvent(new PassingEvent(passer, minute));
+
+        if (rand.nextDouble() < PASS_SUCCESS_CHANCE) {
+            Player receiver = getRandomOutfieldPlayer(attackingClub);
+            if (receiver != null && !receiver.equals(passer)) {
+                match.addEvent(new PassingEvent(receiver, minute));
+                if (rand.nextDouble() < PASS_TO_GOAL_CHANCE) {
+                    match.addEvent(new ShotEvent(receiver, minute));
+                    if (rand.nextDouble() < GOAL_AFTER_SHOT_CHANCE) {
+                        match.addEvent(new GoalEvent(receiver, minute));
+                    } else {
+                        handleMissedShot(match, minute, attackingClub, receiver);
+                    }
+                }
+            }
+        } else {
+            match.addEvent(new TurnoverEvent(passer, minute));
         }
     }
 

@@ -136,6 +136,9 @@ public class Team implements ITeam {
         }
         this.formation = formation;
     }
+    public int getPlayerCount() {
+        return playerCount;
+    }
 
     @Override
     public void exportToJson() throws IOException {
