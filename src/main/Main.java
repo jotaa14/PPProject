@@ -15,30 +15,28 @@ public class Main {
         Scanner input = new Scanner(System.in);
         boolean running = true;
 
-        System.out.println("⚽️ Welcome to Football Manager! ⚽️\n");
-
         while (running) {
             int op = mainMenu(input);
 
             switch (op) {
                 case 1:
-                    System.out.println("\n🆕 Starting a New Game...");
+                    System.out.println("\nStarting a New Game...");
                     League league = createLeague(input);
                     runLeagueMenu(input, league);
                     break;
 
                 case 2:
-                    System.out.println("\n💾 Loading Saved Game...");
+                    System.out.println("\nLoading Saved Game...");
                     // TODO: Implement loading functionality
                     break;
 
                 case 3:
-                    System.out.println("\n👋 Exiting the Game. See you soon!");
+                    System.out.println("\nExiting the Game. See you soon!");
                     running = false;
                     break;
 
                 default:
-                    System.out.println("\n❌ Invalid option. Please try again.");
+                    System.out.println("\nInvalid option. Please try again.");
             }
         }
         input.close();
@@ -52,27 +50,27 @@ public class Main {
 
             switch (op) {
                 case 1:
-                    System.out.println("\n🏆 Starting a New Season...");
+                    System.out.println("\nStarting a New Season...");
                     Season season = createSeason(input);
                     runSeasonMenu(input, season);
                     break;
                 case 2:
-                    System.out.println("\n📂 Loading a Season...");
+                    System.out.println("\nLoading a Season...");
                     loadSeason(input, league);
                     break;
 
                 case 3:
-                    System.out.println("\n📋 Listing information...");
+                    System.out.println("\nListing information...");
                     listSeason(input, league);
                     break;
 
                 case 4:
-                    System.out.println("\n⬅️ Exiting league menu.");
+                    System.out.println("\nExiting league menu.");
                     inSeason = false;
                     break;
 
                 default:
-                    System.out.println("\n❌ Invalid option. Please try again.");
+                    System.out.println("\nInvalid option. Please try again.");
             }
         }
     }
@@ -85,37 +83,43 @@ public class Main {
 
             switch (op) {
                 case 1:
-                    System.out.println("\n🎲 Simulating Game...");
+                    System.out.println("\nSimulating Game...");
                     simulateGame(input, season.getCurrentClubs());
                     break;
 
                 case 2:
-                    System.out.println("\n🔄 Starting a New Season...");
+                    System.out.println("\nStarting a New Season...");
                     runStartSeason(input, season);
                     break;
 
                 case 3:
-                    System.out.println("\n➕ Adding a Club...");
+                    System.out.println("\nAdding a Club...");
                     addClub(input, season);
                     break;
-
                 case 4:
-                    System.out.println("\n➖ Removing a Club...");
+                    System.out.println("\nAdding Clubs...");
+                    importAllClubsToSeason(input, season);
+                    break;
+                case 5:
+                    System.out.println("\nRemoving a Club...");
                     removeClub(input, season);
                     break;
-
-                case 5:
-                    System.out.println("\n📋 Listing information...");
+                case 6:
+                    System.out.println("\nRemoving Clubs...");
+                    removeAllClubsFromSeason(input, season);
+                    break;
+                case 7:
+                    System.out.println("\nListing information...");
                     listSeasonStuff(input, season);
                     break;
 
-                case 6:
-                    System.out.println("\n⬅️ Exiting season menu.");
+                case 8:
+                    System.out.println("\nExiting season menu.");
                     listing = false;
                     break;
 
                 default:
-                    System.out.println("\n❌ Invalid option. Please try again.");
+                    System.out.println("\nInvalid option. Please try again.");
             }
         }
     }
@@ -128,45 +132,45 @@ public class Main {
 
             switch (op) {
                 case 1:
-                    System.out.println("\n🗓️ Generating Schedule...");
+                    System.out.println("\nGenerating Schedule...");
                     generateSchedule(input, season);
                     break;
 
                 case 2:
-                    System.out.println("\n🏁 Simulating Season...");
-                    System.out.println("|------------------------------------------|");
-                    System.out.println("| 👔 Play as Manager? (Y/N): ");
+                    System.out.println("\nSimulating Season...");
+                    System.out.println("--------------------------------------------");
+                    System.out.print("Play as Manager? (Y/N): ");
                     String choice = input.next();
                     if (choice.equalsIgnoreCase("Y")) {
-                        System.out.println("🎮 Playing as Manager...");
+                        System.out.println("Playing as Manager...");
                         IClub managedClub = chooseClub(input, season);
                         if (managedClub != null) {
                             runManagerMenu(input, season, managedClub);
                         }
                     } else if (choice.equalsIgnoreCase("N")) {
-                        System.out.println("🤖 Simulating the season...");
+                        System.out.println("Simulating the season...");
                         startSeason(input, season);
                     } else {
-                        System.out.println("❌ Invalid choice. Please enter 'Y' or 'N'.");
+                        System.out.println("Invalid choice. Please enter 'Y' or 'N'.");
                     }
                     break;
                 case 3:
-                    System.out.println("\n📋 Listing information...");
+                    System.out.println("\nListing information...");
                     listSeasonStuff(input, season);
                     break;
 
                 case 4:
-                    System.out.println("\n📊 Standings information...");
+                    System.out.println("\nStandings information...");
                     listStandings(input, season);
                     break;
 
                 case 5:
-                    System.out.println("\n⬅️ Exiting start season menu.");
+                    System.out.println("\nExiting start season menu.");
                     listing = false;
                     break;
 
                 default:
-                    System.out.println("\n❌ Invalid option. Please try again.");
+                    System.out.println("\nInvalid option. Please try again.");
             }
         }
     }
@@ -176,55 +180,66 @@ public class Main {
         boolean verifySchedule = false;
 
         while (listing) {
-            System.out.println("\n| 👔 Managing: " + managedClub.getName() + " |");
+            System.out.println("\n--------------------------------------------");
+            System.out.println("         Managing: " + managedClub.getName());
+            System.out.println("--------------------------------------------");
             int op = managerMenu(input);
 
             switch (op) {
                 case 1:
-                    System.out.println("\n🔜 Starting Round...");
+                    System.out.println("\nStarting Round...");
                     if (!verifySchedule) {
-                        System.out.println("🗓️ Generating Schedule...");
+                        System.out.println("Generating Schedule...");
                         generateSchedule(input, season);
                         verifySchedule = true;
                     }
                     simulateRound(input, season, managedClub);
+                    viewRoundEventsByManagedTeam(input, season, managedClub);
                     break;
 
                 case 2:
-                    System.out.println("\n📝 Selecting Formation...");
+                    System.out.println("\nSelecting Formation...");
                     selectFormation(input, season, managedClub);
-                    break;
-
-                case 3:
-                    System.out.println("\n📄 Club Information...");
-                    listClubInformation(input, managedClub);
-                    System.out.println("👥 Do you want to select players by position? (Y/N)");
+                    System.out.print("Do you want to select players by position? (Y/N): ");
                     String choice = input.next();
                     if (choice.equalsIgnoreCase("Y")) {
-                        System.out.println("⚙️ Forming players...");
+                        System.out.println("Forming players...");
                         selectPlayerByPosition(input, season, managedClub);
                     } else if (choice.equalsIgnoreCase("N")) {
-                        System.out.println("⏭️ Skipping player formation.");
+                        System.out.println("Skipping player formation.");
                     } else {
-                        System.out.println("❌ Invalid choice. Please enter 'Y' or 'N'.");
+                        System.out.println("Invalid choice. Please enter 'Y' or 'N'.");
                     }
                     break;
 
+                case 3:
+                    System.out.println("\nClub Information...");
+                    listClubInformation(input, managedClub);
+                    break;
+
                 case 4:
-                    System.out.println("\n🗓️ Listing Schedule...");
+                    System.out.println("\nListing Schedule...");
                     generateSchedule(input, season);
                     verifySchedule = true;
                     break;
 
                 case 5:
+                    System.out.println("\nListing Event Information...");
+                    viewGameEventsByRoundAndMatch(input, season);
+                    break;
 
                 case 6:
-                    System.out.println("\n⬅️ Exiting manager menu.");
+                    System.out.println("\nListing Standings...");
+                    listStandings(input, season);
+                    break;
+                    
+                case 7:
+                    System.out.println("\nExiting manager menu.");
                     listing = false;
                     break;
 
                 default:
-                    System.out.println("\n❌ Invalid option. Please try again.");
+                    System.out.println("\nInvalid option. Please try again.");
             }
         }
     }

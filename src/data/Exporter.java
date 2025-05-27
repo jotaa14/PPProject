@@ -1,6 +1,7 @@
 package data;
-import com.ppstudios.footballmanager.api.contracts.data.IExporter;
 
+import com.ppstudios.footballmanager.api.contracts.data.IExporter;
+import com.ppstudios.footballmanager.api.contracts.event.IEvent;
 import com.ppstudios.footballmanager.api.contracts.league.ILeague;
 import com.ppstudios.footballmanager.api.contracts.league.ISchedule;
 import com.ppstudios.footballmanager.api.contracts.league.ISeason;
@@ -9,12 +10,12 @@ import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import model.event.PlayerEvent;
 import model.player.Player;
+import model.event.Event;
 import model.team.Club;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -116,7 +117,7 @@ public class Exporter implements IExporter {
         matchJsonObject.put("home_team", teamToJsonObject(match.getHomeTeam()));
         matchJsonObject.put("away_team", teamToJsonObject(match.getAwayTeam()));
         matchJsonObject.put("round", match.getRound());
-        matchJsonObject.put("events", match.getEvents());
+        matchJsonObject.put("events", eventsToJsonArray(match.getEvents()));
         matchJsonObject.put("is_played", match.isPlayed());
         return matchJsonObject;
     }
@@ -192,5 +193,26 @@ public class Exporter implements IExporter {
         playerJson.put("strength", player.getStrength());
 
         return playerJson;
+    }
+
+    public JSONArray eventsToJsonArray(IEvent[] events) {
+        JSONArray eventsJson = new JSONArray();
+        for (IEvent event : events) {
+            if(event != null){
+                eventsJson.add(eventToJsonObject((Event)event));
+            }
+        }
+        return eventsJson;
+    }
+
+    private JSONObject eventToJsonObject(Event event) {
+        JSONObject eventJson = new JSONObject();
+        eventJson.put("type", event.getType());
+        eventJson.put("minute", event.getMinute());
+        eventJson.put("description", event.getDescription());
+        if(event instanceof PlayerEvent){
+            eventJson.put("player", playerToJsonObject((Player)((PlayerEvent) event).getPlayer()));
+        }
+        return eventJson;
     }
 }

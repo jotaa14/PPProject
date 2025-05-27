@@ -8,13 +8,10 @@ import java.io.IOException;
 
 public abstract class PlayerEvent extends Event {
     private Player player;
-    private String type;
 
     public PlayerEvent( int minute, Player player, String description, String type) {
-        super(minute, description);
+        super(minute, description, type);
         this.player = player;
-        this.type = type;
-
     }
 
     public IPlayer getPlayer() {
@@ -23,18 +20,5 @@ public abstract class PlayerEvent extends Event {
 
     @Override
     public void exportToJson() throws IOException {
-        String json = "{\n" +
-                "  \"type\": \"" + type + "\",\n" +
-                "  \"description\": \"" + getDescription() + "\",\n" +
-                "  \"minute\": " + getMinute() + ",\n" +
-                "  \"player\": {\n" +
-                "    \"name\": \"" + player.getName() + "\",\n" +
-                "    \"number\": " + player.getNumber() + "\n" +
-                "  }\n" +
-                "}";
-
-        FileWriter writer = new FileWriter(type + ".json");
-        writer.write(json);
-        writer.close();
     }
 }

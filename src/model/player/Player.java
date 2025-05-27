@@ -4,6 +4,7 @@ import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
 import data.Exporter;
+import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -335,8 +336,27 @@ public class Player implements IPlayer, Cloneable {
      * Exports the player's data to a JSON file using the Exporter class.
      * @throws IOException if writing fails
      */
+
     @Override
     public void exportToJson() throws IOException {
-       // Exporter.exportPlayer(this);
+        String player = "Player :{\n" +
+                "  \"name\": \"" + name + "\",\n" +
+                "  \"birthdate\": \"" + birthDate + "\",\n" +
+                "  \"nationality\": \"" + nationality + "\",\n" +
+                "  \"photo\": \"" + photo + "\",\n" +
+                "  \"number\": " + number + ",\n" +
+                "  \"passing\": " + passing + ",\n" +
+                "  \"shooting\": " + shooting + ",\n" +
+                "  \"speed\": " + speed + ",\n" +
+                "  \"stamina\": " + stamina + ",\n" +
+                "  \"defense\": " + defense + ",\n" +
+                "  \"goalkeeping\": " + goalkeeping + ",\n" +
+                "  \"weight\": " + weight + ",\n" +
+                "  \"height\": " + height + ",\n" +
+                "  \"position\": \"" + position.getDescription() + "\",\n" +
+                "  \"foot\": \"" + preferredFoot.getPreferredFoot() + "\",\n" +
+                "  \"clubCode\": \"" + clubCode + "\"\n" +
+                "}";
+        System.out.println(player);
     }
 }

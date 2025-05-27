@@ -128,7 +128,6 @@ public class Season implements ISeason {
                     home = (round % 2 == 0) ? tempTeams[t2] : tempTeams[t1];
                     away = (round % 2 == 0) ? tempTeams[t1] : tempTeams[t2];
                 }
-
                 if (home != null && away != null) {
                     IMatch match = new Match(home, away, round);
                     ((Schedule) schedule).addMatchToRound(round, match);
@@ -170,9 +169,9 @@ public class Season implements ISeason {
         if (isSeasonComplete()){
             return;
         }
-        System.out.println("\n══════════════════════════════════════════");
-        System.out.println("⚽️  ROUND " + (currentRound + 1) + "  ⚽️");
-        System.out.println("══════════════════════════════════════════\n");
+        System.out.println("\n--------------------------------------------");
+        System.out.println("               ROUND " + (currentRound + 1));
+        System.out.println("--------------------------------------------\n");
 
         IMatch[] roundMatches = getMatches(currentRound);
 
@@ -180,7 +179,7 @@ public class Season implements ISeason {
             if (match.isValid() && !match.isPlayed()) {
                 simulator.simulate(match);
                 match.setPlayed();
-                System.out.println("✅ Match simulated: " + displayMatchResult(match));
+                System.out.println("Match simulated: " + displayMatchResult(match));
 
                 IStanding[] standings = getLeagueStandings();
                 ITeam homeTeam = match.getHomeTeam();
@@ -242,24 +241,22 @@ public class Season implements ISeason {
 
     @Override
     public String displayMatchResult(IMatch match) {
-        if (match == null) return "❌ Invalid match!";
+        if (match == null) return "Invalid match!";
 
         String home = match.getHomeClub().getName();
         String away = match.getAwayClub().getName();
         int homeGoals = match.getTotalByEvent(GoalEvent.class, match.getHomeClub());
         int awayGoals = match.getTotalByEvent(GoalEvent.class, match.getAwayClub());
-
-        String result = "🏟️ " + home + " " + homeGoals + " x " + awayGoals + " " + away;
+        String result = home + " " + homeGoals + " x " + awayGoals + " " + away;
         if (homeGoals > awayGoals) {
-            result += "  🏆 " + home + " wins!";
+            result += "  - " + home + " wins!";
         } else if (awayGoals > homeGoals) {
-            result += "  🏆 " + away + " wins!";
+            result += "  - " + away + " wins!";
         } else {
-            result += "  🤝 Draw!";
+            result += "  - Draw!";
         }
         return result;
     }
-
 
     @Override
     public void setMatchSimulator(MatchSimulatorStrategy matchSimulatorStrategy) {
@@ -303,7 +300,6 @@ public class Season implements ISeason {
 
     @Override
     public int getMaxTeams() {
-
         return maxTeams;
     }
 

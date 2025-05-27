@@ -6,10 +6,12 @@ import java.io.IOException;
 public abstract class Event implements IEvent {
     private String description;
     private int minute;
+    private String type;
 
-    public Event( int minute, String description) {
+    public Event( int minute, String description, String type) {
         this.description = description;
         this.minute = minute;
+        this.type = type;
     }
 
     @Override
@@ -18,11 +20,16 @@ public abstract class Event implements IEvent {
 
     @Override
     public int getMinute() {
-        return minute; }
+        return minute;
+    }
+
+    public String getType() {
+        return type;
+    }
 
     @Override
     public String toString() {
-        return "|\uD83D\uDD5B "+ minute + " min| " + description;
+        return "|" + minute + " min| " + description;
     }
 
     @Override

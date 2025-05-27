@@ -5,6 +5,6 @@ import model.player.Player;
 
 public class RedCardEvent extends PlayerEvent {
     public RedCardEvent(Player player, int minute) {
-        super(minute, player,"\uD83D\uDFE5 "+ player.getName() + "(" +player.getClub() +")" + " received a red card", "Red Card");
+        super(minute, player, player.getName() + "(" +player.getClub() +")" + " received a red card", "Red Card");
         }
 }

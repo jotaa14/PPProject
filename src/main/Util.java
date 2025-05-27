@@ -67,5 +67,13 @@ public class Util {
         }while (true) ;
     }
 
-
+    public static IFormation getDefaultFormation(Club club) {
+        Formation formation = new Formation(4, 4, 2);  // Default 4-4-2
+        formation.setClub(club);
+        int value = formation.calculateOverAllValue();
+        System.out.println("→ Default formation set for " + club.getName() +
+                ": " + formation.getDisplayName() +
+                " | Value: " + value);
+        return formation;
+    }
 }

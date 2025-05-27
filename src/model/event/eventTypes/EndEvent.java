@@ -8,7 +8,7 @@ import java.io.IOException;
 public class EndEvent extends Event {
 
     public EndEvent(int minute) {
-        super(minute, "End of match");
+        super(minute, "End of match", "End Event");
     }
 
     @Override

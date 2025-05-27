@@ -13,36 +13,31 @@ import java.util.Random;
 
 /**
  * Simulates a football match between two teams, generating events such as shots, goals,
- * passes, fouls, penalties, and offsides according to predefined probabilities.
- *
- * <p>
- * This implementation is fully compliant with the API contract for MatchSimulatorStrategy.
- * </p>
- *
- * @author Your Name
+ * passes, fouls, penalties, and offsides according to probabilities inspired by real-world data.
  */
 public class MatchSimulator implements MatchSimulatorStrategy {
 
     private final Random rand = new Random();
 
-    private static final double SHOT_CHANCE = 0.05;
-    private static final double PASSING_CHANCE = 0.07;
-    private static final double GOAL_AFTER_SHOT_CHANCE = 0.5;
-    private static final double CORNER_AFTER_MISSED_CHANCE = 0.5;
+    // Probabilidades ajustadas para maior realismo
+    private static final double SHOT_CHANCE = 0.18;
+    private static final double PASSING_CHANCE = 0.25;
+    private static final double GOAL_AFTER_SHOT_CHANCE = 0.11;
+    private static final double CORNER_AFTER_MISSED_CHANCE = 0.25;
 
-    private static final double FOUL_CHANCE = 0.02;
-    private static final double FOUL_NEAR_AREA_CHANCE = 0.4;
+    private static final double FOUL_CHANCE = 0.10;
+    private static final double FOUL_NEAR_AREA_CHANCE = 0.18;
 
-    private static final double PENALTY_AFTER_FOUL_CHANCE = 0.3;
-    private static final double PENALTY_CONVERT_CHANCE = 0.75;
-    private static final double PENALTY_MISS_CORNER_CHANCE = 0.4;
+    private static final double PENALTY_AFTER_FOUL_CHANCE = 0.015;
+    private static final double PENALTY_CONVERT_CHANCE = 0.78;
+    private static final double PENALTY_MISS_CORNER_CHANCE = 0.35;
 
-    private static final double FREEKICK_GOAL_CHANCE = 0.3;
-    private static final double FREEKICK_MISS_CORNER_CHANCE = 0.5;
-    private static final double OFFSIDE_CHANCE = 0.01;
+    private static final double FREEKICK_GOAL_CHANCE = 0.07;
+    private static final double FREEKICK_MISS_CORNER_CHANCE = 0.18;
 
-    private static final double PASS_TO_GOAL_CHANCE = 0.25;
-    private static final double PASS_SUCCESS_CHANCE = 0.65;
+    private static final double OFFSIDE_CHANCE = 0.025;
+    private static final double PASS_TO_GOAL_CHANCE = 0.08;
+    private static final double PASS_SUCCESS_CHANCE = 0.82;
 
     @Override
     public void simulate(IMatch match) {
@@ -58,30 +53,24 @@ public class MatchSimulator implements MatchSimulatorStrategy {
     }
 
     private void validateMatch(IMatch match) {
-        if (match == null) {
-            throw new IllegalArgumentException("Match cannot be null");
-        }
-        if (match.isPlayed()) {
-            throw new IllegalStateException("Match is already played");
-        }
-        if (!match.isValid()) {
-            throw new IllegalStateException("Match is not valid");
-        }
+        if (match == null) throw new IllegalArgumentException("Match cannot be null");
+        if (match.isPlayed()) throw new IllegalStateException("Match is already played");
+        if (!match.isValid()) throw new IllegalStateException("Match is not valid");
     }
 
     private void processMinuteEvents(IMatch match, int minute) {
-        double chance = rand.nextDouble();
+        double roll = rand.nextDouble();
         IClub attackingClub = rand.nextBoolean() ? match.getHomeClub() : match.getAwayClub();
         Player attacker = getRandomOutfieldPlayer(attackingClub);
         if (attacker == null) return;
 
-        if (chance < SHOT_CHANCE) {
+        if (roll < SHOT_CHANCE) {
             handleShotEvent(match, minute, attackingClub, attacker);
-        } else if (chance < SHOT_CHANCE + PASSING_CHANCE) {
+        } else if (roll < SHOT_CHANCE + PASSING_CHANCE) {
             handlePassingEvent(match, minute, attackingClub, attacker);
-        } else if (chance < SHOT_CHANCE + PASSING_CHANCE + FOUL_CHANCE) {
+        } else if (roll < SHOT_CHANCE + PASSING_CHANCE + FOUL_CHANCE) {
             handleFoulEvent(match, minute, attackingClub, attacker);
-        } else if (chance < SHOT_CHANCE + PASSING_CHANCE + FOUL_CHANCE + OFFSIDE_CHANCE) {
+        } else if (roll < SHOT_CHANCE + PASSING_CHANCE + FOUL_CHANCE + OFFSIDE_CHANCE) {
             match.addEvent(new OffSideEvent(attacker, minute));
         }
     }
@@ -221,7 +210,6 @@ public class MatchSimulator implements MatchSimulatorStrategy {
 
         IPlayer[] players = opponent.getPlayers();
         if (players == null || players.length == 0) return null;
-
         for (IPlayer p : players) {
             if (p instanceof Player) {
                 Player player = (Player) p;
