@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static main.Util.listAllClubs;
+import static main.Util.*;
 
 public class Functions {
 
@@ -573,15 +573,15 @@ public class Functions {
 
     public static void selectPlayerByPosition(Scanner input, Season season, IClub managedClub) {
         if (managedClub == null) {
-            System.out.println("--------------------------------------------");
-            System.out.println("No club selected to manage.");
-            System.out.println("--------------------------------------------");
+            System.out.println("|--------------------------------------------|");
+            System.out.println("|No club selected to manage.                 |"                 );
+            System.out.println("|--------------------------------------------|");
             return;
         }
 
-        System.out.println("--------------------------------------------");
-        System.out.println("         SELECT PLAYER BY POSITION          ");
-        System.out.println("--------------------------------------------");
+        System.out.println("|--------------------------------------------|");
+        System.out.println("|         SELECT PLAYER BY POSITION          |");
+        System.out.println("|--------------------------------------------|");
         System.out.println("Managing: " + managedClub.getName());
 
         IPlayer[] players = managedClub.getPlayers();
@@ -643,9 +643,9 @@ public class Functions {
             System.out.println("Selected: " + startingXI[i].getName() + " for " + pos);
         }
 
-        System.out.println("\n--------------------------------------------");
-        System.out.println("           YOUR STARTING PLAYERS            ");
-        System.out.println("--------------------------------------------");
+        System.out.println("\n|--------------------------------------------|");
+        System.out.println("|           YOUR STARTING PLAYERS            |");
+        System.out.println("|--------------------------------------------|");
         for (int i = 0; i < positions.length; i++) {
             if (startingXI[i] != null) {
                 System.out.println(positions[i] + ": " + startingXI[i].getName());
@@ -658,18 +658,18 @@ public class Functions {
 
     public static void viewRoundEventsByManagedTeam(Scanner input, Season season, IClub managedClub) {
         if (managedClub == null) {
-            System.out.println("--------------------------------------------");
-            System.out.println("No club selected to manage.");
-            System.out.println("--------------------------------------------");
+            System.out.println("|--------------------------------------------|");
+            System.out.println("|No club selected to manage.                 |");
+            System.out.println("|--------------------------------------------|");
             return;
         }
 
         int currentRound = season.getCurrentRound() - 1;
         if (currentRound < 0) currentRound = 0;
 
-        System.out.println("--------------------------------------------");
-        System.out.println("     EVENTS FOR " + managedClub.getName() + " IN ROUND " + (currentRound + 1));
-        System.out.println("--------------------------------------------");
+        System.out.println("|--------------------------------------------");
+        System.out.println("|     EVENTS FOR " + managedClub.getName() + " IN ROUND " + (currentRound + 1));
+        System.out.println("|--------------------------------------------");
 
         IMatch[] matches = season.getMatches(currentRound);
         boolean found = false;
@@ -688,9 +688,9 @@ public class Functions {
     }
 
     public static void viewGameEventsByRoundAndMatch(Scanner input, Season season) {
-        System.out.println("--------------------------------------------");
-        System.out.println("           VIEW GAME EVENTS BY ROUND        ");
-        System.out.println("--------------------------------------------");
+        System.out.println("|--------------------------------------------|");
+        System.out.println("|           VIEW GAME EVENTS BY ROUND        |");
+        System.out.println("|--------------------------------------------|");
 
         int maxRound = season.getCurrentRound();
         if (maxRound == 0) {
