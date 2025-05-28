@@ -3,8 +3,17 @@ package main;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Provides menu display and input validation functionality for the football manager console interface.
+ * Contains static methods for rendering different application menus and handling user selections.
+ */
 public class Menu {
 
+    /**
+     * Displays and validates input for the main menu.
+     * @param input Scanner instance for user input
+     * @return Validated user selection (1-3)
+     */
     public static int mainMenu(Scanner input) {
         int op = 0;
         boolean verifyInput = false;
@@ -37,6 +46,11 @@ public class Menu {
         return op;
     }
 
+    /**
+     * Displays and validates input for the league management menu.
+     * @param input Scanner instance for user input
+     * @return Validated user selection (1-4)
+     */
     public static int leagueMenu(Scanner input) {
         int op = 0;
         boolean verifyInput = false;
@@ -68,6 +82,11 @@ public class Menu {
         return op;
     }
 
+    /**
+     * Displays and validates input for the season management menu.
+     * @param input Scanner instance for user input
+     * @return Validated user selection (1-9)
+     */
     public static int seasonMenu(Scanner input) {
         int op = 0;
         boolean verifyInput = false;
@@ -104,6 +123,11 @@ public class Menu {
         return op;
     }
 
+    /**
+     * Displays and validates input for the season setup menu.
+     * @param input Scanner instance for user input
+     * @return Validated user selection (1-7)
+     */
     public static int startSeasonMenu(Scanner input) {
         int op = 0;
         boolean verifyInput = false;
@@ -138,6 +162,11 @@ public class Menu {
         return op;
     }
 
+    /**
+     * Displays and validates input for the team management menu.
+     * @param input Scanner instance for user input
+     * @return Validated user selection (1-8)
+     */
     public static int managerMenu(Scanner input) {
         int op = 0;
         boolean verifyInput = false;

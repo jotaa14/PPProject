@@ -12,7 +12,6 @@ import data.Importer;
 import model.event.eventTypes.GoalEvent;
 import model.league.League;
 import model.match.Match;
-import model.player.Player;
 import model.player.PlayerPosition;
 import model.player.PlayerPositionType;
 import model.simulation.MatchSimulator;
@@ -27,8 +26,36 @@ import java.util.Scanner;
 
 import static main.Util.*;
 
+/**
+ * Provides core functional operations for the Football Manager application.
+ * <p>
+ * This class contains static utility methods for creating leagues and seasons,
+ * loading and listing seasons, simulating games and rounds, managing clubs,
+ * handling player selection, and displaying statistics and standings.
+ * It serves as the main logic layer that connects user interface menus
+ * to the underlying data models and simulation logic.
+ * </p>
+ *
+ * <h2>Main Functionalities:</h2>
+ * <ul>
+ *   <li>League and season creation and management</li>
+ *   <li>Club import, addition, removal, and listing</li>
+ *   <li>Match simulation and schedule generation</li>
+ *   <li>Player selection and statistics display</li>
+ *   <li>Standings and events visualization</li>
+ * </ul>
+ *
+ * <b>Note:</b> All methods are static and intended to be called from menu handlers.
+ *
+ * @author
+ */
 public class Functions {
 
+    /**
+     * Creates a new league by prompting the user for a league name.
+     * @param input Scanner for user input
+     * @return New League instance
+     */
     public static League createLeague(Scanner input) {
         String name;
         boolean verifyInput = false;
@@ -49,6 +76,11 @@ public class Functions {
         return new League(name);
     }
 
+    /**
+     * Creates a new season by prompting the user for season name, year, and max teams.
+     * @param input Scanner for user input
+     * @return New Season instance
+     */
     public static Season createSeason(Scanner input) {
         int year = 0;
         String name;
@@ -101,6 +133,12 @@ public class Functions {
         return new Season(name, year, maxTeams);
     }
 
+    /**
+     * Loads a season from a league by prompting the user for the year.
+     * @param input Scanner for user input
+     * @param league The league to load the season from
+     * @return Loaded ISeason instance, or null if not found
+     */
     public static ISeason loadSeason(Scanner input, League league) {
         ISeason[] seasons = league.getSeasons();
         if (seasons.length == 0) {
@@ -129,6 +167,11 @@ public class Functions {
         return league.getSeason(year);
     }
 
+    /**
+     * Lists all seasons available in the given league.
+     * @param input Scanner for user input
+     * @param league The league whose seasons to list
+     */
     public static void listSeason(Scanner input, League league) {
         ISeason[] seasons = league.getSeasons();
 
@@ -147,6 +190,12 @@ public class Functions {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Simulates a match between two clubs selected by the user.
+     * Prompts for home and away team codes, allows formation selection, and displays match events.
+     * @param input Scanner for user input
+     * @param clubs Array of available clubs
+     */
     public static void simulateGame(Scanner input, IClub[] clubs) {
         System.out.println("|--------------------------------------------|");
         System.out.println("|             SIMULATE GAME                  |");
@@ -219,6 +268,11 @@ public class Functions {
         System.out.println("\n\n");
     }
 
+    /**
+     * Adds a club to the current season, allowing the user to select from imported clubs and set a formation.
+     * @param input Scanner for user input
+     * @param season The season to add the club to
+     */
     public static void addClub(Scanner input, Season season) {
         try {
             Importer importer = new Importer();
@@ -265,6 +319,11 @@ public class Functions {
         }
     }
 
+    /**
+     * Imports and adds all available clubs to the season, assigning default formations.
+     * @param input Scanner for user input
+     * @param season The season to add clubs to
+     */
     public static void importAllClubsToSeason(Scanner input, Season season) {
         try {
             Importer importer = new Importer();
@@ -298,6 +357,11 @@ public class Functions {
         }
     }
 
+    /**
+     * Removes a club from the season, prompting the user to select which club to remove.
+     * @param input Scanner for user input
+     * @param season The season to remove the club from
+     */
     public static void removeClub(Scanner input, Season season) {
         IClub[] clubs = season.getCurrentClubs();
         if (clubs.length == 0) {
@@ -331,6 +395,11 @@ public class Functions {
         }
     }
 
+    /**
+     * Removes all clubs from the season after user confirmation.
+     * @param input Scanner for user input
+     * @param season The season to clear clubs from
+     */
     public static void removeAllClubsFromSeason(Scanner input, Season season) {
         IClub[] clubs = season.getCurrentClubs();
         if (clubs.length == 0) {
@@ -367,6 +436,11 @@ public class Functions {
         }
     }
 
+    /**
+     * Lists clubs in the season and displays details for a selected club, including players and formation.
+     * @param input Scanner for user input
+     * @param season The season to list clubs from
+     */
     public static void listSeasonStuff(Scanner input, Season season) {
         IClub[] clubs = season.getCurrentClubs();
         if (clubs.length == 0) {
@@ -439,6 +513,11 @@ public class Functions {
         }
     }
 
+    /**
+     * Lists player statistics for a selected player from a selected club in the season.
+     * @param input Scanner for user input
+     * @param season The season to query
+     */
     public static void listPlayersStandings(Scanner input, Season season) {
         System.out.println("Choose the player club that you want to check stats:");
         for (IClub club : season.getCurrentClubs()) {
@@ -495,6 +574,12 @@ public class Functions {
         season.getPlayerStatistics(selectedPlayer);
     }
 
+    /**
+     * Lists player statistics for a selected player from the managed club.
+     * @param input Scanner for user input
+     * @param season The season to query
+     * @param selectedClub The club being managed
+     */
     public static void listPlayersStandingsForMangedClub(Scanner input, Season season, IClub selectedClub) {
         if (selectedClub == null) {
             System.out.println("No club selected to manage.");
@@ -537,6 +622,11 @@ public class Functions {
         season.getPlayerStatistics(selectedPlayer);
     }
 
+    /**
+     * Lists detailed information for a club, including formation and player details.
+     * @param input Scanner for user input
+     * @param club The club to display information for
+     */
     public static void listClubInformation(Scanner input, IClub club) {
         if (club == null) {
             System.out.println("No club selected.");
@@ -577,6 +667,12 @@ public class Functions {
         }
     }
 
+    /**
+     * Prompts the user to select a club from the current season.
+     * @param input Scanner for user input
+     * @param season The season to select from
+     * @return The selected club, or null if not found
+     */
     public static IClub chooseClub(Scanner input, Season season) {
         IClub[] clubs = season.getCurrentClubs();
         if (clubs.length == 0) {
@@ -601,6 +697,11 @@ public class Functions {
         return null;
     }
 
+    /**
+     * Starts the season by generating the schedule and simulating all rounds.
+     * @param input Scanner for user input
+     * @param season The season to start
+     */
     public static void startSeason(Scanner input, Season season) {
         System.out.println("|--------------------------------------------|");
         System.out.println("|              STARTING SEASON               |");
@@ -615,6 +716,12 @@ public class Functions {
         System.out.println("Season completed!");
     }
 
+    /**
+     * Simulates a round in the season for the managed club and displays updated standings.
+     * @param input Scanner for user input
+     * @param season The season to simulate
+     * @param managedClub The club being managed
+     */
     public static void simulateRound(Scanner input, Season season, IClub managedClub) {
         if (season.getMaxTeams() <= 1) {
             System.out.println("Unable to simulate round: not enough teams.");
@@ -630,6 +737,11 @@ public class Functions {
         }
     }
 
+    /**
+     * Generates and displays the season schedule.
+     * @param input Scanner for user input
+     * @param season The season to generate the schedule for
+     */
     public static void generateSchedule(Scanner input, Season season) {
         if (season.getMaxTeams() <= 1) {
             System.out.println("Unable to generate schedule: not enough teams.");
@@ -660,6 +772,13 @@ public class Functions {
         }
     }
 
+    /**
+     * Allows the user to select a formation for the managed club.
+     * @param input Scanner for user input
+     * @param season The season context
+     * @param managedClub The club being managed
+     * @return The selected formation
+     */
     public static IFormation selectFormation(Scanner input, Season season, IClub managedClub) {
         if (managedClub == null) {
             System.out.println("|--------------------------------------------|");
@@ -686,6 +805,12 @@ public class Functions {
         return formation;
     }
 
+    /**
+     * Allows the user to select the starting eleven by position for a club and formation.
+     * @param input Scanner for user input
+     * @param managedClub The club being managed
+     * @param formation The formation being used
+     */
     public static void selectPlayerByPosition(Scanner input, IClub managedClub, IFormation formation) {
         if (managedClub == null) {
             System.out.println("|--------------------------------------------|");
@@ -732,6 +857,7 @@ public class Functions {
         System.out.println("--------------------------------------------");
     }
 
+    // Helper methods for player selection and printing (not public API)
     private static void selectPlayersForPosition(Scanner input, IPlayer[] players, PlayerPositionType posType, int numRequired, IPlayer[] selected) {
         int count = 0;
         for (IPlayer player : players) {
@@ -789,6 +915,7 @@ public class Functions {
         }
     }
 
+    // Helper methods for player selection and printing (not public API)
     private static void printSelectedPlayers(String posName, IPlayer[] selected) {
         for (int i = 0; i < selected.length; i++) {
             if (selected[i] != null) {
@@ -799,6 +926,12 @@ public class Functions {
         }
     }
 
+    /**
+     * Displays all events for the managed club in the current round.
+     * @param input Scanner for user input
+     * @param season The season context
+     * @param managedClub The club being managed
+     */
     public static void viewRoundEventsByManagedTeam(Scanner input, Season season, IClub managedClub) {
         if (managedClub == null) {
             System.out.println("|--------------------------------------------|");
@@ -830,6 +963,11 @@ public class Functions {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Allows the user to view all events for a selected match in a selected round.
+     * @param input Scanner for user input
+     * @param season The season context
+     */
     public static void viewGameEventsByRoundAndMatch(Scanner input, Season season) {
         System.out.println("|--------------------------------------------|");
         System.out.println("|           VIEW GAME EVENTS BY ROUND        |");
@@ -903,6 +1041,11 @@ public class Functions {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Lists the current standings for the season, sorted by points, goal difference, and goals scored.
+     * @param input Scanner for user input
+     * @param season The season to display standings for
+     */
     public static void listStandings(Scanner input, Season season) {
         System.out.println("|--------------------------------------------|");
         System.out.println("|                 STANDINGS                  |");

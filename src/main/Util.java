@@ -9,8 +9,20 @@ import model.team.Formation;
 
 import java.util.Scanner;
 
+/**
+ * Provides utility methods for common football management tasks.
+ * Contains static helper methods for listing clubs, selecting formations,
+ * and applying default formations.
+ */
 public class Util {
 
+    /**
+     * Displays information for all clubs in the provided array.
+     * Shows club name, code, player count, and strength rating.
+     *
+     * @param clubs Array of clubs to display (null entries are skipped)
+     * @throws ClassCastException if any element is not a {@link Club} instance
+     */
     public static void listAllClubs(IClub[] clubs) {
         for (IClub club : clubs) {
             if (club != null) {
@@ -21,6 +33,15 @@ public class Util {
         }
     }
 
+    /**
+     * Interactive method to select a formation from predefined options.
+     * Displays a menu of formations and returns the selected formation linked to the club.
+     *
+     * @param scanner Scanner for user input (must not be null)
+     * @param club Club to associate with the formation (must not be null)
+     * @return Selected formation (4-4-2, 4-3-3, 3-5-2, or 5-3-2)
+     * @throws NumberFormatException if non-numeric input is provided
+     */
     public static IFormation selectFormation(Scanner scanner, Club club) {
         do {
             scanner.nextLine();
@@ -64,9 +85,15 @@ public class Util {
                 System.out.println("Invalid input. Please enter a number.");
             }
 
-        }while (true) ;
+        } while (true);
     }
 
+    /**
+     * Assigns a default 4-4-2 formation to the specified club.
+     *
+     * @param club Club to receive the default formation (must not be null)
+     * @return Default 4-4-2 formation linked to the club
+     */
     public static IFormation getDefaultFormation(Club club) {
         Formation formation = new Formation(4, 4, 2);  // Default 4-4-2
         formation.setClub(club);

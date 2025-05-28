@@ -1,6 +1,18 @@
 package data;
 
+import com.ppstudios.footballmanager.api.contracts.league.ILeague;
+import com.ppstudios.footballmanager.api.contracts.league.ISchedule;
+import com.ppstudios.footballmanager.api.contracts.league.ISeason;
+import com.ppstudios.footballmanager.api.contracts.league.IStanding;
+import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
+import com.ppstudios.footballmanager.api.contracts.team.IClub;
+import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import model.event.Event;
+import model.event.PlayerEvent;
+import model.league.League;
+import model.league.Season;
+import model.match.Match;
 import model.player.Player;
 import model.player.PlayerPosition;
 import model.player.PlayerPositionType;
@@ -277,4 +289,28 @@ public class Importer {
             throw new IOException("Error reading club file: " + e.getMessage());
         }
     }
+    /*
+    public void importAllLeagues() {
+
+
+    }
+
+    private ILeague[] ILeagueJSONtoObject(JSONArray jsonArray){
+        ILeague[] leagues = new ILeague[jsonArray.size()];
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject leagueObject = (JSONObject) jsonArray.get(i);
+            String name = (String) leagueObject.get("name");
+
+
+
+            ILeague league = new League(name, code, country, founded, isNationalLeague);
+            leagues[i] = league;
+        }
+
+        return leagues;
+    }
+*/
+
 }
+

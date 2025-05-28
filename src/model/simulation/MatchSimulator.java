@@ -14,6 +14,41 @@ import java.util.Random;
 /**
  * Simulates a football match between two teams, generating events such as shots, goals,
  * passes, fouls, penalties, and offsides according to probabilities inspired by real-world data.
+ * <p>
+ * This class implements the {@link MatchSimulatorStrategy} interface and provides a realistic
+ * simulation of a football match by randomly generating key match events minute-by-minute
+ * based on statistical probabilities.
+ * </p>
+ *
+ * <h2>Probabilities Used</h2>
+ * <ul>
+ *     <li>Shot chance per minute: 18%</li>
+ *     <li>Passing chance per minute: 25%</li>
+ *     <li>Goal after shot: 11%</li>
+ *     <li>Corner after missed shot: 25%</li>
+ *     <li>Foul chance per minute: 10%</li>
+ *     <li>Foul near area: 18%</li>
+ *     <li>Penalty after foul: 2%</li>
+ *     <li>Penalty conversion: 78%</li>
+ *     <li>Penalty miss leads to corner: 35%</li>
+ *     <li>Free kick goal: 7%</li>
+ *     <li>Free kick miss leads to corner: 18%</li>
+ *     <li>Offside chance per minute: 2.5%</li>
+ *     <li>Pass to goal chance: 8%</li>
+ *     <li>Pass success: 82%</li>
+ * </ul>
+ *
+ * <p>
+ * The simulation covers 90 minutes and generates a sequence of events that are added to the match.
+ * </p>
+ *
+ * <b>Example usage:</b>
+ * <pre>
+ *     MatchSimulator simulator = new MatchSimulator();
+ *     simulator.simulate(match);
+ * </pre>
+ *
+ * @author
  */
 public class MatchSimulator implements MatchSimulatorStrategy {
 
@@ -38,6 +73,13 @@ public class MatchSimulator implements MatchSimulatorStrategy {
     private static final double PASS_TO_GOAL_CHANCE = 0.08;
     private static final double PASS_SUCCESS_CHANCE = 0.82;
 
+    /**
+     * Simulates the given match, generating events for each minute.
+     *
+     * @param match The match to simulate.
+     * @throws IllegalArgumentException if the match is null.
+     * @throws IllegalStateException if the match is already played or invalid.
+     */
     @Override
     public void simulate(IMatch match) {
         validateMatch(match);
@@ -51,12 +93,25 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         match.setPlayed();
     }
 
+    /**
+     * Validates the match before simulation.
+     *
+     * @param match The match to validate.
+     * @throws IllegalArgumentException if match is null.
+     * @throws IllegalStateException if match is already played or invalid.
+     */
     private void validateMatch(IMatch match) {
         if (match == null) throw new IllegalArgumentException("Match cannot be null");
         if (match.isPlayed()) throw new IllegalStateException("Match is already played");
         if (!match.isValid()) throw new IllegalStateException("Match is not valid");
     }
 
+    /**
+     * Processes and generates events for a single minute of the match.
+     *
+     * @param match The match being simulated.
+     * @param minute The current minute.
+     */
     private void processMinuteEvents(IMatch match, int minute) {
         double roll = rand.nextDouble();
         IClub attackingClub = rand.nextBoolean() ? match.getHomeClub() : match.getAwayClub();
@@ -74,6 +129,9 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         }
     }
 
+    /**
+     * Handles a shot event, possibly resulting in a goal or a missed shot.
+     */
     private void handleShotEvent(IMatch match, int minute, IClub attackingClub, Player attacker) {
         match.addEvent(new ShotEvent(attacker, minute));
 
@@ -84,6 +142,9 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         }
     }
 
+    /**
+     * Handles a missed shot, possibly resulting in a corner or goal kick.
+     */
     private void handleMissedShot(IMatch match, int minute, IClub attackingClub, Player attacker) {
         Player goalkeeper = getOpponentGoalkeeper(match, attackingClub);
         if (goalkeeper == null) return;
@@ -98,6 +159,9 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         }
     }
 
+    /**
+     * Handles a passing event, possibly resulting in a shot or turnover.
+     */
     private void handlePassingEvent(IMatch match, int minute, IClub attackingClub, Player passer) {
         match.addEvent(new PassingEvent(passer, minute));
 
@@ -119,6 +183,9 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         }
     }
 
+    /**
+     * Handles a foul event, possibly resulting in cards, penalties, or free kicks.
+     */
     private void handleFoulEvent(IMatch match, int minute, IClub attackingClub, Player attacker) {
         match.addEvent(new FoulEvent(attacker, minute));
 
@@ -144,6 +211,9 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         }
     }
 
+    /**
+     * Handles a dangerous foul, possibly resulting in a penalty or free kick.
+     */
     private void handleDangerousFoul(IMatch match, int minute, IClub attackingClub, Player attacker) {
         if (rand.nextDouble() < PENALTY_AFTER_FOUL_CHANCE) {
             handlePenalty(match, minute, attackingClub, attacker);
@@ -152,6 +222,9 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         }
     }
 
+    /**
+     * Handles a penalty event, possibly resulting in a goal, corner, or goal kick.
+     */
     private void handlePenalty(IMatch match, int minute, IClub attackingClub, Player attacker) {
         match.addEvent(new PenaltyEvent(attacker, minute));
         Player goalkeeper = getOpponentGoalkeeper(match, attackingClub);
@@ -170,6 +243,9 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         }
     }
 
+    /**
+     * Handles a free kick event, possibly resulting in a goal, corner, or goal kick.
+     */
     private void handleFreeKick(IMatch match, int minute, IClub attackingClub, Player attacker) {
         match.addEvent(new ShotEvent(attacker, minute));
         Player goalkeeper = getOpponentGoalkeeper(match, attackingClub);
@@ -188,6 +264,12 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         }
     }
 
+    /**
+     * Selects a random outfield player (not goalkeeper, not sent off) from a club.
+     *
+     * @param club The club to select from.
+     * @return A random outfield {@link Player}, or null if none available.
+     */
     private Player getRandomOutfieldPlayer(IClub club) {
         IPlayer[] allPlayers = club.getPlayers();
         if (allPlayers == null || allPlayers.length == 0) return null;
@@ -218,6 +300,13 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         return outfieldPlayers[rand.nextInt(count)];
     }
 
+    /**
+     * Returns the opponent's goalkeeper for the given attacking club.
+     *
+     * @param match The match being simulated.
+     * @param attackingClub The club currently attacking.
+     * @return The opponent's {@link Player} goalkeeper, or null if not found.
+     */
     private Player getOpponentGoalkeeper(IMatch match, IClub attackingClub) {
         IClub opponent = attackingClub == match.getHomeClub() ?
                 match.getAwayClub() : match.getHomeClub();

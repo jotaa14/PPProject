@@ -4,24 +4,16 @@ import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayerPosition;
 import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
 import data.Exporter;
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.IOException;
 import java.time.LocalDate;
 
 /**
  * Represents a football player with physical, technical, and club information.
  * Implements the IPlayer interface, supports cloning, and can export to JSON.
- * This class encapsulates all necessary attributes and methods to manage a player's
+ * This class encapsulates all necessary attributes and methods to manage a player's data and behavior.
  *
- * Nome: Diogo Fernando Águia Costa
- * Número: 8240696
- * Turma: LSIRC T1
- *
- * Nome: João Pedro Martins Ribeiro
- * Número: <Número mecanográfico do colega de grupo>
- * Turma: <Turma do colega de grupo>
- *
+ * @author Diogo Fernando Águia Costa
+ * @author João Pedro Martins Ribeiro
  */
 public class Player implements IPlayer, Cloneable {
     private String name;
@@ -40,6 +32,9 @@ public class Player implements IPlayer, Cloneable {
     private float weight;
     private PreferredFoot preferredFoot;
     private String clubCode;
+    private int yellowCards = 0;
+    private boolean sentOff = false;
+
     /**
      * Full constructor to create a player.
      *
@@ -108,7 +103,6 @@ public class Player implements IPlayer, Cloneable {
     public int getAge() {
         LocalDate now = LocalDate.now();
         int years = now.getYear() - birthDate.getYear();
-
         if (now.getMonthValue() < birthDate.getMonthValue() ||
                 (now.getMonthValue() == birthDate.getMonthValue() && now.getDayOfMonth() < birthDate.getDayOfMonth())) {
             years--;
@@ -237,7 +231,7 @@ public class Player implements IPlayer, Cloneable {
 
     /**
      * Gets the player's preferred foot.
-     * @return PreferredFoot (LEFT/RIGHT)
+     * @return PreferredFoot (LEFT/RIGHT/BOTH)
      */
     @Override
     public PreferredFoot getPreferredFoot() {
@@ -305,16 +299,16 @@ public class Player implements IPlayer, Cloneable {
         String desc = position.getDescription();
         switch (desc) {
             case "GOALKEEPER":
-                playerStatus = ((goalkeeping * 2 + defense * 1 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2) / 7);
+                playerStatus = ((goalkeeping * 2 + defense + stamina + speed + shooting + passing * 2) / 7);
                 break;
             case "DEFENDER":
-                playerStatus = ((goalkeeping * 1 + defense * 2 + stamina * 1 + speed * 1 + shooting * 1 + passing * 2) / 7);
+                playerStatus = ((goalkeeping + defense * 2 + stamina+ speed + shooting + passing * 2) / 7);
                 break;
             case "MIDFIELDER":
-                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 2 + speed * 1 + shooting * 1 + passing * 2) / 7);
+                playerStatus = ((goalkeeping + defense + stamina * 2 + speed + shooting+ passing * 2) / 7);
                 break;
             case "FORWARD":
-                playerStatus = ((goalkeeping * 1 + defense * 1 + stamina * 1 + speed * 2 + shooting * 2 + passing * 1) / 7);
+                playerStatus = ((goalkeeping + defense + stamina + speed * 2 + shooting * 2 + passing) / 7);
                 break;
             default:
                 playerStatus = 0;
@@ -331,31 +325,40 @@ public class Player implements IPlayer, Cloneable {
         return getStrengthByType(this.position);
     }
 
-    private int yellowCards = 0;
-    private boolean sentOff = false;
-
+    /**
+     * Increments the number of yellow cards for the player.
+     */
     public void addYellowCard() {
         yellowCards++;
     }
 
+    /**
+     * Gets the number of yellow cards the player has received.
+     * @return Number of yellow cards
+     */
     public int getYellowCards() {
         return yellowCards;
     }
 
+    /**
+     * Checks if the player has been sent off.
+     * @return true if sent off, false otherwise
+     */
     public boolean isSentOff() {
         return sentOff;
     }
 
+    /**
+     * Marks the player as sent off.
+     */
     public void sendOff() {
         sentOff = true;
     }
-
 
     /**
      * Exports the player's data to a JSON file using the Exporter class.
      * @throws IOException if writing fails
      */
-
     @Override
     public void exportToJson() throws IOException {
         String player = "Player :{\n" +

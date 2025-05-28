@@ -10,21 +10,60 @@ import model.player.PlayerPosition;
 
 import java.io.IOException;
 
+/**
+ * Represents a football club or national team, implementing the {@link IClub} interface.
+ * Manages club information, player roster, and provides operations for player management
+ * and team validation.
+ *
+ * <h2>Key Responsibilities:</h2>
+ * <ul>
+ *   <li>Storing club metadata (name, code, country, founding year)</li>
+ *   <li>Managing a player roster with add/remove operations</li>
+ *   <li>Validating team composition requirements</li>
+ *   <li>Calculating team strength based on player skills</li>
+ *   <li>Selecting players using a strategy pattern via {@link IPlayerSelector}</li>
+ * </ul>
+ *
+ * @author Diogo Fernando Águia Costa
+ * @author João Pedro Martins Ribeiro
+ */
 public class Club implements IClub {
 
+    /** Flag indicating if this is a national team */
     private boolean isNationalTeam;
+    /** Official name of the club */
     private String name;
+    /** Unique 3-letter club code */
     private String code;
+    /** Home country of the club */
     private String country;
+    /** Year the club was founded */
     private int foundedYear;
+    /** Name of the home stadium */
     private String stadiumName;
+    /** Path/URL to club logo image */
     private String logo;
+    /** Associated team management object */
     private ITeam team;
 
+    /** Array storing club players */
     private IPlayer[] players;
+    /** Current number of players in the club */
     private int playerCount;
 
-    public Club(String name, String code, String country, int foundedYear, boolean isNationalTeam, String logo, String stadiumName) {
+    /**
+     * Constructs a Club instance with specified details.
+     *
+     * @param name Official club name
+     * @param code Unique 3-letter code (e.g., "FCB")
+     * @param country Home country
+     * @param foundedYear Year of foundation
+     * @param isNationalTeam True for national teams
+     * @param logo Path/URL to club logo
+     * @param stadiumName Home stadium name
+     */
+    public Club(String name, String code, String country, int foundedYear,
+                boolean isNationalTeam, String logo, String stadiumName) {
         this.name = name;
         this.code = code;
         this.country = country;
@@ -36,11 +75,19 @@ public class Club implements IClub {
         this.isNationalTeam = isNationalTeam;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Club's official name
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Array of cloned {@link IPlayer} objects to prevent external modification
+     */
     @Override
     public IPlayer[] getPlayers() {
         IPlayer[] currentPlayers = new IPlayer[playerCount];
@@ -50,6 +97,12 @@ public class Club implements IClub {
         return currentPlayers;
     }
 
+    /**
+     * Creates a defensive copy of a player object.
+     *
+     * @param player Player to clone
+     * @return Cloned player instance
+     */
     public IPlayer getPlayerClone(IPlayer player) {
         try {
             return (IPlayer) ((Player) player).clone();
@@ -57,46 +110,82 @@ public class Club implements IClub {
             System.out.println("Error while cloning Player");
             return null;
         }
-
     }
 
+    /**
+     * Checks if this club represents a national team.
+     * @return True if national team, false otherwise
+     */
     public boolean isNationalTeam() {
         return isNationalTeam;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Club's 3-letter code
+     */
     @Override
     public String getCode() {
         return code;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Club's home country
+     */
     @Override
     public String getCountry() {
         return country;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Year of foundation
+     */
     @Override
     public int getFoundedYear() {
         return foundedYear;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Name of home stadium
+     */
     @Override
     public String getStadiumName() {
         return stadiumName;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Path/URL to club logo
+     */
     @Override
     public String getLogo() {
         return logo;
     }
 
+    /**
+     * Gets the associated team management object.
+     * @return ITeam instance
+     */
     public ITeam getTeam() {
         return team;
     }
 
+    /**
+     * Sets the team management object.
+     * @param team ITeam instance to associate
+     */
     public void setTeam(ITeam team) {
         this.team = team;
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws IllegalArgumentException if the player is null or already in the club
+     * @throws IllegalStateException if the club is at capacity (max 100 players)
+     */
     @Override
     public void addPlayer(IPlayer player) {
         if (player == null) {
@@ -111,6 +200,11 @@ public class Club implements IClub {
         players[playerCount++] = player;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return True if a player exists in the club
+     * @throws IllegalArgumentException if the player is null
+     */
     @Override
     public boolean isPlayer(IPlayer player) {
         if (player == null) {
@@ -124,6 +218,10 @@ public class Club implements IClub {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws IllegalArgumentException if the player is null or not found
+     */
     @Override
     public void removePlayer(IPlayer player) {
         if (player == null) {
@@ -133,9 +231,7 @@ public class Club implements IClub {
         boolean found = false;
         for (int i = 0; i < playerCount; i++) {
             if (players[i].equals(player)) {
-                for (int j = i; j < playerCount - 1; j++) {
-                    players[j] = players[j + 1];
-                }
+                System.arraycopy(players, i + 1, players, i, playerCount - i - 1);
                 players[--playerCount] = null;
                 found = true;
                 break;
@@ -147,11 +243,21 @@ public class Club implements IClub {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Current number of players in the club
+     */
     @Override
     public int getPlayerCount() {
         return playerCount;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Selected player for a specified position
+     * @throws IllegalArgumentException if the position is null
+     * @throws IllegalStateException if a club has no players or selection fails
+     */
     @Override
     public IPlayer selectPlayer(IPlayerSelector selector, IPlayerPosition position) {
         if (position == null) {
@@ -169,6 +275,16 @@ public class Club implements IClub {
         return selected;
     }
 
+    /**
+     * Validates club configuration:
+     * <ul>
+     *   <li>Players array initialized</li>
+     *   <li>Minimum 16 players</li>
+     *   <li>At least one goalkeeper</li>
+     * </ul>
+     * @return True if valid
+     * @throws IllegalStateException with a descriptive message for validation failures
+     */
     @Override
     public boolean isValid() {
         if (players == null || players.length == 0) {
@@ -185,6 +301,7 @@ public class Club implements IClub {
         for (int i = 0; i < playerCount; i++) {
             if (players[i].getPosition().getDescription().equalsIgnoreCase("GOALKEEPER")) {
                 hasGoalkeeper = true;
+                break;
             }
         }
         if (!hasGoalkeeper) {
@@ -193,11 +310,19 @@ public class Club implements IClub {
         return true;
     }
 
+    /**
+     * Directly sets the player array (for testing/initialization).
+     * @param players Array of Player objects
+     */
     public void setPlayers(Player[] players) {
         this.players = players;
         this.playerCount = players.length;
     }
 
+    /**
+     * Calculates average player strength for the club.
+     * @return Average strength (0-99) or 0 if no players.
+     */
     public int getClubStrength() {
         if(playerCount == 0){
             return 0;
@@ -210,32 +335,44 @@ public class Club implements IClub {
         return teamStrength / playerCount;
     }
 
-
+    /**
+     * Returns formated string with club details and player roster.
+     * @return Multi-line string containing:
+     *         - Club metadata
+     *         - Team strength
+     *         - Player list with details
+     */
     @Override
     public String toString() {
-        String result = "Club: " + name + "\n";
-        result += "Code: " + code + "\n";
-        result += "Club Strength: " +  getClubStrength() + "\n";
-        result += "Country: " + country + "\n";
-        result += "Founded Year: " + foundedYear + "\n";
-        result += "Stadium: " + stadiumName + "\n";
-        result += "Logo: " + logo + "\n";
-        result += "Is National Team: " + isNationalTeam + "\n";
-        result += "Players info: " + playerCount + "\n";
+        StringBuilder result = new StringBuilder();
+        result.append("Club: ").append(name).append("\n")
+                .append("Code: ").append(code).append("\n")
+                .append("Club Strength: ").append(getClubStrength()).append("\n")
+                .append("Country: ").append(country).append("\n")
+                .append("Founded Year: ").append(foundedYear).append("\n")
+                .append("Stadium: ").append(stadiumName).append("\n")
+                .append("Logo: ").append(logo).append("\n")
+                .append("Is National Team: ").append(isNationalTeam).append("\n")
+                .append("Players info: ").append(playerCount).append("\n");
 
         if (playerCount > 0) {
-            result += "Player(s): \n";
+            result.append("Player(s): \n");
             for (int i = 0; i < playerCount; i++) {
                 if (players[i] != null) {
-                    result += players[i].toString() + "\n";
+                    result.append(players[i].toString()).append("\n");
                 }
             }
         } else {
-            result += "No players found.\n";
+            result.append("No players found.\n");
         }
-        return result;
+        return result.toString();
     }
 
+    /**
+     * Compares clubs by their unique code.
+     * @param obj Club to compare
+     * @return True if same code.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -244,8 +381,12 @@ public class Club implements IClub {
         return this.code.equals(other.code);
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws IOException If export fails
+     */
     @Override
     public void exportToJson() throws IOException {
-        // Implement the export to JSON logic here
+        // Implementation specific JSON export logic
     }
 }

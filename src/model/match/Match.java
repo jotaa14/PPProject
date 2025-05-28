@@ -30,6 +30,16 @@ public class Match implements IMatch {
         this.round = round;
     }
 
+    public Match(ITeam homeTeam, ITeam awayTeam, int round, IEventManager eventManager) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.round = round;
+        if (eventManager == null) {
+            throw new IllegalArgumentException("Event manager cannot be null.");
+        }
+        this.eventManager = eventManager;
+    }
+
     @Override
     public IClub getHomeClub() {
         if (homeTeam == null){

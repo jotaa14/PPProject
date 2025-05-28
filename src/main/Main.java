@@ -10,8 +10,40 @@ import java.util.Scanner;
 import static main.Functions.*;
 import static main.Menu.*;
 
+/**
+ * Entry point and main controller for the Football Manager console application.
+ * <p>
+ * This class manages the main program loop, user interaction via menus, and navigation
+ * between different game states such as starting a new league, managing seasons,
+ * and handling club management. It coordinates the flow of the application and
+ * delegates specific actions to helper classes and menu utilities.
+ * </p>
+ *
+ * <h2>Main Responsibilities:</h2>
+ * <ul>
+ *   <li>Display and handle the main menu (new game, load game, exit)</li>
+ *   <li>Manage navigation between league, season, and manager menus</li>
+ *   <li>Coordinate creation and management of leagues, seasons, and clubs</li>
+ *   <li>Delegate simulation and information listing to utility functions</li>
+ * </ul>
+ *
+ * <h2>Usage Example:</h2>
+ * <pre>
+ *   public static void main(String[] args) {
+ *       Main.main(args);
+ *   }
+ * </pre>
+ *
+ * @author
+ */
 public class Main {
 
+    /**
+     * Application entry point. Displays the main menu and manages navigation.
+     * Handles starting a new game, loading a saved game, or exiting the application.
+     *
+     * @param args Command-line arguments (not used)
+     */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         boolean running = true;
@@ -40,6 +72,13 @@ public class Main {
         input.close();
     }
 
+    /**
+     * Handles the league management menu, allowing the user to start new seasons,
+     * load existing seasons, list information, or exit to the main menu.
+     *
+     * @param input  Scanner for user input
+     * @param league The league being managed
+     */
     private static void runLeagueMenu(Scanner input, League league) {
         boolean inSeason = true;
 
@@ -60,7 +99,6 @@ public class Main {
                     System.out.println("\nListing information...");
                     listSeason(input, league);
                     break;
-
                 case 4:
                     System.out.println("\nExiting league menu.");
                     inSeason = false;
@@ -71,6 +109,13 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the season management menu, allowing the user to simulate games,
+     * manage clubs, list information, restart the season, or exit to the league menu.
+     *
+     * @param input  Scanner for user input
+     * @param season The season being managed
+     */
     private static void runSeasonMenu(Scanner input, Season season) {
         boolean listing = true;
 
@@ -121,6 +166,13 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the start season menu, allowing the user to generate a schedule,
+     * simulate the season, list information, view standings, view events, or exit.
+     *
+     * @param input  Scanner for user input
+     * @param season The season being managed
+     */
     private static void runStartSeason(Scanner input, Season season) {
         boolean listing = true;
 
@@ -176,6 +228,15 @@ public class Main {
         }
     }
 
+    /**
+     * Handles the manager menu, allowing the user to manage a specific club within a season.
+     * Supports starting rounds, selecting formations, viewing club information, listing schedules,
+     * events, standings, and player standings, or exiting to the previous menu.
+     *
+     * @param input        Scanner for user input
+     * @param season       The season being managed
+     * @param managedClub  The club being managed by the user
+     */
     private static void runManagerMenu(Scanner input, Season season, IClub managedClub) {
         boolean listing = true;
         boolean verifySchedule = false;
