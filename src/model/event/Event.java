@@ -17,7 +17,12 @@ import java.io.IOException;
  *
  * <b>Usage:</b> Extend this class to implement specific event types (e.g., GoalEvent, FoulEvent).
  *
- * @author
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public abstract class Event implements IEvent {
     /** Description of the event */

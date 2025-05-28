@@ -13,7 +13,11 @@ import java.time.LocalDate;
  * This class encapsulates all necessary attributes and methods to manage a player's data and behavior.
  *
  * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
  * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class Player implements IPlayer, Cloneable {
     private String name;

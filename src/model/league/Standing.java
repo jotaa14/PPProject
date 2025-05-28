@@ -21,7 +21,12 @@ import com.ppstudios.footballmanager.api.contracts.team.ITeam;
  *     Standing.updateStandingsAfterMatch(homeStanding, 2, awayStanding, 1);
  * </pre>
  *
- * @author
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class Standing implements IStanding {
     /** The team this standing refers to */

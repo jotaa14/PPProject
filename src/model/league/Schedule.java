@@ -18,7 +18,12 @@ import java.io.IOException;
  *   <li>Throws meaningful exceptions for invalid operations</li>
  * </ul>
  *
- * @author
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class Schedule implements ISchedule {
 

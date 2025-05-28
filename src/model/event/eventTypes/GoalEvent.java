@@ -20,7 +20,12 @@ import model.player.Player;
  *     GoalEvent event = new GoalEvent(player, 23);
  * </pre>
  *
- * @author
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class GoalEvent extends PlayerEvent implements IGoalEvent {
     /**

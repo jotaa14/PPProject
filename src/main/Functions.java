@@ -42,12 +42,17 @@ import static main.Util.*;
  *   <li>Club import, addition, removal, and listing</li>
  *   <li>Match simulation and schedule generation</li>
  *   <li>Player selection and statistics display</li>
- *   <li>Standings and events visualization</li>
+ *   <li>Standing and events visualization</li>
  * </ul>
  *
  * <b>Note:</b> All methods are static and intended to be called from menu handlers.
  *
- * @author
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class Functions {
 
@@ -1126,6 +1131,3 @@ public class Functions {
         System.out.println(separator);
     }
 }
-
-
-

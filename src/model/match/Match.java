@@ -16,20 +16,66 @@ import model.team.Club;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Represents a football match between two teams, implementing the {@link IMatch} interface.
+ * Manages match details, events, and provides methods for result calculation and data export.
+ *
+ * <h2>Key Responsibilities:</h2>
+ * <ul>
+ *   <li>Stores home/away teams and match status</li>
+ *   <li>Tracks match events through an {@link IEventManager}</li>
+ *   <li>Validates match configuration</li>
+ *   <li>Calculates match results and statistics</li>
+ *   <li>Exports match data to JSON format</li>
+ * </ul>
+ *
+ * <b>Usage Example:</b>
+ * <pre>
+ *     ITeam home = new Team(homeClub);
+ *     ITeam away = new Team(awayClub);
+ *     IMatch match = new Match(home, away, 5);
+ * </pre>
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
+ */
 public class Match implements IMatch {
+    /** The home team */
     private ITeam homeTeam;
+    /** The away team */
     private ITeam awayTeam;
+    /** Flag indicating if the match has been played */
     private boolean played = false;
+    /** The round number this match belongs to */
     private int round;
-
+    /** Manager for handling match events */
     private IEventManager eventManager = new EventManager();
 
+    /**
+     * Constructs a Match with default event management.
+     *
+     * @param homeTeam Home team (must not be null)
+     * @param awayTeam Away team (must not be null)
+     * @param round Round number (positive integer)
+     */
     public Match(ITeam homeTeam, ITeam awayTeam, int round) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.round = round;
     }
 
+    /**
+     * Constructs a Match with a custom event manager.
+     *
+     * @param homeTeam Home team (must not be null)
+     * @param awayTeam Away team (must not be null)
+     * @param round Round number (positive integer)
+     * @param eventManager Custom event manager (must not be null)
+     * @throws IllegalArgumentException if eventManager is null
+     */
     public Match(ITeam homeTeam, ITeam awayTeam, int round, IEventManager eventManager) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
@@ -40,6 +86,10 @@ public class Match implements IMatch {
         this.eventManager = eventManager;
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws IllegalStateException if home team is not set
+     */
     @Override
     public IClub getHomeClub() {
         if (homeTeam == null){
@@ -48,6 +98,10 @@ public class Match implements IMatch {
         return homeTeam.getClub();
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws IllegalStateException if away team is not set
+     */
     @Override
     public IClub getAwayClub() {
         if (awayTeam == null){
@@ -56,6 +110,10 @@ public class Match implements IMatch {
         return awayTeam.getClub();
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws IllegalStateException if home team is not set
+     */
     @Override
     public ITeam getHomeTeam() {
         if (homeTeam == null){
@@ -64,6 +122,10 @@ public class Match implements IMatch {
         return homeTeam;
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws IllegalStateException if away team is not set
+     */
     @Override
     public ITeam getAwayTeam() {
         if (awayTeam == null){
@@ -72,16 +134,26 @@ public class Match implements IMatch {
         return awayTeam;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayed() {
         return played;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPlayed() {
         this.played = true;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return true if both teams are set, belong to different clubs, and have valid formations
+     */
     @Override
     public boolean isValid() {
         if (homeTeam == null || awayTeam == null) {
@@ -99,11 +171,19 @@ public class Match implements IMatch {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getRound() {
         return round;
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws IllegalArgumentException if team is null
+     * @throws IllegalStateException if match is already played or club doesn't belong to match
+     */
     @Override
     public void setTeam(ITeam team) {
         if (team == null) {
@@ -122,6 +202,10 @@ public class Match implements IMatch {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws IllegalArgumentException if event is null
+     */
     @Override
     public void addEvent(IEvent event) {
         if (event == null){
@@ -130,16 +214,29 @@ public class Match implements IMatch {
         eventManager.addEvent(event);
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Array of all recorded events (may be empty)
+     */
     @Override
     public IEvent[] getEvents() {
         return eventManager.getEvents();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getEventCount() {
         return eventManager.getEventCount();
     }
 
+    /**
+     * {@inheritDoc}
+     * @param eventClass The class of events to count (e.g., GoalEvent.class)
+     * @param club The club to filter events for
+     * @return Total events of specified type for the club
+     */
     @Override
     public int getTotalByEvent(Class eventClass, IClub club) {
         int total = 0;
@@ -155,6 +252,10 @@ public class Match implements IMatch {
         return total;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Winning team, or null if draw
+     */
     @Override
     public ITeam getWinner() {
         int homeGoals = getTotalByEvent(GoalEvent.class, getHomeClub());
@@ -169,6 +270,12 @@ public class Match implements IMatch {
         return null;
     }
 
+    /**
+     * Exports match data to a JSON file named "match.json".
+     * Includes round number, team names, played status, and event count.
+     *
+     * @throws IOException if writing to file fails
+     */
     @Override
     public void exportToJson() throws IOException {
         String json = "{\n" +

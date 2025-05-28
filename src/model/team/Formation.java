@@ -15,7 +15,11 @@ import com.ppstudios.footballmanager.api.contracts.team.IFormation;
  * </ul>
  *
  * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
  * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class Formation implements IFormation {
     /** Number of defenders in formation */

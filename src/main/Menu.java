@@ -6,6 +6,12 @@ import java.util.Scanner;
 /**
  * Provides menu display and input validation functionality for the football manager console interface.
  * Contains static methods for rendering different application menus and handling user selections.
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class Menu {
 

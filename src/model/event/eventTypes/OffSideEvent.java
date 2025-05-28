@@ -11,7 +11,7 @@ import model.player.Player;
  * <ul>
  *   <li>Stores the player who was offside and the minute it occurred</li>
  *   <li>Automatically generates a descriptive message for the event</li>
- *   <li>Event type is set as "OffSide"</li>
+ *   <li>The event type is set as "OffSide"</li>
  * </ul>
  *
  * <b>Usage Example:</b>
@@ -19,7 +19,12 @@ import model.player.Player;
  *     OffSideEvent event = new OffSideEvent(player, 45);
  * </pre>
  *
- * @author
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class OffSideEvent extends PlayerEvent {
     /**

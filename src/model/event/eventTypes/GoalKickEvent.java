@@ -19,7 +19,12 @@ import model.player.Player;
  *     GoalKickEvent event = new GoalKickEvent(player, 60);
  * </pre>
  *
- * @author
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class GoalKickEvent extends PlayerEvent {
     /**

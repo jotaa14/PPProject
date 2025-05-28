@@ -20,7 +20,12 @@ import java.io.IOException;
  *
  * <b>Note:</b> The exportToJson method should be implemented to complete JSON serialization.
  *
- * @author
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class League implements ILeague {
     /** Name of the league */

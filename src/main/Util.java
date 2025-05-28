@@ -1,9 +1,7 @@
 package main;
 
-import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
-import model.league.Season;
 import model.team.Club;
 import model.team.Formation;
 
@@ -13,6 +11,12 @@ import java.util.Scanner;
  * Provides utility methods for common football management tasks.
  * Contains static helper methods for listing clubs, selecting formations,
  * and applying default formations.
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
  */
 public class Util {
 
