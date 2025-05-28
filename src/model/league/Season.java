@@ -1,13 +1,16 @@
 package model.league;
 
+import com.ppstudios.footballmanager.api.contracts.event.IEvent;
 import com.ppstudios.footballmanager.api.contracts.league.ISchedule;
 import com.ppstudios.footballmanager.api.contracts.league.ISeason;
 import com.ppstudios.footballmanager.api.contracts.league.IStanding;
 import com.ppstudios.footballmanager.api.contracts.match.IMatch;
+import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.simulation.MatchSimulatorStrategy;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
-import model.event.eventTypes.GoalEvent;
+import model.event.*;
+import model.event.eventTypes.*;
 import model.match.Match;
 import model.simulation.MatchSimulator;
 import model.team.Club;
@@ -335,6 +338,65 @@ public class Season implements ISeason {
             current[i] = clubs[i];
         }
         return current;
+    }
+
+    public void getPlayerStatistics(IPlayer player) {
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null");
+        }
+
+        int cornerKicks = 0;
+        int foul = 0;
+        int yellowCards = 0;
+        int redCards = 0;
+        int shotOnGoal = 0;
+        int shot = 0;
+        int penalties = 0;
+        int offSide = 0;
+        int goals = 0;
+
+        for (IMatch iMatch : matches) {
+            if (iMatch != null && iMatch.isPlayed()) {
+                for (IEvent event : iMatch.getEvents()) {
+                    if (event != null && event instanceof PlayerEvent && ((PlayerEvent) event).getPlayer().equals(player)) {
+                        if (event instanceof GoalEvent) {
+                            goals++;
+                            shotOnGoal++;
+                        } else if (event instanceof CornerKickEvent) {
+                            cornerKicks++;
+                        } else if (event instanceof FoulEvent) {
+                            foul++;
+                        } else if (event instanceof YellowCardEvent) {
+                            yellowCards++;
+                        } else if (event instanceof RedCardEvent) {
+                            redCards++;
+                        } else if (event instanceof ShotEvent) {
+                            shot++;
+                        } else if (event instanceof PenaltyEvent) {
+                            penalties++;
+                        } else if (event instanceof OffSideEvent) {
+                            offSide++;
+                        }
+                    }
+                }
+            }
+        }
+        String playerStats = String.format(
+                "Player: %-20s%n" +
+                "Number: %-10d%n" +
+                "Goals: %-10d Corner Kicks: %-10d%n" +
+                "Fouls: %-10d Yellow Cards: %-10d%n" +
+                "Red Cards: %-10d%n" +
+                "Shots on Goal: %-10d Shots: %-10d%n" +
+                "Penalties: %-10d Offside: %-10d",
+                player.getName(), player.getNumber(),
+                goals, cornerKicks,
+                foul, yellowCards,
+                redCards,
+                shotOnGoal, shot,
+                penalties, offSide
+        );
+        System.out.println(playerStats);
     }
 
     @Override

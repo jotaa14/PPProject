@@ -3,6 +3,7 @@ package main;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
+import model.league.Season;
 import model.team.Club;
 import model.team.Formation;
 
@@ -17,7 +18,6 @@ public class Util {
                 System.out.printf("%s (%s) - %d players - Strength: %d\n",
                         newClub.getName(), newClub.getCode(), newClub.getPlayerCount(), newClub.getClubStrength());
             }
-
         }
     }
 
@@ -75,5 +75,36 @@ public class Util {
                 ": " + formation.getDisplayName() +
                 " | Value: " + value);
         return formation;
+    }
+
+    public static void inputPlayerToGetStats(Scanner input, Season season) {
+        System.out.println("Choose the player club that you want to check stats:");
+        for(IClub club : season.getCurrentClubs()) {
+            if (club != null) {
+                System.out.println(club.getName() + "(" + club.getCode() + ")");
+            }
+        }
+        input.nextLine();
+        String selectedClub = input.nextLine();
+        System.out.println("Enter the number of the player you want to get stats for:");
+        for(IClub club : season.getCurrentClubs()) {
+            if (club != null && club.getCode().equalsIgnoreCase(selectedClub)) {
+                for (IPlayer player : club.getPlayers()) {
+                    if (player != null) {
+                        System.out.println(player.getName() + " | Number: " + player.getNumber());
+                    }
+                }
+            }
+        }
+        int selectedPlayer = input.nextInt();
+        for(IClub club : season.getCurrentClubs()) {
+            if (club != null && club.getName().equalsIgnoreCase(selectedClub)) {
+                for (IPlayer player : club.getPlayers()) {
+                    if (player != null && player.getNumber() == selectedPlayer) {
+                        season.getPlayerStatistics(player);
+                    }
+                }
+            }
+        }
     }
 }

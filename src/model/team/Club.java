@@ -210,6 +210,7 @@ public class Club implements IClub {
         return teamStrength / playerCount;
     }
 
+
     @Override
     public String toString() {
         String result = "Club: " + name + "\n";

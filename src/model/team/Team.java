@@ -136,8 +136,94 @@ public class Team implements ITeam {
         }
         this.formation = formation;
     }
-    public int getPlayerCount() {
-        return playerCount;
+
+    private IPlayer[] startingPlayers;
+
+    public void setAutomaticTeam(IPlayer[] players, Formation formation) {
+        if(players == null || formation == null) {
+            throw new IllegalArgumentException("Players and formation must be set!");
+        }
+        startingPlayers = new IPlayer[11];
+        int keepercount = 0, defcount = 0, midcount = 0, forcount = 0, index = 0;
+
+        for (int i = 0; i < players.length && index < 11; i++) {
+            IPlayer player = players[i];
+            if (player == null || player.getPosition() == null) continue;
+
+            String pos = player.getPosition().getDescription();
+            if (pos.equals("GOALKEEPER") && keepercount < 1) {
+                addPlayer(player);
+                startingPlayers[index++] = player;
+                keepercount++;
+            } else if (pos.equals("DEFENDER") && defcount < formation.getDefenders()) {
+                addPlayer(player);
+                startingPlayers[index++] = player;
+                defcount++;
+            } else if (pos.equals("MIDFIELDER") && midcount < formation.getMidfielders()) {
+                addPlayer(player);
+                startingPlayers[index++] = player;
+                midcount++;
+            } else if (pos.equals("FORWARD") && forcount < formation.getForwards()) {
+                addPlayer(player);
+                startingPlayers[index++] = player;
+                forcount++;
+            }
+        }
+    }
+
+    public void printStartingElevenByPosition(Formation formation) {
+        if (startingPlayers == null || startingPlayers.length != 11) {
+            System.out.println("Starting eleven has not been set correctly.");
+            return;
+        }
+        System.out.print("Goalkeeper: ");
+        for (int i = 0; i < startingPlayers.length; i++) {
+            IPlayer player = startingPlayers[i];
+            if (player != null && player.getPosition() != null &&
+                    player.getPosition().getDescription().equals("GOALKEPER")) {
+                System.out.println(player.getName());
+                break;
+            }
+        }
+
+        System.out.print("Defenders (" + formation.getDefenders() + "): ");
+        boolean first = true;
+        for (int i = 0; i < startingPlayers.length; i++) {
+            IPlayer player = startingPlayers[i];
+            if (player != null && player.getPosition() != null &&
+                    player.getPosition().getDescription().equals("DEFENDER")) {
+                if (!first) System.out.print(", ");
+                System.out.print(player.getName());
+                first = false;
+            }
+        }
+        System.out.println();
+
+        System.out.print("Midfielders (" + formation.getMidfielders() + "): ");
+        first = true;
+        for (int i = 0; i < startingPlayers.length; i++) {
+            IPlayer player = startingPlayers[i];
+            if (player != null && player.getPosition() != null &&
+                    player.getPosition().getDescription().equals("MIDFIELDER")) {
+                if (!first) System.out.print(", ");
+                System.out.print(player.getName());
+                first = false;
+            }
+        }
+        System.out.println();
+
+        System.out.print("Forwards (" + formation.getForwards() + "): ");
+        first = true;
+        for (int i = 0; i < startingPlayers.length; i++) {
+            IPlayer player = startingPlayers[i];
+            if (player != null && player.getPosition() != null &&
+                    player.getPosition().getDescription().equals("FORWARD")) {
+                if (!first) System.out.print(", ");
+                System.out.print(player.getName());
+                first = false;
+            }
+        }
+        System.out.println();
     }
 
     @Override

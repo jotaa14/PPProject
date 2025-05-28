@@ -282,6 +282,7 @@ public class Functions {
                     System.out.println("Error setting formation for " + club.getName() + ": " + e.getMessage());
                     continue;
                 }
+                team.setAutomaticTeam(club.getPlayers(), (Formation)defaultFormation);
 
                 try {
                     season.addClub(club);
@@ -295,7 +296,6 @@ public class Functions {
             System.out.println("Error importing clubs: " + e.getMessage());
         }
     }
-
 
     public static void removeClub(Scanner input, Season season) {
         IClub[] clubs = season.getCurrentClubs();
@@ -408,6 +408,19 @@ public class Functions {
             System.out.println("Formation: Not Set (Invalid club type)");
         }
 
+        if (selectedClub instanceof Club) {
+            Team team = (Team) ((Club) selectedClub).getTeam();
+            if (team != null && team.getFormation() != null) {
+                System.out.println("Formation: " + team.getFormation().getDisplayName());
+
+                team.printStartingElevenByPosition((Formation) team.getFormation());
+            } else {
+                System.out.println("Formation: Not Set");
+            }
+        } else {
+            System.out.println("Formation: Not Set (Invalid club type)");
+        }
+
         System.out.print("Do You Want To See The Players Details? (Y/N): ");
         String choice = input.next();
         if (choice.equalsIgnoreCase("Y")) {
@@ -422,6 +435,15 @@ public class Functions {
             }
         } else {
             System.out.println("Exiting Player Details.");
+        }
+
+        System.out.println("Do You Want To See Players Standings? (Y/N): ");
+        choice = input.next();
+        if (choice.equalsIgnoreCase("Y")) {
+            IPlayer[] players = selectedClub.getPlayers();
+            Util.inputPlayerToGetStats(input, season);
+        } else {
+            System.out.println("Exiting Players Standings.");
         }
     }
 

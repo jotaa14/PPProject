@@ -111,7 +111,6 @@ public class Main {
                     season.resetSeason();
                     System.out.println("Season Has Been Restarted.");
                     break;
-
                 case 9:
                     System.out.println("\nExiting season menu.");
                     listing = false;
