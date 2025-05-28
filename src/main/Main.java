@@ -234,8 +234,12 @@ public class Main {
                     System.out.println("\nListing Standings...");
                     listStandings(input, season);
                     break;
-
                 case 7:
+                    System.out.println("\nListing Players Standings...");
+                    listPlayersStandingsForMangedClub(input, season, managedClub);
+                    break;
+
+                case 8:
                     System.out.println("\nExiting manager menu.");
                     listing = false;
                     break;

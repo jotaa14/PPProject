@@ -394,7 +394,7 @@ public class Season implements ISeason {
             }
         }
 
-        int totalGames = (matches.length) / 9;
+        int totalGames = (currentRound);
         double goalsPerGame = totalGames > 0 ? (double) goals / totalGames : 0.0;
         double shotsPerGame = totalGames > 0 ? (double) shot / totalGames : 0.0;
         double shotAccuracy = shot > 0 ? ((double) goals / shot) * 100 : 0.0;

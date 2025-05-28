@@ -490,10 +490,49 @@ public class Functions {
                 System.out.println("Player not found with number: " + playerInput);
             }
         }
+        season.getPlayerStatistics(selectedPlayer);
+    }
+    public static void listPlayersStandingsForMangedClub(Scanner input, Season season, IClub selectedClub) {
+        if (selectedClub == null) {
+            System.out.println("No club selected to manage.");
+            return;
+        }
+
+        System.out.println("|--------------------------------------------|");
+        System.out.println("|           PLAYERS STANDINGS                |");
+        System.out.println("|--------------------------------------------|");
+        System.out.println("Players in " + selectedClub.getName() + ":");
+
+        IPlayer[] players = selectedClub.getPlayers();
+        if (players.length == 0) {
+            System.out.println("No players available in this club.");
+            return;
+        }
+
+        for (IPlayer player : players) {
+            if (player != null) {
+                System.out.println(player.getName() + " | Number: " + player.getNumber());
+            }
+        }
+
+        System.out.print("Enter the number of the player you want to get stats for: ");
+        int playerNumber = input.nextInt();
+        IPlayer selectedPlayer = null;
+
+        for (IPlayer player : players) {
+            if (player != null && player.getNumber() == playerNumber) {
+                selectedPlayer = player;
+                break;
+            }
+        }
+
+        if (selectedPlayer == null) {
+            System.out.println("Player not found with number: " + playerNumber);
+            return;
+        }
 
         season.getPlayerStatistics(selectedPlayer);
     }
-
 
     public static void listClubInformation(Scanner input, IClub club) {
         if (club == null) {
@@ -584,7 +623,6 @@ public class Functions {
             System.out.println("Current Standings:");
             listStandings(input, season);
         } catch (Exception ex) {
-            ex.printStackTrace();
             System.out.println("Error simulating round: " + ex.getMessage());
         }
     }

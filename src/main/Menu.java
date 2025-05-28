@@ -151,20 +151,21 @@ public class Menu {
             System.out.println("|  3. Club Information                       |");
             System.out.println("|  4. Schedule                               |");
             System.out.println("|  5. Events                                 |");
-            System.out.println("|  6. Standings                              |");
-            System.out.println("|  7. Exit                                   |");
+            System.out.println("|  6. Club Standings                         |");
+            System.out.println("|  7. Players Standings                      |");
+            System.out.println("|  8. Exit                                   |");
             System.out.println("|--------------------------------------------|");
-            System.out.print("> Enter your option [1-7]: ");
+            System.out.print("> Enter your option [1-8]: ");
 
             try {
                 op = input.nextInt();
-                if (op >= 1 && op <= 7) {
+                if (op >= 1 && op <= 8) {
                     verifyInput = true;
                 } else {
-                    System.out.println("! Select a Valid Option (1-7)!");
+                    System.out.println("! Select a Valid Option (1-8)!");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("! Select a Valid Option (1-7)!");
+                System.out.println("! Select a Valid Option (1-8)!");
                 input.next();
             }
         } while (!verifyInput);
