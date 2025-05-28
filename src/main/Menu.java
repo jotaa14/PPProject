@@ -115,21 +115,22 @@ public class Menu {
             System.out.println("|  1. Schedule                               |");
             System.out.println("|  2. Start Season                           |");
             System.out.println("|  3. List Information                       |");
-            System.out.println("|  4. Standings                              |");
-            System.out.println("|  5. Events                                 |");
-            System.out.println("|  6. Exit                                   |");
+            System.out.println("|  4. Club Standings                         |");
+            System.out.println("|  5. Players Standings                      |");
+            System.out.println("|  6. Events                                 |");
+            System.out.println("|  7. Exit                                   |");
             System.out.println("|--------------------------------------------|");
-            System.out.print("> Enter your option [1-6]: ");
+            System.out.print("> Enter your option [1-7]: ");
 
             try {
                 op = input.nextInt();
-                if (op >= 1 && op <= 6) {
+                if (op >= 1 && op <= 7) {
                     verifyInput = true;
                 } else {
-                    System.out.println("! Select a Valid Option (1-5)!");
+                    System.out.println("! Select a Valid Option (1-7)!");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("! Select a Valid Option (1-5)!");
+                System.out.println("! Select a Valid Option (1-7)!");
                 input.next();
             }
         } while (!verifyInput);

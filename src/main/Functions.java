@@ -436,16 +436,64 @@ public class Functions {
         } else {
             System.out.println("Exiting Player Details.");
         }
-
-        System.out.println("Do You Want To See Players Standings? (Y/N): ");
-        choice = input.next();
-        if (choice.equalsIgnoreCase("Y")) {
-            IPlayer[] players = selectedClub.getPlayers();
-            Util.inputPlayerToGetStats(input, season);
-        } else {
-            System.out.println("Exiting Players Standings.");
-        }
     }
+    public static void listPlayersStandings(Scanner input, Season season) {
+        System.out.println("Choose the player club that you want to check stats:");
+        for (IClub club : season.getCurrentClubs()) {
+            if (club != null) {
+                System.out.println(club.getName() + " (" + club.getCode() + ")");
+            }
+        }
+
+        IClub selectedClub = null;
+        while (selectedClub == null) {
+            System.out.print("Enter the club code: ");
+            String clubCode = input.nextLine().trim();
+
+            for (IClub club : season.getCurrentClubs()) {
+                if (club != null && club.getCode().equalsIgnoreCase(clubCode)) {
+                    selectedClub = club;
+                    break;
+                }
+            }
+            if (selectedClub == null) {
+                System.out.println("Club not found with code: " + clubCode);
+            }
+        }
+
+        System.out.println("Players in " + selectedClub.getName() + ":");
+        for (IPlayer player : selectedClub.getPlayers()) {
+            if (player != null) {
+                System.out.println(player.getName() + " | Number: " + player.getNumber());
+            }
+        }
+
+        IPlayer selectedPlayer = null;
+        while (selectedPlayer == null) {
+            System.out.print("Enter the number of the player you want to get stats for: ");
+            String playerInput = input.nextLine().trim();
+            int playerNumber;
+            try {
+                playerNumber = Integer.parseInt(playerInput);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid player number.");
+                continue;
+            }
+
+            for (IPlayer player : selectedClub.getPlayers()) {
+                if (player != null && player.getNumber() == playerNumber) {
+                    selectedPlayer = player;
+                    break;
+                }
+            }
+            if (selectedPlayer == null) {
+                System.out.println("Player not found with number: " + playerInput);
+            }
+        }
+
+        season.getPlayerStatistics(selectedPlayer);
+    }
+
 
     public static void listClubInformation(Scanner input, IClub club) {
         if (club == null) {
@@ -567,7 +615,6 @@ public class Functions {
             }
             System.out.println("\n============================================");
         } catch (Exception ex) {
-            ex.printStackTrace();
             System.out.println("Error generating schedule: " + ex.getMessage());
         }
     }

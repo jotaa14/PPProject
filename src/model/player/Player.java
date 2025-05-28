@@ -331,6 +331,25 @@ public class Player implements IPlayer, Cloneable {
         return getStrengthByType(this.position);
     }
 
+    private int yellowCards = 0;
+    private boolean sentOff = false;
+
+    public void addYellowCard() {
+        yellowCards++;
+    }
+
+    public int getYellowCards() {
+        return yellowCards;
+    }
+
+    public boolean isSentOff() {
+        return sentOff;
+    }
+
+    public void sendOff() {
+        sentOff = true;
+    }
+
 
     /**
      * Exports the player's data to a JSON file using the Exporter class.

@@ -27,7 +27,7 @@ public class MatchSimulator implements MatchSimulatorStrategy {
     private static final double FOUL_CHANCE = 0.10;
     private static final double FOUL_NEAR_AREA_CHANCE = 0.18;
 
-    private static final double PENALTY_AFTER_FOUL_CHANCE = 0.015;
+    private static final double PENALTY_AFTER_FOUL_CHANCE = 0.02;
     private static final double PENALTY_CONVERT_CHANCE = 0.78;
     private static final double PENALTY_MISS_CORNER_CHANCE = 0.35;
 
@@ -122,9 +122,22 @@ public class MatchSimulator implements MatchSimulatorStrategy {
     private void handleFoulEvent(IMatch match, int minute, IClub attackingClub, Player attacker) {
         match.addEvent(new FoulEvent(attacker, minute));
 
+        if (attacker.isSentOff()) return;
+
         double cardRoll = rand.nextDouble();
-        if (cardRoll < 0.03) match.addEvent(new RedCardEvent(attacker, minute));
-        else if (cardRoll < 0.13) match.addEvent(new YellowCardEvent(attacker, minute));
+        if (cardRoll < 0.03) {
+            attacker.sendOff();
+            match.addEvent(new RedCardEvent(attacker, minute));
+            System.out.println("Player " + attacker.getName() + " was sent off!");
+        } else if (cardRoll < 0.13) {
+            attacker.addYellowCard();
+            match.addEvent(new YellowCardEvent(attacker, minute));
+            if (attacker.getYellowCards() == 2) {
+                attacker.sendOff();
+                match.addEvent(new RedCardEvent(attacker, minute));
+                System.out.println("Player " + attacker.getName() + " was sent off (2nd yellow)!");
+            }
+        }
 
         if (rand.nextDouble() < FOUL_NEAR_AREA_CHANCE) {
             handleDangerousFoul(match, minute, attackingClub, attacker);
@@ -183,7 +196,8 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         for (IPlayer p : allPlayers) {
             if (p instanceof Player) {
                 Player player = (Player) p;
-                if (((PlayerPosition) player.getPosition()).getType() != PlayerPositionType.GOALKEEPER) {
+                if (((PlayerPosition) player.getPosition()).getType() != PlayerPositionType.GOALKEEPER
+                        && !player.isSentOff()) {
                     count++;
                 }
             }
@@ -195,7 +209,8 @@ public class MatchSimulator implements MatchSimulatorStrategy {
         for (IPlayer p : allPlayers) {
             if (p instanceof Player) {
                 Player player = (Player) p;
-                if (((PlayerPosition) player.getPosition()).getType() != PlayerPositionType.GOALKEEPER) {
+                if (((PlayerPosition) player.getPosition()).getType() != PlayerPositionType.GOALKEEPER
+                        && !player.isSentOff()) {
                     outfieldPlayers[idx++] = player;
                 }
             }

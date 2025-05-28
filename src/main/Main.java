@@ -159,10 +159,14 @@ public class Main {
                     listStandings(input, season);
                     break;
                 case 5:
+                    System.out.println("\nListing Players Standings...");
+                    listPlayersStandings(input, season);
+                    break;
+                case 6:
                     System.out.println("\nListing Events...");
                     viewGameEventsByRoundAndMatch(input, season);
                     break;
-                case 6:
+                case 7:
                     System.out.println("\nExiting start season menu.");
                     listing = false;
                     break;

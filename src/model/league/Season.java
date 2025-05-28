@@ -345,15 +345,22 @@ public class Season implements ISeason {
             throw new IllegalArgumentException("Player cannot be null");
         }
 
+        if (matches == null || matches.length == 0) {
+            System.out.println("No matches available.");
+            return;
+        }
+
         int cornerKicks = 0;
         int foul = 0;
         int yellowCards = 0;
         int redCards = 0;
-        int shotOnGoal = 0;
         int shot = 0;
         int penalties = 0;
         int offSide = 0;
         int goals = 0;
+        int defenses = 0;
+        int passes = 0;
+        int lostBalls = 0;
 
         for (IMatch iMatch : matches) {
             if (iMatch != null && iMatch.isPlayed()) {
@@ -361,7 +368,6 @@ public class Season implements ISeason {
                     if (event != null && event instanceof PlayerEvent && ((PlayerEvent) event).getPlayer().equals(player)) {
                         if (event instanceof GoalEvent) {
                             goals++;
-                            shotOnGoal++;
                         } else if (event instanceof CornerKickEvent) {
                             cornerKicks++;
                         } else if (event instanceof FoulEvent) {
@@ -376,27 +382,52 @@ public class Season implements ISeason {
                             penalties++;
                         } else if (event instanceof OffSideEvent) {
                             offSide++;
+                        } else if (event instanceof DefenseEvent) {
+                            defenses++;
+                        } else if (event instanceof PassingEvent) {
+                            passes++;
+                        } else if (event instanceof TurnoverEvent) {
+                            lostBalls++;
                         }
                     }
                 }
             }
         }
-        String playerStats = String.format(
-                "Player: %-20s%n" +
-                "Number: %-10d%n" +
-                "Goals: %-10d Corner Kicks: %-10d%n" +
-                "Fouls: %-10d Yellow Cards: %-10d%n" +
-                "Red Cards: %-10d%n" +
-                "Shots on Goal: %-10d Shots: %-10d%n" +
-                "Penalties: %-10d Offside: %-10d",
-                player.getName(), player.getNumber(),
-                goals, cornerKicks,
-                foul, yellowCards,
-                redCards,
-                shotOnGoal, shot,
-                penalties, offSide
-        );
-        System.out.println(playerStats);
+
+        int totalGames = (matches.length) / 9;
+        double goalsPerGame = totalGames > 0 ? (double) goals / totalGames : 0.0;
+        double shotsPerGame = totalGames > 0 ? (double) shot / totalGames : 0.0;
+        double shotAccuracy = shot > 0 ? ((double) goals / shot) * 100 : 0.0;
+        double passesPerGame = totalGames > 0 ? (double) passes / totalGames : 0.0;
+        double passAccuracy = passes > 0 ? ((double) (passes - lostBalls) / passes) * 100 : 0.0;
+
+        System.out.println();
+        System.out.println("+==============================================+");
+        System.out.printf("|         Player Statistics - %-14s|\n", player.getName());
+        System.out.println("+=======================+======================+");
+        System.out.printf("| %-21s | %-20s |\n", "Number", player.getNumber());
+        System.out.println("+-----------------------+----------------------+");
+        System.out.printf("| %-21s | %-20d |\n", "Goals", goals);
+        System.out.printf("| %-21s | %-20d |\n", "Shots", shot);
+        System.out.printf("| %-21s | %-20d |\n", "Passes", passes);
+        System.out.printf("| %-21s | %-20d |\n", "Lost Balls", lostBalls);
+        System.out.printf("| %-21s | %-20d |\n", "Defenses", defenses);
+        System.out.printf("| %-21s | %-20d |\n", "Penalties", penalties);
+        System.out.printf("| %-21s | %-20d |\n", "Fouls", foul);
+        System.out.printf("| %-21s | %-20d |\n", "Yellow Cards", yellowCards);
+        System.out.printf("| %-21s | %-20d |\n", "Red Cards", redCards);
+        System.out.printf("| %-21s | %-20d |\n", "Corner Kicks", cornerKicks);
+        System.out.printf("| %-21s | %-20d |\n", "Offside", offSide);
+        System.out.printf("| %-21s | %-20d |\n", "Total Games", totalGames);
+        System.out.println("+-----------------------+----------------------+");
+        System.out.printf("| %-21s | %-20.2f |\n", "Goals per Game", goalsPerGame);
+        System.out.printf("| %-21s | %-20.2f |\n", "Shots per Game", shotsPerGame);
+        System.out.printf("| %-21s | %-19.2f%% |\n", "Shot Accuracy (%)", shotAccuracy);
+        System.out.printf("| %-21s | %-20.2f |\n", "Passes per Game(F.G)", passesPerGame);
+        System.out.printf("| %-21s | %-19.2f%% |\n", "Pass Accuracy(F.G) (%)", passAccuracy);
+        System.out.println("+=======================+======================+");
+        System.out.println("Caption: (F.G) - For Goal");
+        System.out.println();
     }
 
     @Override

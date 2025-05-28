@@ -76,35 +76,4 @@ public class Util {
                 " | Value: " + value);
         return formation;
     }
-
-    public static void inputPlayerToGetStats(Scanner input, Season season) {
-        System.out.println("Choose the player club that you want to check stats:");
-        for(IClub club : season.getCurrentClubs()) {
-            if (club != null) {
-                System.out.println(club.getName() + "(" + club.getCode() + ")");
-            }
-        }
-        input.nextLine();
-        String selectedClub = input.nextLine();
-        System.out.println("Enter the number of the player you want to get stats for:");
-        for(IClub club : season.getCurrentClubs()) {
-            if (club != null && club.getCode().equalsIgnoreCase(selectedClub)) {
-                for (IPlayer player : club.getPlayers()) {
-                    if (player != null) {
-                        System.out.println(player.getName() + " | Number: " + player.getNumber());
-                    }
-                }
-            }
-        }
-        int selectedPlayer = input.nextInt();
-        for(IClub club : season.getCurrentClubs()) {
-            if (club != null && club.getName().equalsIgnoreCase(selectedClub)) {
-                for (IPlayer player : club.getPlayers()) {
-                    if (player != null && player.getNumber() == selectedPlayer) {
-                        season.getPlayerStatistics(player);
-                    }
-                }
-            }
-        }
-    }
 }
