@@ -37,7 +37,7 @@ public class Functions {
             System.out.println("|--------------------------------------------|");
             System.out.println("|             CREATE LEAGUE                  |");
             System.out.println("|--------------------------------------------|");
-            System.out.print ("Enter the Name of the League: ");
+            System.out.print("Enter the Name of the League: ");
             name = input.next();
             if (name.length() > 0) {
                 verifyInput = true;
@@ -59,7 +59,7 @@ public class Functions {
             System.out.println("|--------------------------------------------|");
             System.out.println("|             CREATE SEASON                  |");
             System.out.println("|--------------------------------------------|");
-            System.out.print ("Enter the Name of the Season: ");
+            System.out.print("Enter the Name of the Season: ");
             name = input.next();
             if (name.length() > 0) {
                 verifyInput = true;
@@ -69,7 +69,7 @@ public class Functions {
         } while (!verifyInput);
         verifyInput = false;
         do {
-            System.out.print ("Enter the Year of the Season: ");
+            System.out.print("Enter the Year of the Season: ");
             try {
                 year = input.nextInt();
                 if (year > 2023) {
@@ -84,7 +84,7 @@ public class Functions {
         } while (!verifyInput);
         verifyInput = false;
         do {
-            System.out.print ("Enter the Max Teams of the Season: ");
+            System.out.print("Enter the Max Teams of the Season: ");
             try {
                 maxTeams = input.nextInt();
                 if (maxTeams > 0) {
@@ -264,6 +264,7 @@ public class Functions {
             System.out.println("Error importing clubs: " + e.getMessage());
         }
     }
+
     public static void importAllClubsToSeason(Scanner input, Season season) {
         try {
             Importer importer = new Importer();
@@ -282,7 +283,7 @@ public class Functions {
                     System.out.println("Error setting formation for " + club.getName() + ": " + e.getMessage());
                     continue;
                 }
-                team.setAutomaticTeam(club.getPlayers(), (Formation)defaultFormation);
+                team.setAutomaticTeam(club.getPlayers(), (Formation) defaultFormation);
 
                 try {
                     season.addClub(club);
@@ -437,6 +438,7 @@ public class Functions {
             System.out.println("Exiting Player Details.");
         }
     }
+
     public static void listPlayersStandings(Scanner input, Season season) {
         System.out.println("Choose the player club that you want to check stats:");
         for (IClub club : season.getCurrentClubs()) {
@@ -492,6 +494,7 @@ public class Functions {
         }
         season.getPlayerStatistics(selectedPlayer);
     }
+
     public static void listPlayersStandingsForMangedClub(Scanner input, Season season, IClub selectedClub) {
         if (selectedClub == null) {
             System.out.println("No club selected to manage.");
@@ -656,6 +659,7 @@ public class Functions {
             System.out.println("Error generating schedule: " + ex.getMessage());
         }
     }
+
     public static IFormation selectFormation(Scanner input, Season season, IClub managedClub) {
         if (managedClub == null) {
             System.out.println("|--------------------------------------------|");
@@ -979,3 +983,6 @@ public class Functions {
         System.out.println(separator);
     }
 }
+
+
+
