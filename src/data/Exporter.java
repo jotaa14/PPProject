@@ -229,3 +229,5 @@ public class Exporter implements IExporter {
         return eventJson;
     }
 }
+
+//TODO: esta a dar erro porque a tem tem um club e isso e entre num ciclo, e so importar o club e meter a team default
