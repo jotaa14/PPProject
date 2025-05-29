@@ -1,30 +1,19 @@
 package data;
 
-import com.ppstudios.footballmanager.api.contracts.event.IEvent;
-import com.ppstudios.footballmanager.api.contracts.league.ILeague;
-import com.ppstudios.footballmanager.api.contracts.league.ISchedule;
-import com.ppstudios.footballmanager.api.contracts.league.ISeason;
-import com.ppstudios.footballmanager.api.contracts.league.IStanding;
-import com.ppstudios.footballmanager.api.contracts.match.IMatch;
-import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
-import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
-import com.ppstudios.footballmanager.api.contracts.team.IClub;
-import com.ppstudios.footballmanager.api.contracts.team.IFormation;
-import com.ppstudios.footballmanager.api.contracts.team.ITeam;
-import model.event.Event;
-import model.event.PlayerEvent;
-import model.league.League;
-import model.league.Season;
+import com.ppstudios.footballmanager.api.contracts.event.*;
+import com.ppstudios.footballmanager.api.contracts.league.*;
+import com.ppstudios.footballmanager.api.contracts.match.*;
+import com.ppstudios.footballmanager.api.contracts.player.*;
+import com.ppstudios.footballmanager.api.contracts.team.*;
+import model.event.*;
+import model.event.eventTypes.*;
+import model.league.*;
 import model.match.Match;
-import model.player.Player;
-import model.player.PlayerPosition;
-import model.player.PlayerPositionType;
-import model.team.Club;
-import model.team.Formation;
-import model.team.Team;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import model.player.*;
+import model.team.*;
+import org.json.simple.*;
+import org.json.simple.parser.*;
+
 import java.util.Random;
 
 import java.io.FileReader;
@@ -373,14 +362,14 @@ public class Importer {
     }
 
     private IMatch IMatchJSONtoObject(JSONObject jsonObject) {
-        IClub homeTeam = this.IClubJSONtoObject((JSONObject) jsonObject.get("home_team"));
-        IClub awayTeam = this.IClubJSONtoObject((JSONObject) jsonObject.get("away_team"));
+        ITeam homeTeam = this.ITeamJSONtoObject((JSONObject) jsonObject.get("home_team"));
+        ITeam awayTeam = this.ITeamJSONtoObject((JSONObject) jsonObject.get("away_team"));
 
         int round = ((Long) jsonObject.get("round")).intValue();
-        IEvent[] events = IEventJSONtoArray((JSONArray) jsonObject.get("events"));
+        IEventManager eventManager = IEventManagerJSONtoArray((JSONArray) jsonObject.get("events"));
         boolean isPlayed = (boolean) jsonObject.get("is_played");
 
-        return new Match(homeTeam, awayTeam, round, events, isPlayed);
+        return new Match(homeTeam, awayTeam, round, eventManager, isPlayed);
     }
 
     private ITeam[] ITeamJSONtoArray(JSONArray jsonArray) {
@@ -400,7 +389,7 @@ public class Importer {
         return new Team(formation, club, players);
     }
 
-    IPlayer[] IPlayerJSONtoArray(JSONArray jsonArray) {
+    private IPlayer[] IPlayerJSONtoArray(JSONArray jsonArray) {
         IPlayer[] players = new IPlayer[jsonArray.size()];
 
         for (int i = 0; i < jsonArray.size(); i++) {
@@ -409,7 +398,7 @@ public class Importer {
         return players;
     }
 
-    IPlayer IPlayerJSONtoObject(JSONObject jsonObject) {
+    private IPlayer IPlayerJSONtoObject(JSONObject jsonObject) {
         String name = (String) jsonObject.get("name");
         String stringPosition = (String) jsonObject.get("position");
         int age = ((Long) jsonObject.get("age")).intValue();
@@ -451,6 +440,95 @@ public class Importer {
             return new Formation(defenders, midfielders, forwards);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Os valores da formação devem ser números inteiros.");
+        }
+    }
+
+    private ISchedule IScheduleJSONtoObject(JSONObject jsonObject) {
+        int numberOfRounds = ((Long) jsonObject.get("number_of_rounds")).intValue();
+        int maxMatchesPerRound = ((Long) jsonObject.get("max_matches_per_round")).intValue();
+        Schedule schedule = new Schedule(numberOfRounds, maxMatchesPerRound);
+        IMatch[] matches = IMatchJSONtoArray((JSONArray) jsonObject.get("matches"));
+        for(IMatch match : matches) {
+            schedule.addMatchToRound(match.getRound(), match);
+        }
+        return schedule;
+    }
+
+    private IStanding[] IStandingJSONtoArray(JSONArray jsonArray) {
+        IStanding[] standings = new IStanding[jsonArray.size()];
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            standings[i] = this.IStandingJSONtoObject((JSONObject) jsonArray.get(i));
+        }
+        return standings;
+    }
+
+    private IStanding IStandingJSONtoObject(JSONObject jsonObject) {
+        ITeam team = ITeamJSONtoObject((JSONObject) jsonObject.get("team"));
+        int points = ((Long) jsonObject.get("points")).intValue();
+        int wins = ((Long) jsonObject.get("wins")).intValue();
+        int draws = ((Long) jsonObject.get("draws")).intValue();
+        int losses = ((Long) jsonObject.get("losses")).intValue();
+        int goalsScored = ((Long) jsonObject.get("goals_scored")).intValue();
+        int goalsConceded = ((Long) jsonObject.get("goals_conceded")).intValue();
+
+        return new Standing(team, points, wins, draws, losses, goalsScored, goalsConceded);
+    }
+
+    private IEventManager IEventManagerJSONtoArray(JSONArray jsonArray) {
+        IEventManager eventManager = new EventManager();
+
+        for(int i = 0; i < jsonArray.size(); i++) {
+            JSONObject eventJson = (JSONObject) jsonArray.get(i);
+            IEvent event = this.IEventJSONtoObject(eventJson);
+            eventManager.addEvent(event);
+        }
+
+        return eventManager;
+    }
+
+    private IEvent IEventJSONtoObject(JSONObject eventJson) {
+        String type = (String) eventJson.get("type");
+        int minute = ((Long) eventJson.get("minute")).intValue();
+        String description = (String) eventJson.get("description");
+        Player player = null;
+        if(eventJson.containsKey("player")){
+            player = (Player) this.IPlayerJSONtoObject((JSONObject) eventJson.get("player"));
+        }
+
+        switch(type){
+            case "Corner":
+                return new CornerEvent(player, minute);
+            case "Corner Kick":
+                return new CornerKickEvent(player, minute);
+            case "Defense":
+                return new DefenseEvent(player, minute);
+            case "End Event":
+                return new EndEvent(minute);
+            case "Foul":
+                return new FoulEvent(player, minute);
+            case "Goal":
+                return new GoalEvent(player, minute);
+            case "Goal Kick":
+                return new GoalKickEvent(player, minute);
+            case "OffSide":
+                return new OffSideEvent(player, minute);
+            case "Pass":
+                return new PassingEvent(player, minute);
+            case "Penalty":
+                return new PenaltyEvent(player, minute);
+            case "Red Card":
+                return new RedCardEvent(player, minute);
+            case "Shot":
+                return new ShotEvent(player, minute);
+            case "Start Event":
+                return new StartEvent(minute);
+            case "Turnover":
+                return new TurnoverEvent(player, minute);
+            case "Yellow Card":
+                return new YellowCardEvent(player, minute);
+            default:
+                throw new IllegalStateException("Unknown Event: " + type);
         }
     }
 }

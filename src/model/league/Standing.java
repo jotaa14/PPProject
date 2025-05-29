@@ -52,6 +52,17 @@ public class Standing implements IStanding {
         this.team = team;
     }
 
+    public Standing(ITeam team, int points, int wins, int draws, int losses,
+                    int goalsScored, int goalsConceded) {
+        this.team = team;
+        this.points = points;
+        this.wins = wins;
+        this.draws = draws;
+        this.losses = losses;
+        this.goalsScored = goalsScored;
+        this.goalsConceded = goalsConceded;
+    }
+
     /**
      * {@inheritDoc}
      */

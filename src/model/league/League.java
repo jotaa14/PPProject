@@ -41,6 +41,14 @@ public class League implements ILeague {
         this.name = name;
     }
 
+    public League(String name, ISeason[] seasons) {
+        this.name = name;
+        if (seasons != null) {
+            this.seasons = new ISeason[seasons.length];
+            System.arraycopy(seasons, 0, this.seasons, 0, seasons.length);
+        }
+    }
+
     /**
      * {@inheritDoc}
      * @return Name of the league

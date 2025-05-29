@@ -95,7 +95,6 @@ public class Exporter implements IExporter {
         standingJson.put("wins", standing.getWins());
         standingJson.put("draws", standing.getDraws());
         standingJson.put("losses", standing.getLosses());
-        standingJson.put("total_matches", standing.getTotalMatches());
         standingJson.put("goals_scored", standing.getGoalScored());
         standingJson.put("goals_conceded", standing.getGoalsConceded());
 
@@ -124,6 +123,8 @@ public class Exporter implements IExporter {
 
     private Object scheduleToJsonObject(ISchedule schedule) {
         JSONObject scheduleJson = new JSONObject();
+        scheduleJson.put("number_of_rounds", schedule.getNumberOfRounds());
+        scheduleJson.put("max_matches_per_round", schedule.getMaxMatchesPerRound());
         scheduleJson.put("matches", matchesToJsonArray(schedule.getAllMatches()));
         return scheduleJson;
     }
