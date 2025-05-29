@@ -189,7 +189,8 @@ public class Main {
 
     /**
      * Handles the start season menu, allowing the user to generate a schedule,
-     * simulate the season, list information, view standings, view events, or exit.
+     * simulate the season, list information, view standings, view player standings,
+     * view events, or exit.
      *
      * @param input  Scanner for user input
      * @param season The season being managed
@@ -282,7 +283,6 @@ public class Main {
 
                 case 2:
                     System.out.println("\nSelecting Formation...");
-
                     IFormation formation = selectFormation(input, season, managedClub);
                     System.out.print("Do you want to select players by position? (Y/N): ");
                     String choice = input.next();

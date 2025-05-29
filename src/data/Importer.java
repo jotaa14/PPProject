@@ -21,8 +21,27 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * Handles importing player, club, league, season, match, and event data from JSON files.
+ * Provides methods to parse and reconstruct the full object graph for the Football Manager application.
+ * 
+ * @author Diogo Fernando Águia Costa
+ * Number: 8240696
+ * Class: LSIRC1 T1
+ * @author João Pedro Martins Ribeiro
+ * Number:8230157
+ * Class: LSIRC1 T2
+ */
 public class Importer {
 
+    /**
+     * Imports players from a JSON file at the given file path.
+     * If certain attributes are missing, generates random values for them.
+     *
+     * @param filePath The path to the player JSON file.
+     * @return An array of Player objects parsed from the file.
+     * @throws IOException If there is a problem reading or parsing the file.
+     */
     public Player[] importPlayers(String filePath) throws IOException {
         try {
             FileReader file = new FileReader(filePath);
@@ -121,16 +140,29 @@ public class Importer {
         }
     }
 
+    /**
+     * Generates a random player height between 1.50m and 2.00m.
+     * @return A random float value for height.
+     */
     private static float generateRandomHeight() {
         Random random = new Random();
         return 1.50f + random.nextFloat() * (2.00f - 1.50f);
     }
 
+    /**
+     * Generates a random player weight between 60kg and 100kg.
+     * @return A random float value for weight.
+     */
     private static float generateRandomWeight() {
         Random random = new Random();
         return 60.00f + random.nextFloat() * (100.00f - 60.00f);
     }
 
+    /**
+     * Generates a random speed value based on player position.
+     * @param position The player's position.
+     * @return A random integer value for speed.
+     */
     private static int generateRandomSpeed(PlayerPosition position) {
         Random random = new Random();
         switch (position.getDescription()) {
@@ -147,6 +179,11 @@ public class Importer {
         }
     }
 
+    /**
+     * Generates a random stamina value based on player position.
+     * @param position The player's position.
+     * @return A random integer value for stamina.
+     */
     private static int generateRandomStamina(PlayerPosition position) {
         Random random = new Random();
         switch (position.getDescription()) {
@@ -163,6 +200,11 @@ public class Importer {
         }
     }
 
+    /**
+     * Generates a random shooting value based on player position.
+     * @param position The player's position.
+     * @return A random integer value for shooting.
+     */
     private static int generateRandomShooting(PlayerPosition position) {
         Random random = new Random();
         switch (position.getDescription()) {
@@ -179,6 +221,11 @@ public class Importer {
         }
     }
 
+    /**
+     * Generates a random defense value based on player position.
+     * @param position The player's position.
+     * @return A random integer value for defense.
+     */
     private static int generateRandomDefense(PlayerPosition position) {
         Random random = new Random();
         switch (position.getDescription()) {
@@ -195,6 +242,11 @@ public class Importer {
         }
     }
 
+    /**
+     * Generates a random passing value based on player position.
+     * @param position The player's position.
+     * @return A random integer value for passing.
+     */
     private static int generateRandomPassing(PlayerPosition position) {
         Random random = new Random();
         switch (position.getDescription()) {
@@ -211,6 +263,11 @@ public class Importer {
         }
     }
 
+    /**
+     * Generates a random goalkeeping value based on player position.
+     * @param position The player's position.
+     * @return A random integer value for goalkeeping.
+     */
     private static int generateRandomGoalkeeping(PlayerPosition position) {
         Random random = new Random();
         switch (position.getDescription()) {
@@ -227,6 +284,10 @@ public class Importer {
         }
     }
 
+    /**
+     * Randomly selects a preferred foot for a player.
+     * @return A PreferredFoot enum value.
+     */
     private static PreferredFoot generateRandomPreferredFoot() {
         Random random = new Random();
         int chance = random.nextInt(10) + 1; // 1 a 10
@@ -240,6 +301,13 @@ public class Importer {
         }
     }
 
+    /**
+     * Imports clubs from a JSON file at the given file path.
+     *
+     * @param filePath The path to the clubs JSON file.
+     * @return An array of Club objects parsed from the file.
+     * @throws IOException If there is a problem reading or parsing the file.
+     */
     public Club[] importClubs(String filePath) throws IOException {
         try {
             FileReader file = new FileReader(filePath);
@@ -271,6 +339,13 @@ public class Importer {
         }
     }
 
+    /**
+     * Imports all clubs and their players from the default JSON files.
+     * Each club's players are loaded from a separate file.
+     *
+     * @return An array of Club objects with their players set.
+     * @throws IOException If there is a problem reading or parsing the files.
+     */
     public Club[] importData() throws IOException {
         try {
             Club[] clubs = importClubs("./JSON/clubs.json");
@@ -287,6 +362,10 @@ public class Importer {
         }
     }
 
+    /**
+     * Imports all leagues from the default leagues JSON file and sets them in the game state.
+     * Handles parsing of nested seasons, clubs, matches, and related objects.
+     */
     public void importAllLeagues() {
         try {
             FileReader file = new FileReader("./JSON/leagues.json");
@@ -301,6 +380,11 @@ public class Importer {
         }
     }
 
+    /**
+     * Converts a JSONArray of leagues to an array of ILeague objects.
+     * @param jsonArray The JSONArray representing leagues.
+     * @return An array of ILeague objects.
+     */
     private ILeague[] ILeagueJSONtoArray(JSONArray jsonArray){
         ILeague[] leagues = new ILeague[jsonArray.size()];
 
@@ -312,6 +396,11 @@ public class Importer {
         return leagues;
     }
 
+    /**
+     * Converts a JSONObject to an ILeague object, including its seasons.
+     * @param jsonObject The JSONObject representing a league.
+     * @return An ILeague object.
+     */
     private ILeague ILeagueJSONtoObject(JSONObject jsonObject) {
         String name = (String) jsonObject.get("name");
         ISeason[] seasons = ISeasonJSONtoArray((JSONArray) jsonObject.get("seasons"));
@@ -319,6 +408,11 @@ public class Importer {
         return new League(name, seasons);
     }
 
+    /**
+     * Converts a JSONArray of seasons to an array of ISeason objects.
+     * @param jsonArray The JSONArray representing seasons.
+     * @return An array of ISeason objects.
+     */
     private ISeason[] ISeasonJSONtoArray(JSONArray jsonArray) {
         ISeason[] seasons = new ISeason[jsonArray.size()];
 
@@ -328,6 +422,11 @@ public class Importer {
         return seasons;
     }
 
+    /**
+     * Converts a JSONObject to an ISeason object, including clubs, teams, matches, schedule, and standings.
+     * @param jsonObject The JSONObject representing a season.
+     * @return An ISeason object.
+     */
     private ISeason ISeasonJSONtoObject(JSONObject jsonObject) {
         String name = (String) jsonObject.get("name");
         int year = ((Long) jsonObject.get("year")).intValue();
@@ -342,6 +441,11 @@ public class Importer {
         return new Season(name, year, currentRound, maxTeams, clubs, teams, matches, schedule, standings);
     }
 
+    /**
+     * Converts a JSONArray of clubs to an array of IClub objects.
+     * @param jsonArray The JSONArray representing clubs.
+     * @return An array of IClub objects.
+     */
     private IClub[] IClubJSONtoArray(JSONArray jsonArray) {
         IClub[] clubs = new IClub[jsonArray.size()];
 
@@ -351,6 +455,11 @@ public class Importer {
         return clubs;
     }
 
+    /**
+     * Converts a JSONObject to an IClub object, including players and team.
+     * @param jsonObject The JSONObject representing a club.
+     * @return An IClub object.
+     */
     private IClub IClubJSONtoObject(JSONObject jsonObject) {
         String name = (String) jsonObject.get("name");
         String code = (String) jsonObject.get("code");
@@ -368,6 +477,11 @@ public class Importer {
         return club;
     }
 
+    /**
+     * Converts a JSONObject to an ITeam object for a club.
+     * @param jsonObject The JSONObject representing a team.
+     * @return An ITeam object.
+     */
     private ITeam clubITeamJSONtoObject(JSONObject jsonObject) {
         IFormation formation = IFormationStringToObject((String) jsonObject.get("formation"));
         IPlayer[] players = IPlayerJSONtoArray((JSONArray) jsonObject.get("players"));
@@ -376,6 +490,11 @@ public class Importer {
     }
 
 
+    /**
+     * Converts a JSONArray of matches to an array of IMatch objects.
+     * @param jsonArray The JSONArray representing matches.
+     * @return An array of IMatch objects.
+     */
     private IMatch[] IMatchJSONtoArray(JSONArray jsonArray) {
         IMatch[] matches = new IMatch[jsonArray.size()];
 
@@ -385,6 +504,11 @@ public class Importer {
         return matches;
     }
 
+    /**
+     * Converts a JSONObject to an IMatch object, including teams, round, events, and play status.
+     * @param jsonObject The JSONObject representing a match.
+     * @return An IMatch object.
+     */
     private IMatch IMatchJSONtoObject(JSONObject jsonObject) {
         ITeam homeTeam = this.ITeamJSONtoObject((JSONObject) jsonObject.get("home_team"));
         ITeam awayTeam = this.ITeamJSONtoObject((JSONObject) jsonObject.get("away_team"));
@@ -396,6 +520,11 @@ public class Importer {
         return new Match(homeTeam, awayTeam, round, eventManager, isPlayed);
     }
 
+    /**
+     * Converts a JSONArray of teams to an array of ITeam objects.
+     * @param jsonArray The JSONArray representing teams.
+     * @return An array of ITeam objects.
+     */
     private ITeam[] ITeamJSONtoArray(JSONArray jsonArray) {
         ITeam[] teams = new ITeam[jsonArray.size()];
 
@@ -405,6 +534,11 @@ public class Importer {
         return teams;
     }
 
+    /**
+     * Converts a JSONObject to an ITeam object, including formation, club, and players.
+     * @param jsonObject The JSONObject representing a team.
+     * @return An ITeam object.
+     */
     private ITeam ITeamJSONtoObject(JSONObject jsonObject) {
         IFormation formation = IFormationStringToObject((String) jsonObject.get("formation"));
         IClub club = this.IClubJSONtoObject((JSONObject) jsonObject.get("club"));
@@ -413,6 +547,11 @@ public class Importer {
         return new Team(formation, club, players);
     }
 
+    /**
+     * Converts a JSONArray of players to an array of IPlayer objects.
+     * @param jsonArray The JSONArray representing players.
+     * @return An array of IPlayer objects.
+     */
     private IPlayer[] IPlayerJSONtoArray(JSONArray jsonArray) {
         IPlayer[] players = new IPlayer[jsonArray.size()];
 
@@ -422,6 +561,11 @@ public class Importer {
         return players;
     }
 
+    /**
+     * Converts a JSONObject to an IPlayer object, including all attributes.
+     * @param jsonObject The JSONObject representing a player.
+     * @return An IPlayer object.
+     */
     private IPlayer IPlayerJSONtoObject(JSONObject jsonObject) {
         String name = (String) jsonObject.get("name");
         String stringPosition = (String) jsonObject.get("position");
@@ -447,6 +591,12 @@ public class Importer {
     }
 
 
+    /**
+     * Converts a string representation of a formation (e.g., "4-4-2") to an IFormation object.
+     * @param formation The formation string.
+     * @return An IFormation object.
+     * @throws IllegalArgumentException If the format is invalid.
+     */
     private IFormation IFormationStringToObject(String formation) {
         String[] parts = formation.split("-");
 
@@ -465,6 +615,11 @@ public class Importer {
         }
     }
 
+    /**
+     * Converts a JSONObject to an ISchedule object, including all matches.
+     * @param jsonObject The JSONObject representing a schedule.
+     * @return An ISchedule object.
+     */
     private ISchedule IScheduleJSONtoObject(JSONObject jsonObject) {
         int numberOfRounds = ((Long) jsonObject.get("number_of_rounds")).intValue();
         int maxMatchesPerRound = ((Long) jsonObject.get("max_matches_per_round")).intValue();
@@ -476,6 +631,11 @@ public class Importer {
         return schedule;
     }
 
+    /**
+     * Converts a JSONArray of standings to an array of IStanding objects.
+     * @param jsonArray The JSONArray representing standings.
+     * @return An array of IStanding objects.
+     */
     private IStanding[] IStandingJSONtoArray(JSONArray jsonArray) {
         IStanding[] standings = new IStanding[jsonArray.size()];
 
@@ -485,6 +645,11 @@ public class Importer {
         return standings;
     }
 
+    /**
+     * Converts a JSONObject to an IStanding object, including statistics and team.
+     * @param jsonObject The JSONObject representing a standing.
+     * @return An IStanding object.
+     */
     private IStanding IStandingJSONtoObject(JSONObject jsonObject) {
         ITeam team = ITeamJSONtoObject((JSONObject) jsonObject.get("team"));
         int points = ((Long) jsonObject.get("points")).intValue();
@@ -497,6 +662,11 @@ public class Importer {
         return new Standing(team, points, wins, draws, losses, goalsScored, goalsConceded);
     }
 
+    /**
+     * Converts a JSONArray of events to an IEventManager containing all events.
+     * @param jsonArray The JSONArray representing events.
+     * @return An IEventManager object.
+     */
     private IEventManager IEventManagerJSONtoArray(JSONArray jsonArray) {
         IEventManager eventManager = new EventManager();
 
@@ -509,6 +679,12 @@ public class Importer {
         return eventManager;
     }
 
+    /**
+     * Converts a JSONObject to an IEvent object, using the event type to instantiate the correct event class.
+     * @param eventJson The JSONObject representing an event.
+     * @return An IEvent object.
+     * @throws IllegalStateException If the event type is unknown.
+     */
     private IEvent IEventJSONtoObject(JSONObject eventJson) {
         String type = (String) eventJson.get("type");
         int minute = ((Long) eventJson.get("minute")).intValue();
