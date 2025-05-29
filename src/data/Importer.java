@@ -116,6 +116,7 @@ public class Importer {
             return players;
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IOException("Error reading player file:" + e.getMessage());
         }
     }
@@ -281,6 +282,7 @@ public class Importer {
             return clubs;
 
         }catch (Exception e) {
+            e.printStackTrace();
             throw new IOException("Error reading club file: " + e.getMessage());
         }
     }
@@ -294,7 +296,8 @@ public class Importer {
             ILeague[] leagues = ILeagueJSONtoArray(leaguesArray);
             Util.setGameLeagues(leagues);
         }catch (Exception e) {
-            System.out.println("Error reading club file: " + e.getMessage());
+            e.printStackTrace();
+            System.out.println("Error reading leagues file: " + e.getMessage());
         }
     }
 
@@ -357,8 +360,9 @@ public class Importer {
         int founded = ((Long) jsonObject.get("foundedYear")).intValue();
         boolean isNationalTeam = (boolean) jsonObject.get("isNationalTeam");
         IPlayer[] players = IPlayerJSONtoArray((JSONArray) jsonObject.get("players"));
+        ITeam team = ITeamJSONtoObject((JSONObject) jsonObject.get("team"));
 
-        return new Club(name, code, stadium, logo, country, founded, isNationalTeam, players);
+        return new Club(name, code, stadium, logo, country, founded, isNationalTeam, players, team);
     }
 
     private IMatch[] IMatchJSONtoArray(JSONArray jsonArray) {
@@ -410,7 +414,6 @@ public class Importer {
     private IPlayer IPlayerJSONtoObject(JSONObject jsonObject) {
         String name = (String) jsonObject.get("name");
         String stringPosition = (String) jsonObject.get("position");
-        int age = ((Long) jsonObject.get("age")).intValue();
         int number = ((Long) jsonObject.get("number")).intValue();
         int shooting = ((Long) jsonObject.get("shooting")).intValue();
         int passing = ((Long) jsonObject.get("passing")).intValue();
@@ -418,18 +421,17 @@ public class Importer {
         int speed = ((Long) jsonObject.get("speed")).intValue();
         int defense = ((Long) jsonObject.get("defense")).intValue();
         int goalkeeping = ((Long) jsonObject.get("goalkeeping")).intValue();
-        int height = ((Long) jsonObject.get("height")).intValue();
-        int weight = ((Long) jsonObject.get("weight")).intValue();
+        float height = ((Double) jsonObject.get("height")).floatValue();
+        float weight = ((Double) jsonObject.get("weight")).floatValue();
         String nationality = (String) jsonObject.get("nationality");
         PreferredFoot preferredFoot = PreferredFoot.fromString((String) jsonObject.get("preferredFoot"));
         String photo = (String) jsonObject.get("photo");
         LocalDate birthDate = LocalDate.parse((String) jsonObject.get("birthDate"));
         String clubCode = (String) jsonObject.get("clubCode");
-        int strength = ((Long) jsonObject.get("strength")).intValue();
 
         PlayerPosition playerPosition = new PlayerPosition(stringPosition);
-        return new Player(name, playerPosition, age, number, shooting, passing, stamina, speed,
-                defense, goalkeeping, height, weight, nationality, preferredFoot, photo, birthDate, clubCode, strength);
+        return new Player(name, playerPosition, number, shooting, passing, stamina, speed,
+                defense, goalkeeping, height, weight, nationality, preferredFoot, photo, birthDate, clubCode);
 
     }
 

@@ -173,6 +173,7 @@ public class Exporter implements IExporter {
         clubJson.put("foundedYear", club.getFoundedYear());
         clubJson.put("isNationalTeam", club.isNationalTeam());
         clubJson.put("players", playersToJsonArray(club.getPlayers()));
+        clubJson.put("team", teamToJsonObject(club.getTeam()));
         return clubJson;
     }
 
@@ -189,7 +190,6 @@ public class Exporter implements IExporter {
         JSONObject playerJson = new JSONObject();
         playerJson.put("name", player.getName());
         playerJson.put("position", player.getPosition().getDescription());
-        playerJson.put("age", player.getAge());
         playerJson.put("number", player.getNumber());
         playerJson.put("shooting", player.getShooting());
         playerJson.put("passing", player.getPassing());
@@ -204,7 +204,6 @@ public class Exporter implements IExporter {
         playerJson.put("photo", player.getPhoto());
         playerJson.put("birthDate", player.getBirthDate().toString());
         playerJson.put("clubCode", player.getClub());
-        playerJson.put("strength", player.getStrength());
 
         return playerJson;
     }

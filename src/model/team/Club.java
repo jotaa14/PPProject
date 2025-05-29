@@ -79,7 +79,7 @@ public class Club implements IClub {
         this.isNationalTeam = isNationalTeam;
     }
 
-    public Club(String name, String code, String stadium, String logo, String country, int founded, boolean isNationalTeam, IPlayer[] players) {
+    public Club(String name, String code, String stadium, String logo, String country, int founded, boolean isNationalTeam, IPlayer[] players, ITeam team) {
         this.name = name;
         this.code = code;
         this.country = country;
@@ -89,6 +89,7 @@ public class Club implements IClub {
         this.players = players;
         this.playerCount = players.length;
         this.isNationalTeam = isNationalTeam;
+        this.team = team;
 
         if (this.players == null) {
             this.players = new IPlayer[100];

@@ -81,10 +81,25 @@ public class Player implements IPlayer, Cloneable {
         this.clubCode = clubCode;
     }
 
-    public Player(String name, PlayerPosition position, int age, int number, int shooting, int passing, int stamina,
+    public Player(String name, PlayerPosition position, int number, int shooting, int passing, int stamina,
                   int speed, int defense, int goalkeeping, float height, float weight, String nationality,
-                  PreferredFoot preferredFoot, String photo, LocalDate birthDate, String clubCode, int strength) {
-
+                  PreferredFoot preferredFoot, String photo, LocalDate birthDate, String clubCode) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.position = position;
+        this.nationality = nationality;
+        this.photo = photo;
+        this.number = number;
+        this.shooting = shooting;
+        this.passing = passing;
+        this.stamina = stamina;
+        this.speed = speed;
+        this.defense = defense;
+        this.goalkeeping = goalkeeping;
+        this.height = height;
+        this.weight = weight;
+        this.preferredFoot = preferredFoot;
+        this.clubCode = clubCode;
     }
 
     /**
