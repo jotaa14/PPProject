@@ -22,9 +22,22 @@ import java.util.Scanner;
  */
 public class Util {
 
+    /**
+     * Holds the array of all loaded leagues in the game.
+     */
     private static ILeague[] gameLeagues = new ILeague[20];
+
+    /**
+     * Tracks the next available index for inserting a new league.
+     */
     private static int currentLeagueIndex = 0;
 
+    /**
+     * Sets the current game leagues by copying all non-null entries from the provided array
+     * into the internal leagues array. Increments the index for each league added.
+     *
+     * @param leagues Array of ILeague objects to be set as the current game leagues
+     */
     public static void setGameLeagues(ILeague[] leagues) {
         for(ILeague league : leagues) {
             if(league != null) {
@@ -33,10 +46,20 @@ public class Util {
         }
     }
 
+    /**
+     * Returns the array of all loaded leagues in the game.
+     *
+     * @return Array of ILeague objects representing all loaded leagues
+     */
     public static ILeague[] getGameLeagues() {
         return gameLeagues;
     }
 
+    /**
+     * Adds a new league to the internal array and increments the index.
+     *
+     * @param league The League object to add
+     */
     public static void addLeague(League league) {
         gameLeagues[currentLeagueIndex++] = league;
     }

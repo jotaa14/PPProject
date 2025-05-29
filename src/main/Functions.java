@@ -1122,6 +1122,14 @@ public class Functions {
         }
         System.out.println(separator);
     }
+
+    /**
+     * Displays a list of available leagues and prompts the user to select one through console input.
+     * Handles input validation to ensure a valid league selection.
+     *
+     * @param input Scanner object for reading user input from console
+     * @return The selected ILeague object, or null if no valid selection is made
+     */
     public static ILeague loadLeague(Scanner input) {
         ILeague[] gameLeagues = Util.getGameLeagues();
 

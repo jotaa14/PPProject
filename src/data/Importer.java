@@ -24,7 +24,7 @@ import java.time.LocalDate;
 /**
  * Handles importing player, club, league, season, match, and event data from JSON files.
  * Provides methods to parse and reconstruct the full object graph for the Football Manager application.
- * 
+ *
  * @author Diogo Fernando Águia Costa
  * Number: 8240696
  * Class: LSIRC1 T1
