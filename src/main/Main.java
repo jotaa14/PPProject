@@ -2,9 +2,12 @@ package main;
 
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
+import data.Exporter;
+import data.Importer;
 import model.league.Season;
 import model.league.League;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import static main.Functions.*;
@@ -53,6 +56,9 @@ public class Main {
         Scanner input = new Scanner(System.in);
         boolean running = true;
 
+        Importer importer = new Importer();
+        importer.importAllLeagues();
+
         while (running) {
             int op = mainMenu(input);
 
@@ -60,14 +66,17 @@ public class Main {
                 case 1:
                     System.out.println("\nStarting a New Game...");
                     League league = createLeague(input);
+                    Util.addLeague(league);
                     runLeagueMenu(input, league);
                     break;
                 case 2:
                     System.out.println("\nLoading Saved Game...");
-                    // TODO: Implement loading functionality
+                    runLeagueMenu(input, (League) loadLeague(input));
                     break;
                 case 3:
                     System.out.println("\nExiting the Game. See you soon!");
+                    Exporter exporter = new Exporter();
+                    exporter.exportToJson();
                     running = false;
                     break;
                 default:
@@ -94,11 +103,17 @@ public class Main {
                 case 1:
                     System.out.println("\nStarting a New Season...");
                     Season season = createSeason(input);
+                    league.createSeason(season);
                     runSeasonMenu(input, season);
                     break;
                 case 2:
                     System.out.println("\nLoading a Season...");
-                    loadSeason(input, league);
+                    Season loadSeason = (Season) loadSeason(input, league);
+                    if(loadSeason == null) {
+                        System.out.println("No season loaded. Returning to league menu.");
+                    } else {
+                        runSeasonMenu(input, loadSeason);
+                    }
                     break;
                 case 3:
                     System.out.println("\nListing information...");

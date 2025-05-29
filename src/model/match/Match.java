@@ -272,23 +272,19 @@ public class Match implements IMatch {
     }
 
     /**
-     * Exports match data to a JSON file named "match.json".
-     * Includes round number, team names, played status, and event count.
+     * {@inheritDoc}
      *
-     * @throws IOException if writing to file fails
+     * <p><b>Note:</b> This method is intentionally left unimplemented in this class,
+     * as JSON export is handled centrally by a component responsible for exporting
+     * the complete state of the application.</p>
+     *
+     * <p>This implementation exists solely to satisfy the requirements of the
+     * {@code Exportable} interface and has no practical use in this specific class.</p>
+     *
+     * @throws IOException Not applicable in this implementation
      */
     @Override
     public void exportToJson() throws IOException {
-        String json = "{\n" +
-                "  \"round\": " + round + ",\n" +
-                "  \"homeTeam\": \"" + getHomeClub().getName() + "\",\n" +
-                "  \"awayTeam\": \"" + getAwayClub().getName() + "\",\n" +
-                "  \"played\": " + played + ",\n" +
-                "  \"eventCount\": " + getEventCount() + "\n" +
-                "}";
-
-        FileWriter writer = new FileWriter("match.json");
-        writer.write(json);
-        writer.close();
+        // Not applicable in this class
     }
 }

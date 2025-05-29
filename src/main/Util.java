@@ -1,7 +1,9 @@
 package main;
 
+import com.ppstudios.footballmanager.api.contracts.league.ILeague;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.IFormation;
+import model.league.League;
 import model.team.Club;
 import model.team.Formation;
 
@@ -19,6 +21,25 @@ import java.util.Scanner;
  * Class: LSIRC1 T2
  */
 public class Util {
+
+    private static ILeague[] gameLeagues = new ILeague[20];
+    private static int currentLeagueIndex = 0;
+
+    public static void setGameLeagues(ILeague[] leagues) {
+        for(ILeague league : leagues) {
+            if(league != null) {
+                gameLeagues[currentLeagueIndex++] = league;
+            }
+        }
+    }
+
+    public static ILeague[] getGameLeagues() {
+        return gameLeagues;
+    }
+
+    public static void addLeague(League league) {
+        gameLeagues[currentLeagueIndex++] = league;
+    }
 
     /**
      * Displays information for all clubs in the provided array.
@@ -107,4 +128,6 @@ public class Util {
                 " | Value: " + value);
         return formation;
     }
+
+
 }

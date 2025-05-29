@@ -14,6 +14,7 @@ import model.event.eventTypes.*;
 import model.match.Match;
 import model.simulation.MatchSimulator;
 import model.team.Club;
+import model.team.Team;
 
 import java.io.IOException;
 
@@ -111,6 +112,10 @@ public class Season implements ISeason {
     @Override
     public int getYear() {
         return year;
+    }
+
+    public ITeam[] getTeams(){
+        return teams;
     }
 
     /**
@@ -600,17 +605,19 @@ public class Season implements ISeason {
 
     /**
      * {@inheritDoc}
+     *
+     * <p><b>Note:</b> This method is intentionally left unimplemented in this class,
+     * as JSON export is handled centrally by a component responsible for exporting
+     * the complete state of the application.</p>
+     *
+     * <p>This implementation exists solely to satisfy the requirements of the
+     * {@code Exportable} interface and has no practical use in this specific class.</p>
+     *
+     * @throws IOException Not applicable in this implementation
      */
     @Override
     public void exportToJson() throws IOException {
-        java.io.FileWriter writer = new java.io.FileWriter("season.json");
-        writer.write("{\n");
-        writer.write("\"name\": \"" + name + "\",\n");
-        writer.write("\"year\": " + year + ",\n");
-        writer.write("\"currentRound\": " + currentRound + ",\n");
-        writer.write("\"maxTeams\": " + maxTeams + "\n");
-        writer.write("}");
-        writer.close();
+        // Not applicable in this class
     }
 
     /**

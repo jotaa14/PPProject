@@ -225,15 +225,6 @@ public class Schedule implements ISchedule {
     }
 
     /**
-     * {@inheritDoc}
-     * @throws UnsupportedOperationException Always thrown - not implemented
-     */
-    @Override
-    public void exportToJson() throws IOException {
-        throw new UnsupportedOperationException("Export not implemented.");
-    }
-
-    /**
      * Validates that a round number is within valid range.
      * @param round Round number to validate
      * @throws IllegalArgumentException if round < 0 or >= numberOfRounds
@@ -242,5 +233,26 @@ public class Schedule implements ISchedule {
         if (round < 0 || round >= numberOfRounds) {
             throw new IllegalArgumentException("Invalid round number: " + round);
         }
+    }
+
+    public int getMaxMatchesPerRound() {
+        return maxMatchesPerRound;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p><b>Note:</b> This method is intentionally left unimplemented in this class,
+     * as JSON export is handled centrally by a component responsible for exporting
+     * the complete state of the application.</p>
+     *
+     * <p>This implementation exists solely to satisfy the requirements of the
+     * {@code Exportable} interface and has no practical use in this specific class.</p>
+     *
+     * @throws IOException Not applicable in this implementation
+     */
+    @Override
+    public void exportToJson() throws IOException {
+        // Not applicable in this class
     }
 }

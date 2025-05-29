@@ -81,13 +81,19 @@ public abstract class Event implements IEvent {
     }
 
     /**
-     * Exports the event to JSON format.
-     * This method should be overridden by subclasses.
+     * {@inheritDoc}
      *
-     * @throws IOException if export fails
+     * <p><b>Note:</b> This method is intentionally left unimplemented in this class,
+     * as JSON export is handled centrally by a component responsible for exporting
+     * the complete state of the application.</p>
+     *
+     * <p>This implementation exists solely to satisfy the requirements of the
+     * {@code Exportable} interface and has no practical use in this specific class.</p>
+     *
+     * @throws IOException Not applicable in this implementation
      */
     @Override
     public void exportToJson() throws IOException {
-        // To be implemented by subclasses if needed
+        // Not applicable in this class
     }
 }

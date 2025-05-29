@@ -405,10 +405,18 @@ public class Club implements IClub {
 
     /**
      * {@inheritDoc}
-     * @throws IOException If export fails
+     *
+     * <p><b>Note:</b> This method is intentionally left unimplemented in this class,
+     * as JSON export is handled centrally by a component responsible for exporting
+     * the complete state of the application.</p>
+     *
+     * <p>This implementation exists solely to satisfy the requirements of the
+     * {@code Exportable} interface and has no practical use in this specific class.</p>
+     *
+     * @throws IOException Not applicable in this implementation
      */
     @Override
     public void exportToJson() throws IOException {
-        // Implementation specific JSON export logic
+        // Not applicable in this class
     }
 }

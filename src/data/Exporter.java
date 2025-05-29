@@ -10,7 +10,9 @@ import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import main.Util;
 import model.event.PlayerEvent;
+import model.league.Schedule;
 import model.league.Season;
 import model.player.Player;
 import model.event.Event;
@@ -22,17 +24,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Exporter implements IExporter {
-
-    private ILeague[] leagues;
-
     @Override
-    public void exportToJson() throws IOException {
-        JSONArray leaguesJson = leaguesToJsonArray(leagues);
+    public void exportToJson() {
+        try{
+            JSONArray leaguesJson = leaguesToJsonArray(Util.getGameLeagues());
 
-        try (FileWriter file = new FileWriter("./files/leagues.json")) {
-            file.write(leaguesJson.toJSONString());
-            file.flush();
-            System.out.println("League exported successfully to JSON file.");
+            try (FileWriter file = new FileWriter("./JSON/leagues.json")) {
+                file.write(leaguesJson.toJSONString());
+                file.flush();
+                System.out.println("League exported successfully to JSON file.");
+                file.close();
+            }
+        }catch (IOException ex){
+            System.out.println("Error exporting leagues to JSON: " + ex.getMessage());
         }
     }
 
@@ -70,7 +74,7 @@ public class Exporter implements IExporter {
         seasonJson.put("current_round", season.getCurrentRound());
         seasonJson.put("max_teams", season.getMaxTeams());
         seasonJson.put("clubs", clubsToJsonArray(season.getCurrentClubs()));
-        seasonJson.put("teams", teamsToJsonArray((Season)season).getTeams());
+        seasonJson.put("teams", teamsToJsonArray(((Season)season).getTeams()));
         seasonJson.put("matches", matchesToJsonArray(season.getMatches()));
         seasonJson.put("schedule", scheduleToJsonObject(season.getSchedule()));
         seasonJson.put("standings", standingsToJsonArray(season.getLeagueStandings()));
@@ -124,7 +128,7 @@ public class Exporter implements IExporter {
     private Object scheduleToJsonObject(ISchedule schedule) {
         JSONObject scheduleJson = new JSONObject();
         scheduleJson.put("number_of_rounds", schedule.getNumberOfRounds());
-        scheduleJson.put("max_matches_per_round", schedule.getMaxMatchesPerRound());
+        scheduleJson.put("max_matches_per_round", ((Schedule)schedule).getMaxMatchesPerRound());
         scheduleJson.put("matches", matchesToJsonArray(schedule.getAllMatches()));
         return scheduleJson;
     }
@@ -196,7 +200,7 @@ public class Exporter implements IExporter {
         playerJson.put("height", player.getHeight());
         playerJson.put("weight", player.getWeight());
         playerJson.put("nationality", player.getNationality());
-        playerJson.put("preferredFoot", player.getPreferredFoot());
+        playerJson.put("preferredFoot", player.getPreferredFoot().toString());
         playerJson.put("photo", player.getPhoto());
         playerJson.put("birthDate", player.getBirthDate().toString());
         playerJson.put("clubCode", player.getClub());

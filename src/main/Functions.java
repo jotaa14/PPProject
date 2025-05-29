@@ -1,6 +1,7 @@
 package main;
 
 import com.ppstudios.footballmanager.api.contracts.event.IEvent;
+import com.ppstudios.footballmanager.api.contracts.league.ILeague;
 import com.ppstudios.footballmanager.api.contracts.league.ISeason;
 import com.ppstudios.footballmanager.api.contracts.league.IStanding;
 import com.ppstudios.footballmanager.api.contracts.match.IMatch;
@@ -145,31 +146,21 @@ public class Functions {
      * @return Loaded ISeason instance, or null if not found
      */
     public static ISeason loadSeason(Scanner input, League league) {
+        System.out.println("|--------------------------------------------|");
+        System.out.println("|             LOAD SEASON                    |");
+        System.out.println("|--------------------------------------------|");
+        listSeason(input, league);
+        System.out.print("Enter the Year of the Season to Load: ");
+        int year = input.nextInt();
+
         ISeason[] seasons = league.getSeasons();
-        if (seasons.length == 0) {
-            System.out.println("No seasons available in this league.");
-            return null;
-        }
-        System.out.println("All seasons available: ");
         for (ISeason season : seasons) {
-            if (season == null) continue;
-            System.out.println("Season: " + season.getName() + " | Year: " + season.getYear());
-        }
-
-        int year = 0;
-        boolean validInput = false;
-
-        while (!validInput) {
-            try {
-                System.out.println("Enter the year of the season: ");
-                year = input.nextInt();
-                validInput = true;
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter numeric values.");
-                input.next();
+            if (season.getYear() == year) {
+                return season;
             }
         }
-        return league.getSeason(year);
+        System.out.println("Season for year " + year + " not found in this league.");
+        return null;
     }
 
     /**
@@ -1129,5 +1120,36 @@ public class Functions {
             System.out.println(row);
         }
         System.out.println(separator);
+    }
+    public static ILeague loadLeague(Scanner input) {
+        ILeague[] gameLeagues = Util.getGameLeagues();
+
+        System.out.println("|--------------------------------------------|");
+        System.out.println("|              LOAD LEAGUE                   |");
+        System.out.println("|--------------------------------------------|");
+        int index;
+        for(index = 0; index < gameLeagues.length; index++) {
+            if(gameLeagues[index] == null) continue;
+            ILeague league = gameLeagues[index];
+            System.out.println((index + 1) + ". " + league.getName());
+        }
+
+        int choice = 0;
+        boolean validInput = false;
+        do {
+            System.out.print("Select a league to load (1-" + index + "): ");
+            try {
+                choice = input.nextInt();
+                if (choice >= 1 && choice <= index && gameLeagues[choice - 1] != null) {
+                    validInput = true;
+                } else {
+                    System.out.println("Please select a valid league number.");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a number.");
+                input.next();
+            }
+        } while (!validInput);
+        return gameLeagues[choice - 1];
     }
 }

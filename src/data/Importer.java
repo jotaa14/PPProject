@@ -5,6 +5,7 @@ import com.ppstudios.footballmanager.api.contracts.league.*;
 import com.ppstudios.footballmanager.api.contracts.match.*;
 import com.ppstudios.footballmanager.api.contracts.player.*;
 import com.ppstudios.footballmanager.api.contracts.team.*;
+import main.Util;
 import model.event.*;
 import model.event.eventTypes.*;
 import model.league.*;
@@ -285,8 +286,16 @@ public class Importer {
     }
 
     public void importAllLeagues() {
+        try {
+            FileReader file = new FileReader("./JSON/leagues.json");
+            JSONParser parser = new JSONParser();
+            JSONArray leaguesArray = (JSONArray) parser.parse(file);
 
-
+            ILeague[] leagues = ILeagueJSONtoArray(leaguesArray);
+            Util.setGameLeagues(leagues);
+        }catch (Exception e) {
+            System.out.println("Error reading club file: " + e.getMessage());
+        }
     }
 
     private ILeague[] ILeagueJSONtoArray(JSONArray jsonArray){

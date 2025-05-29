@@ -366,29 +366,19 @@ public class Player implements IPlayer, Cloneable {
     }
 
     /**
-     * Exports the player's data to a JSON file using the Exporter class.
-     * @throws IOException if writing fails
+     * {@inheritDoc}
+     *
+     * <p><b>Note:</b> This method is intentionally left unimplemented in this class,
+     * as JSON export is handled centrally by a component responsible for exporting
+     * the complete state of the application.</p>
+     *
+     * <p>This implementation exists solely to satisfy the requirements of the
+     * {@code Exportable} interface and has no practical use in this specific class.</p>
+     *
+     * @throws IOException Not applicable in this implementation
      */
     @Override
     public void exportToJson() throws IOException {
-        String player = "Player :{\n" +
-                "  \"name\": \"" + name + "\",\n" +
-                "  \"birthdate\": \"" + birthDate + "\",\n" +
-                "  \"nationality\": \"" + nationality + "\",\n" +
-                "  \"photo\": \"" + photo + "\",\n" +
-                "  \"number\": " + number + ",\n" +
-                "  \"passing\": " + passing + ",\n" +
-                "  \"shooting\": " + shooting + ",\n" +
-                "  \"speed\": " + speed + ",\n" +
-                "  \"stamina\": " + stamina + ",\n" +
-                "  \"defense\": " + defense + ",\n" +
-                "  \"goalkeeping\": " + goalkeeping + ",\n" +
-                "  \"weight\": " + weight + ",\n" +
-                "  \"height\": " + height + ",\n" +
-                "  \"position\": \"" + position.getDescription() + "\",\n" +
-                "  \"foot\": \"" + preferredFoot.getPreferredFoot() + "\",\n" +
-                "  \"clubCode\": \"" + clubCode + "\"\n" +
-                "}";
-        System.out.println(player);
+        // Not applicable in this class
     }
 }
