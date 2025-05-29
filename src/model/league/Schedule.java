@@ -28,20 +28,20 @@ import java.io.IOException;
 public class Schedule implements ISchedule {
 
     /**
-     * 2D array storing matches in format [round][match index]
-     * Null entries represent unused match slots
+     * 2D array storing matches in format [round][match index].
+     * Null entries represent unused match slots.
      */
     private final IMatch[][] rounds;
-    /** Total number of rounds in the schedule */
+    /** Total number of rounds in the schedule. */
     private final int numberOfRounds;
-    /** Maximum matches allowed per round */
+    /** Maximum matches allowed per round. */
     private final int maxMatchesPerRound;
 
     /**
      * Constructs a Schedule with specified dimensions.
      *
-     * @param numberOfRounds Total rounds (must be > 0)
-     * @param maxMatchesPerRound Maximum matches per round (must be > 0)
+     * @param numberOfRounds      Total rounds (must be > 0)
+     * @param maxMatchesPerRound  Maximum matches per round (must be > 0)
      * @throws IllegalArgumentException if parameters are non-positive
      */
     public Schedule(int numberOfRounds, int maxMatchesPerRound) {
@@ -160,7 +160,7 @@ public class Schedule implements ISchedule {
      *   <li>No empty match slots exist</li>
      * </ul>
      *
-     * @param team Team to assign
+     * @param team  Team to assign
      * @param round Target round number (0-based)
      * @throws IllegalArgumentException if team is null or round is invalid
      * @throws IllegalStateException if no valid match slot is found
@@ -235,6 +235,10 @@ public class Schedule implements ISchedule {
         }
     }
 
+    /**
+     * Gets the maximum number of matches allowed per round.
+     * @return Maximum matches per round
+     */
     public int getMaxMatchesPerRound() {
         return maxMatchesPerRound;
     }

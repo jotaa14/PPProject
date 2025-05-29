@@ -52,34 +52,34 @@ import static model.league.Standing.updateStandingsAfterMatch;
  */
 public class Season implements ISeason {
 
-    /** Name of the season or league */
+    /** Name of the season or league. */
     private String name;
-    /** Year of the season */
+    /** Year of the season. */
     private int year;
-    /** Current round number (0-based) */
+    /** Current round number (0-based). */
     private int currentRound;
-    /** Maximum number of teams allowed */
+    /** Maximum number of teams allowed. */
     private int maxTeams;
-    /** Array of participating clubs */
+    /** Array of participating clubs. */
     private IClub[] clubs;
-    /** Array of all matches in the season */
+    /** Array of all matches in the season. */
     private IMatch[] matches;
-    /** Schedule object managing rounds and matches */
+    /** Schedule object managing rounds and matches. */
     private ISchedule schedule;
-    /** Standings for each team */
+    /** Standings for each team. */
     private IStanding[] standings;
-    /** Simulator for match simulation */
+    /** Simulator for match simulation. */
     private MatchSimulatorStrategy simulator = new MatchSimulator();
-    /** Array of participating teams */
+    /** Array of participating teams. */
     private ITeam[] teams;
-    /** Current number of teams in the season */
+    /** Current number of teams in the season. */
     private int numberOfCurrentTeams;
 
     /**
-     * Constructs a new Season.
+     * Constructs a new Season with the specified name, year, and maximum number of teams.
      *
-     * @param name Name of the season or league
-     * @param year Year of the season
+     * @param name     Name of the season or league
+     * @param year     Year of the season
      * @param maxTeams Maximum number of teams allowed
      */
     public Season(String name, int year, int maxTeams) {
@@ -95,7 +95,20 @@ public class Season implements ISeason {
         this.currentRound = 0;
     }
 
-    public Season(String name, int year,int currentRound ,int maxTeams, IClub[] club, ITeam[] teams, IMatch[] matches, ISchedule schedule, IStanding[] standings) {
+    /**
+     * Constructs a Season with all properties specified, for use in deserialization.
+     *
+     * @param name         Name of the season or league
+     * @param year         Year of the season
+     * @param currentRound Current round number
+     * @param maxTeams     Maximum number of teams
+     * @param club         Array of clubs
+     * @param teams        Array of teams
+     * @param matches      Array of matches
+     * @param schedule     Schedule object
+     * @param standings    Array of standings
+     */
+    public Season(String name, int year, int currentRound, int maxTeams, IClub[] club, ITeam[] teams, IMatch[] matches, ISchedule schedule, IStanding[] standings) {
         this.name = name;
         this.year = year;
         this.maxTeams = maxTeams;
@@ -106,18 +119,22 @@ public class Season implements ISeason {
         this.standings = standings;
         this.numberOfCurrentTeams = club != null ? club.length : 0;
         this.currentRound = currentRound;
-
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the year of the season.
+     * @return the year of the season
      */
     @Override
     public int getYear() {
         return year;
     }
 
-    public ITeam[] getTeams(){
+    /**
+     * Returns the array of teams participating in the season.
+     * @return array of teams
+     */
+    public ITeam[] getTeams() {
         return teams;
     }
 
@@ -136,7 +153,6 @@ public class Season implements ISeason {
         for (int i = 0; i < numberOfCurrentTeams; i++) {
             if (clubs[i].equals(club)) throw new IllegalArgumentException("Club already exists");
         }
-
         clubs[numberOfCurrentTeams] = club;
         if (standings == null) {
             standings = new IStanding[maxTeams];
@@ -184,6 +200,9 @@ public class Season implements ISeason {
     /**
      * Generates a round-robin schedule for the season.
      * Throws if there are not enough teams.
+     * Each team plays every other team twice (home and away).
+     *
+     * @throws IllegalStateException if there are fewer than two teams
      */
     @Override
     public void generateSchedule() {
@@ -238,7 +257,6 @@ public class Season implements ISeason {
                     matches[matchIndex++] = match;
                 }
             }
-
             ITeam last = tempTeams[n - 1];
             for (int k = n - 1; k > 1; k--) {
                 tempTeams[k] = tempTeams[k - 1];
@@ -248,7 +266,8 @@ public class Season implements ISeason {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns all matches in the season.
+     * @return array of all matches
      */
     @Override
     public IMatch[] getMatches() {
@@ -337,7 +356,8 @@ public class Season implements ISeason {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the current round number (0-based).
+     * @return the current round number
      */
     @Override
     public int getCurrentRound() {
@@ -356,6 +376,7 @@ public class Season implements ISeason {
 
     /**
      * Resets the season, clearing all matches and standings.
+     * Sets all matches to unplayed and standings to initial state.
      */
     @Override
     public void resetSeason() {
@@ -425,7 +446,8 @@ public class Season implements ISeason {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the schedule object for this season.
+     * @return the schedule object
      */
     @Override
     public ISchedule getSchedule() {
@@ -433,7 +455,8 @@ public class Season implements ISeason {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the number of points awarded for a win.
+     * @return points for a win
      */
     @Override
     public int getPointsPerWin() {
@@ -441,7 +464,8 @@ public class Season implements ISeason {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the number of points awarded for a draw.
+     * @return points for a draw
      */
     @Override
     public int getPointsPerDraw() {
@@ -449,7 +473,8 @@ public class Season implements ISeason {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the number of points awarded for a loss.
+     * @return points for a loss
      */
     @Override
     public int getPointsPerLoss() {
@@ -457,7 +482,8 @@ public class Season implements ISeason {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the name of the season or league.
+     * @return name of the season
      */
     @Override
     public String getName() {
@@ -465,7 +491,8 @@ public class Season implements ISeason {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the maximum number of teams allowed in the season.
+     * @return maximum number of teams
      */
     @Override
     public int getMaxTeams() {
@@ -498,7 +525,8 @@ public class Season implements ISeason {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the number of teams currently in the season.
+     * @return number of current teams
      */
     @Override
     public int getNumberOfCurrentTeams() {
@@ -523,6 +551,7 @@ public class Season implements ISeason {
      * Prints detailed statistics for a given player for the current season.
      *
      * @param player Player to analyze
+     * @throws IllegalArgumentException if player is null
      */
     public void getPlayerStatistics(IPlayer player) {
         if (player == null) {

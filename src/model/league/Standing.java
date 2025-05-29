@@ -29,29 +29,39 @@ import com.ppstudios.footballmanager.api.contracts.team.ITeam;
  * Class: LSIRC1 T2
  */
 public class Standing implements IStanding {
-    /** The team this standing refers to */
+    /** The team this standing refers to. */
     private ITeam team;
-    /** Total points accumulated */
+    /** Total points accumulated. */
     private int points = 0;
-    /** Number of wins */
+    /** Number of wins. */
     private int wins = 0;
-    /** Number of draws */
+    /** Number of draws. */
     private int draws = 0;
-    /** Number of losses */
+    /** Number of losses. */
     private int losses = 0;
-    /** Total goals scored */
+    /** Total goals scored. */
     private int goalsScored = 0;
-    /** Total goals conceded */
+    /** Total goals conceded. */
     private int goalsConceded = 0;
 
     /**
-     * Constructs a Standing object for the given team.
+     * Constructs a Standing object for the given team with zeroed statistics.
      * @param team The team this standing is for
      */
     public Standing(ITeam team) {
         this.team = team;
     }
 
+    /**
+     * Constructs a Standing object for the given team with all stats specified.
+     * @param team The team this standing is for
+     * @param points Total points
+     * @param wins Number of wins
+     * @param draws Number of draws
+     * @param losses Number of losses
+     * @param goalsScored Goals scored
+     * @param goalsConceded Goals conceded
+     */
     public Standing(ITeam team, int points, int wins, int draws, int losses,
                     int goalsScored, int goalsConceded) {
         this.team = team;

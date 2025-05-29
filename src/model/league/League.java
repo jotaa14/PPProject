@@ -28,25 +28,32 @@ import java.io.IOException;
  * Class: LSIRC1 T2
  */
 public class League implements ILeague {
-    /** Name of the league */
+    /** Name of the league. */
     private String name;
-    /** Array of league seasons */
-    private ISeason[] seasons = new ISeason[1];
+    /** Array of league seasons. */
+    private ISeason[] seasons;
 
     /**
-     * Constructs a League with the specified name.
+     * Constructs a League with the specified name and initializes with no seasons.
      * @param name Name of the league
      */
     public League(String name) {
         this.name = name;
-        this.seasons = new ISeason[0]; // Initialize with an empty array
+        this.seasons = new ISeason[0];
     }
 
+    /**
+     * Constructs a League with the specified name and an array of seasons.
+     * @param name Name of the league
+     * @param seasons Array of seasons for the league
+     */
     public League(String name, ISeason[] seasons) {
         this.name = name;
         if (seasons != null) {
             this.seasons = new ISeason[seasons.length];
             System.arraycopy(seasons, 0, this.seasons, 0, seasons.length);
+        } else {
+            this.seasons = new ISeason[0];
         }
     }
 
@@ -66,14 +73,14 @@ public class League implements ILeague {
     @Override
     public ISeason[] getSeasons() {
         ISeason[] copy = new ISeason[seasons.length];
-        for (int i = 0; i < seasons.length; i++) {
-            copy[i] = seasons[i];
-        }
+        System.arraycopy(seasons, 0, copy, 0, seasons.length);
         return copy;
     }
 
     /**
      * {@inheritDoc}
+     * Adds a season to the league if it does not already exist for the given year.
+     *
      * @param season The season to add
      * @return true if successfully added
      * @throws IllegalArgumentException if season is null or already exists for the year
@@ -88,9 +95,7 @@ public class League implements ILeague {
         }
 
         ISeason[] newSeasons = new ISeason[seasons.length + 1];
-        for (int i = 0; i < seasons.length; i++) {
-            newSeasons[i] = seasons[i];
-        }
+        System.arraycopy(seasons, 0, newSeasons, 0, seasons.length);
         newSeasons[seasons.length] = season;
         seasons = newSeasons;
 
@@ -99,6 +104,8 @@ public class League implements ILeague {
 
     /**
      * {@inheritDoc}
+     * Retrieves a season for the given year.
+     *
      * @param year The year of the season to retrieve
      * @return The season for the given year
      * @throws IllegalArgumentException if the season is not found
@@ -114,6 +121,8 @@ public class League implements ILeague {
 
     /**
      * {@inheritDoc}
+     * Removes a season for the given year.
+     *
      * @param year The year of the season to remove
      * @return The removed season
      * @throws IllegalArgumentException if the season is not found
