@@ -158,15 +158,19 @@ public class Match implements IMatch {
     @Override
     public boolean isValid() {
         if (homeTeam == null || awayTeam == null) {
+            System.out.println("é null");
             return false;
         }
         if (homeTeam.getClub() == null || awayTeam.getClub() == null){
+            System.out.println("nao tem clubs");
             return false;
         }
         if (homeTeam.getClub().equals(awayTeam.getClub())) {
+            System.out.println("sao o mesmo club");
             return false;
         }
         if (homeTeam.getFormation() == null || awayTeam.getFormation() == null) {
+            System.out.println("nao tem formações");
             return false;
         }
         return true;

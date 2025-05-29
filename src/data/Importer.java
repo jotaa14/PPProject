@@ -360,10 +360,21 @@ public class Importer {
         int founded = ((Long) jsonObject.get("foundedYear")).intValue();
         boolean isNationalTeam = (boolean) jsonObject.get("isNationalTeam");
         IPlayer[] players = IPlayerJSONtoArray((JSONArray) jsonObject.get("players"));
-        ITeam team = ITeamJSONtoObject((JSONObject) jsonObject.get("team"));
+        ITeam team = clubITeamJSONtoObject((JSONObject) jsonObject.get("team"));
 
-        return new Club(name, code, stadium, logo, country, founded, isNationalTeam, players, team);
+
+        Club club =  new Club(name, code, stadium, logo, country, founded, isNationalTeam, players, team);
+        club.setClubInTeam();
+        return club;
     }
+
+    private ITeam clubITeamJSONtoObject(JSONObject jsonObject) {
+        IFormation formation = IFormationStringToObject((String) jsonObject.get("formation"));
+        IPlayer[] players = IPlayerJSONtoArray((JSONArray) jsonObject.get("players"));
+
+        return new Team(formation, null, players);
+    }
+
 
     private IMatch[] IMatchJSONtoArray(JSONArray jsonArray) {
         IMatch[] matches = new IMatch[jsonArray.size()];

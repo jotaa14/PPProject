@@ -88,6 +88,9 @@ public class Season implements ISeason {
         this.maxTeams = maxTeams;
         this.clubs = new IClub[maxTeams];
         this.teams = new ITeam[maxTeams];
+        this.standings = new IStanding[maxTeams];
+        this.matches = new IMatch[1];
+        this.schedule = new Schedule(1, 1);
         this.numberOfCurrentTeams = 0;
         this.currentRound = 0;
     }
@@ -102,7 +105,7 @@ public class Season implements ISeason {
         this.schedule = schedule;
         this.standings = standings;
         this.numberOfCurrentTeams = club != null ? club.length : 0;
-        this.currentRound = 0;
+        this.currentRound = currentRound;
 
     }
 
@@ -164,6 +167,14 @@ public class Season implements ISeason {
                 clubs[numberOfCurrentTeams - 1] = null;
                 numberOfCurrentTeams--;
                 break;
+            }
+        }
+        if (standings != null) {
+            for (int i = 0; i < standings.length; i++) {
+                if (standings[i] != null && standings[i].getTeam().equals(((Club) club).getTeam())) {
+                    standings[i] = null;
+                    break;
+                }
             }
         }
         if (!found) throw new IllegalStateException("Club not found in the league");

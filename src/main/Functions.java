@@ -970,6 +970,7 @@ public class Functions {
         System.out.println("|--------------------------------------------|");
 
         int maxRound = season.getCurrentRound();
+        System.out.println(maxRound + "caralho");
         if (maxRound == 0) {
             System.out.println("No rounds have been played yet.");
             return;

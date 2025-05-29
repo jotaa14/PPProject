@@ -420,4 +420,8 @@ public class Club implements IClub {
     public void exportToJson() throws IOException {
         // Not applicable in this class
     }
+
+    public void setClubInTeam() {
+        ((Team)team).setClub(this);
+    }
 }

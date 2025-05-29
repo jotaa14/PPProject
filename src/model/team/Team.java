@@ -60,16 +60,6 @@ public class Team implements ITeam {
     }
 
     public Team(IFormation formation, IClub club, IPlayer[] players) {
-        if (club == null) {
-            throw new NullPointerException("Club can't be null!");
-        }
-        if (formation == null) {
-            throw new IllegalArgumentException("Formation cannot be null.");
-        }
-        if (players == null || players.length == 0) {
-            throw new IllegalArgumentException("Players array cannot be null or empty.");
-        }
-
         this.club = club;
         this.formation = formation;
         this.players = players;
@@ -324,6 +314,17 @@ public class Team implements ITeam {
             }
         }
         System.out.println();
+    }
+
+    public void setClub(IClub club) {
+        this.club = club;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Team other = (Team) obj;
+        return this.club.equals(other.club);
     }
 
     /**

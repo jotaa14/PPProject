@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sporting Clube de Portugal - Club Report</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            background: rgba(30, 60, 114, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 35px;
+        }
+        .club-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
+        }
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.3em;
+            letter-spacing: 2px;
+            color: #00ff99;
+            margin-bottom: 8px;
+        }
+        .header p { color: #fff; font-size: 1.05em; }
+        .club-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .players-section {
+            margin-top: 30px;
+        }
+        .players-section h2 {
+            color: #00ff99;
+            font-size: 1.5em;
+            margin-bottom: 18px;
+        }
+        .players-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+        .player-card {
+            background: rgba(0,0,0,0.18);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+        }
+        .player-card h3 { color: #00ff99; margin-bottom: 8px; }
+        .player-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+        .stat-item { background: #222; border-radius: 6px; padding: 4px 10px; color: #fff; font-size: 0.95em; }
+        .stat-label { color: #00ff99; margin-right: 6px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="club-logo" src="Estádio José Alvalade" alt="Club Logo">
+            <div>
+                <h1>Sporting Clube de Portugal</h1>
+                <p>Portugal | Founded: 1906</p>
+                <p>Stadium: https://media.api-sports.io/football/teams/228.png</p>
+            </div>
+        </div>
+        <div class="club-info">
+            <div><strong>Club Code:</strong> SCP</div>
+            <div><strong>Players:</strong> 26</div>
+        </div>
+        <div class="players-section">
+            <h2>Players</h2>
+            <div class="players-list">
+                <div class="player-card">
+                    <h3>Franco Israel</h3>
+                    <p><strong>Nationality:</strong> Uruguayan</p>
+                    <p><strong>Birth Date:</strong> 2000-04-22</p>
+                </div>
+                <div class="player-card">
+                    <h3>Rui Silva</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1994-02-07</p>
+                </div>
+                <div class="player-card">
+                    <h3>Diego Calai</h3>
+                    <p><strong>Nationality:</strong> Brazilian</p>
+                    <p><strong>Birth Date:</strong> 2004-07-18</p>
+                </div>
+                <div class="player-card">
+                    <h3>Diogo Pinto</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2004-06-18</p>
+                </div>
+                <div class="player-card">
+                    <h3>Matheus Reis</h3>
+                    <p><strong>Nationality:</strong> Brazilian</p>
+                    <p><strong>Birth Date:</strong> 1995-02-18</p>
+                </div>
+                <div class="player-card">
+                    <h3>St.Juste</h3>
+                    <p><strong>Nationality:</strong> Dutch</p>
+                    <p><strong>Birth Date:</strong> 1996-10-19</p>
+                </div>
+                <div class="player-card">
+                    <h3>Zeno Debast</h3>
+                    <p><strong>Nationality:</strong> Belgian</p>
+                    <p><strong>Birth Date:</strong> 2003-10-24</p>
+                </div>
+                <div class="player-card">
+                    <h3>Iván Fresneda</h3>
+                    <p><strong>Nationality:</strong> Spanish</p>
+                    <p><strong>Birth Date:</strong> 2004-09-28</p>
+                </div>
+                <div class="player-card">
+                    <h3>Gonçalo Inácio</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2001-08-25</p>
+                </div>
+                <div class="player-card">
+                    <h3>Ousmane Diomande</h3>
+                    <p><strong>Nationality:</strong> Ivorian</p>
+                    <p><strong>Birth Date:</strong> 2003-12-04</p>
+                </div>
+                <div class="player-card">
+                    <h3>Ricardo Esgaio</h3>
+                    <p><strong>Nationality:</strong> Portugal</p>
+                    <p><strong>Birth Date:</strong> 1993-05-16</p>
+                </div>
+                <div class="player-card">
+                    <h3>Eduardo Quaresma</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2002-03-02</p>
+                </div>
+                <div class="player-card">
+                    <h3>Hidemasa Morita</h3>
+                    <p><strong>Nationality:</strong> Japanese</p>
+                    <p><strong>Birth Date:</strong> 1995-05-10</p>
+                </div>
+                <div class="player-card">
+                    <h3>Pedro Gonçalves</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1998-06-28</p>
+                </div>
+                <div class="player-card">
+                    <h3>Daniel Bragança</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1999-05-27</p>
+                </div>
+                <div class="player-card">
+                    <h3>Morten Hjulmand</h3>
+                    <p><strong>Nationality:</strong> Danish</p>
+                    <p><strong>Birth Date:</strong> 1999-06-25</p>
+                </div>
+                <div class="player-card">
+                    <h3>João Simões</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2007-01-06</p>
+                </div>
+                <div class="player-card">
+                    <h3>Viktor Gyökeres</h3>
+                    <p><strong>Nationality:</strong> Swedish</p>
+                    <p><strong>Birth Date:</strong> 1998-06-04</p>
+                </div>
+                <div class="player-card">
+                    <h3>Nuno Santos</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1995-02-13</p>
+                </div>
+                <div class="player-card">
+                    <h3>Francisco Trincão</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1999-12-29</p>
+                </div>
+                <div class="player-card">
+                    <h3>Conrad Harder</h3>
+                    <p><strong>Nationality:</strong> Danish</p>
+                    <p><strong>Birth Date:</strong> 2005-04-07</p>
+                </div>
+                <div class="player-card">
+                    <h3>Maxi Araújo</h3>
+                    <p><strong>Nationality:</strong> Uruguayan</p>
+                    <p><strong>Birth Date:</strong> 2000-02-15</p>
+                </div>
+                <div class="player-card">
+                    <h3>Geny Catamo</h3>
+                    <p><strong>Nationality:</strong> Mozambican</p>
+                    <p><strong>Birth Date:</strong> 2001-01-26</p>
+                </div>
+                <div class="player-card">
+                    <h3>Biel</h3>
+                    <p><strong>Nationality:</strong> Brazilian</p>
+                    <p><strong>Birth Date:</strong> 2001-04-01</p>
+                </div>
+                <div class="player-card">
+                    <h3>Geovany Quenda</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2007-04-30</p>
+                </div>
+                <div class="player-card">
+                    <h3>Afonso Moreira</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2005-03-19</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

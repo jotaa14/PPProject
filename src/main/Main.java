@@ -77,6 +77,7 @@ public class Main {
                     System.out.println("\nExiting the Game. See you soon!");
                     Exporter exporter = new Exporter();
                     exporter.exportToJson();
+                    exporter.exportHtmlReports();
                     running = false;
                     break;
                 default:

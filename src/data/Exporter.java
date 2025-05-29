@@ -1,6 +1,8 @@
 package data;
 
 import com.ppstudios.footballmanager.api.contracts.data.IExporter;
+import com.ppstudios.footballmanager.api.contracts.data.htmlgenerators.ClubHtmlGenerator;
+import com.ppstudios.footballmanager.api.contracts.data.htmlgenerators.SeasonHtmlGenerator;
 import com.ppstudios.footballmanager.api.contracts.event.IEvent;
 import com.ppstudios.footballmanager.api.contracts.league.ILeague;
 import com.ppstudios.footballmanager.api.contracts.league.ISchedule;
@@ -20,6 +22,7 @@ import model.team.Club;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -173,8 +176,16 @@ public class Exporter implements IExporter {
         clubJson.put("foundedYear", club.getFoundedYear());
         clubJson.put("isNationalTeam", club.isNationalTeam());
         clubJson.put("players", playersToJsonArray(club.getPlayers()));
-        clubJson.put("team", teamToJsonObject(club.getTeam()));
+        clubJson.put("team", clubteamToJsonObject(club.getTeam()));
         return clubJson;
+    }
+
+    private JSONObject clubteamToJsonObject(ITeam team) {
+        JSONObject teamJson = new JSONObject();
+        teamJson.put("formation", team.getFormation().getDisplayName());
+        teamJson.put("players", playersToJsonArray(team.getPlayers()));
+
+        return teamJson;
     }
 
     private JSONArray playersToJsonArray(IPlayer[] players) {
@@ -228,6 +239,49 @@ public class Exporter implements IExporter {
         }
         return eventJson;
     }
+
+    public void exportHtmlReports() {
+        ILeague[] leagues = Util.getGameLeagues();
+
+        if (leagues == null || leagues.length == 0) {
+            System.out.println("Nenhuma liga carregada para exportar.");
+            return;
+        }
+
+        File seasonDir = new File("output/html/seasons/");
+        File clubDir = new File("output/html/clubs/");
+        if (!seasonDir.exists()) seasonDir.mkdirs();
+        if (!clubDir.exists()) clubDir.mkdirs();
+
+        for (ILeague league : leagues) {
+            if (league == null) continue;
+
+            for (ISeason season : league.getSeasons()) {
+                if (season == null) continue;
+
+                String seasonPath = "output/html/seasons/" + season.getName().replace(" ", "") + "" + season.getYear() + ".html";
+                try {
+                    SeasonHtmlGenerator.generate(season, seasonPath);
+                } catch (Exception e) {
+                    System.out.println("Erro ao gerar HTML da época: " + season.getName());
+                    e.printStackTrace();
+                }
+
+                for (IClub club : season.getCurrentClubs()) {
+                    if (club == null) continue;
+
+                    String clubPath = "output/html/clubs/" + club.getName().replace(" ", "_") + ".html";
+                    try {
+                        ClubHtmlGenerator.generate(club, clubPath);
+                    } catch (Exception e) {
+                        System.out.println("Erro ao gerar HTML do clube: " + club.getName());
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        System.out.println("Exportação HTML concluída.");
+    }
 }
 
-//TODO: esta a dar erro porque a tem tem um club e isso e entre num ciclo, e so importar o club e meter a team default

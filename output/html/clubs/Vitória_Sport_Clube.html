@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitória Sport Clube - Club Report</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            background: rgba(30, 60, 114, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 35px;
+        }
+        .club-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
+        }
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.3em;
+            letter-spacing: 2px;
+            color: #00ff99;
+            margin-bottom: 8px;
+        }
+        .header p { color: #fff; font-size: 1.05em; }
+        .club-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .players-section {
+            margin-top: 30px;
+        }
+        .players-section h2 {
+            color: #00ff99;
+            font-size: 1.5em;
+            margin-bottom: 18px;
+        }
+        .players-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+        .player-card {
+            background: rgba(0,0,0,0.18);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+        }
+        .player-card h3 { color: #00ff99; margin-bottom: 8px; }
+        .player-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+        .stat-item { background: #222; border-radius: 6px; padding: 4px 10px; color: #fff; font-size: 0.95em; }
+        .stat-label { color: #00ff99; margin-right: 6px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="club-logo" src="Estádio D. Afonso Henriques" alt="Club Logo">
+            <div>
+                <h1>Vitória Sport Clube</h1>
+                <p>Portugal | Founded: 1922</p>
+                <p>Stadium: https://media.api-sports.io/football/teams/224.png</p>
+            </div>
+        </div>
+        <div class="club-info">
+            <div><strong>Club Code:</strong> VSC</div>
+            <div><strong>Players:</strong> 20</div>
+        </div>
+        <div class="players-section">
+            <h2>Players</h2>
+            <div class="players-list">
+                <div class="player-card">
+                    <h3>Bruno Varela</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1994-11-04</p>
+                </div>
+                <div class="player-card">
+                    <h3>Celton Biai</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2000-08-13</p>
+                </div>
+                <div class="player-card">
+                    <h3>Charles</h3>
+                    <p><strong>Nationality:</strong> Brazilian</p>
+                    <p><strong>Birth Date:</strong> 1994-03-04</p>
+                </div>
+                <div class="player-card">
+                    <h3>Tomas Ribeiro</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1999-04-30</p>
+                </div>
+                <div class="player-card">
+                    <h3>André Amaro</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2002-08-01</p>
+                </div>
+                <div class="player-card">
+                    <h3>Mikel Villanueva</h3>
+                    <p><strong>Nationality:</strong> Venezuelan</p>
+                    <p><strong>Birth Date:</strong> 1993-04-14</p>
+                </div>
+                <div class="player-card">
+                    <h3>Manu Silva</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2001-04-12</p>
+                </div>
+                <div class="player-card">
+                    <h3>Jorge Fernandes</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1997-03-02</p>
+                </div>
+                <div class="player-card">
+                    <h3>Bruno Gaspar</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1993-04-21</p>
+                </div>
+                <div class="player-card">
+                    <h3>Zé Carlos</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1998-07-31</p>
+                </div>
+                <div class="player-card">
+                    <h3>Afonso Freitas</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2000-04-07</p>
+                </div>
+                <div class="player-card">
+                    <h3>João Mendes</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1999-04-10</p>
+                </div>
+                <div class="player-card">
+                    <h3>Tiago Silva</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1993-06-02</p>
+                </div>
+                <div class="player-card">
+                    <h3>Térel Catamo</h3>
+                    <p><strong>Nationality:</strong> Mozambican</p>
+                    <p><strong>Birth Date:</strong> 2001-08-05</p>
+                </div>
+                <div class="player-card">
+                    <h3>André André</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1989-08-26</p>
+                </div>
+                <div class="player-card">
+                    <h3>Tomás Händel</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2000-11-27</p>
+                </div>
+                <div class="player-card">
+                    <h3>Jota Silva</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1999-08-01</p>
+                </div>
+                <div class="player-card">
+                    <h3>Nélson da Luz</h3>
+                    <p><strong>Nationality:</strong> Angolan</p>
+                    <p><strong>Birth Date:</strong> 1998-01-04</p>
+                </div>
+                <div class="player-card">
+                    <h3>Anderson Silva</h3>
+                    <p><strong>Nationality:</strong> Brazilian</p>
+                    <p><strong>Birth Date:</strong> 1997-09-03</p>
+                </div>
+                <div class="player-card">
+                    <h3>Alisson Safira</h3>
+                    <p><strong>Nationality:</strong> Brazilian</p>
+                    <p><strong>Birth Date:</strong> 1995-10-17</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
