@@ -76,7 +76,7 @@ public class Match implements IMatch {
      * @param eventManager Custom event manager (must not be null)
      * @throws IllegalArgumentException if eventManager is null
      */
-    public Match(ITeam homeTeam, ITeam awayTeam, int round, IEventManager eventManager) {
+    public Match(ITeam homeTeam, ITeam awayTeam, int round, IEventManager eventManager, boolean isPlayed) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.round = round;
@@ -84,11 +84,12 @@ public class Match implements IMatch {
             throw new IllegalArgumentException("Event manager cannot be null.");
         }
         this.eventManager = eventManager;
+        this.played = isPlayed;
     }
 
     /**
      * {@inheritDoc}
-     * @throws IllegalStateException if home team is not set
+     * @throws IllegalStateException if a home team is not set
      */
     @Override
     public IClub getHomeClub() {

@@ -91,6 +91,20 @@ public class Season implements ISeason {
         this.currentRound = 0;
     }
 
+    public Season(String name, int year,int currentRound ,int maxTeams, IClub[] club, ITeam[] teams, IMatch[] matches, ISchedule schedule, IStanding[] standings) {
+        this.name = name;
+        this.year = year;
+        this.maxTeams = maxTeams;
+        this.clubs = club;
+        this.teams = teams;
+        this.matches = matches;
+        this.schedule = schedule;
+        this.standings = standings;
+        this.numberOfCurrentTeams = club != null ? club.length : 0;
+        this.currentRound = 0;
+
+    }
+
     /**
      * {@inheritDoc}
      */

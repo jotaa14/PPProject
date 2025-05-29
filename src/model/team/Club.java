@@ -79,6 +79,24 @@ public class Club implements IClub {
         this.isNationalTeam = isNationalTeam;
     }
 
+    public Club(String name, String code, String stadium, String logo, String country, int founded, boolean isNationalTeam, IPlayer[] players) {
+        this.name = name;
+        this.code = code;
+        this.country = country;
+        this.foundedYear = founded;
+        this.stadiumName = stadium;
+        this.logo = logo;
+        this.players = players;
+        this.playerCount = players.length;
+        this.isNationalTeam = isNationalTeam;
+
+        if (this.players == null) {
+            this.players = new IPlayer[100];
+            this.playerCount = 0;
+        }
+    }
+
+
     /**
      * {@inheritDoc}
      * @return Club's official name

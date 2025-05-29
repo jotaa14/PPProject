@@ -59,6 +59,23 @@ public class Team implements ITeam {
         this.playerCount = 0;
     }
 
+    public Team(IFormation formation, IClub club, IPlayer[] players) {
+        if (club == null) {
+            throw new NullPointerException("Club can't be null!");
+        }
+        if (formation == null) {
+            throw new IllegalArgumentException("Formation cannot be null.");
+        }
+        if (players == null || players.length == 0) {
+            throw new IllegalArgumentException("Players array cannot be null or empty.");
+        }
+
+        this.club = club;
+        this.formation = formation;
+        this.players = players;
+        this.playerCount = players.length;
+    }
+
     /**
      * {@inheritDoc}
      * @return Associated club instance

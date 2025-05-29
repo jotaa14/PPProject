@@ -1,12 +1,15 @@
 package data;
 
+import com.ppstudios.footballmanager.api.contracts.event.IEvent;
 import com.ppstudios.footballmanager.api.contracts.league.ILeague;
 import com.ppstudios.footballmanager.api.contracts.league.ISchedule;
 import com.ppstudios.footballmanager.api.contracts.league.ISeason;
 import com.ppstudios.footballmanager.api.contracts.league.IStanding;
 import com.ppstudios.footballmanager.api.contracts.match.IMatch;
+import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.player.PreferredFoot;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
+import com.ppstudios.footballmanager.api.contracts.team.IFormation;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import model.event.Event;
 import model.event.PlayerEvent;
@@ -17,6 +20,8 @@ import model.player.Player;
 import model.player.PlayerPosition;
 import model.player.PlayerPositionType;
 import model.team.Club;
+import model.team.Formation;
+import model.team.Team;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -289,28 +294,164 @@ public class Importer {
             throw new IOException("Error reading club file: " + e.getMessage());
         }
     }
-    /*
+
     public void importAllLeagues() {
 
 
     }
 
-    private ILeague[] ILeagueJSONtoObject(JSONArray jsonArray){
+    private ILeague[] ILeagueJSONtoArray(JSONArray jsonArray){
         ILeague[] leagues = new ILeague[jsonArray.size()];
 
         for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject leagueObject = (JSONObject) jsonArray.get(i);
-            String name = (String) leagueObject.get("name");
-
-
-
-            ILeague league = new League(name, code, country, founded, isNationalLeague);
+            ILeague league = this.ILeagueJSONtoObject((JSONObject) jsonArray.get(i));
             leagues[i] = league;
         }
 
         return leagues;
     }
-*/
 
+    private ILeague ILeagueJSONtoObject(JSONObject jsonObject) {
+        String name = (String) jsonObject.get("name");
+        ISeason[] seasons = ISeasonJSONtoArray((JSONArray) jsonObject.get("seasons"));
+
+        return new League(name, seasons);
+    }
+
+    private ISeason[] ISeasonJSONtoArray(JSONArray jsonArray) {
+        ISeason[] seasons = new ISeason[jsonArray.size()];
+
+        for(int i = 0; i < jsonArray.size(); i++) {
+            seasons[i] = this.ISeasonJSONtoObject((JSONObject) jsonArray.get(i));
+        }
+        return seasons;
+    }
+
+    private ISeason ISeasonJSONtoObject(JSONObject jsonObject) {
+        String name = (String) jsonObject.get("name");
+        int year = ((Long) jsonObject.get("year")).intValue();
+        int currentRound = ((Long) jsonObject.get("current_round")).intValue();
+        int maxTeams = ((Long) jsonObject.get("max_teams")).intValue();
+        IClub[] clubs = IClubJSONtoArray((JSONArray) jsonObject.get("clubs"));
+        IMatch[] matches = IMatchJSONtoArray((JSONArray) jsonObject.get("matches"));
+        ISchedule schedule = IScheduleJSONtoObject((JSONObject) jsonObject.get("schedule"));
+        IStanding[] standings = IStandingJSONtoArray((JSONArray) jsonObject.get("standings"));
+        ITeam[] teams = ITeamJSONtoArray((JSONArray) jsonObject.get("teams"));
+
+        return new Season(name, year, currentRound, maxTeams, clubs, teams, matches, schedule, standings);
+    }
+
+    private IClub[] IClubJSONtoArray(JSONArray jsonArray) {
+        IClub[] clubs = new IClub[jsonArray.size()];
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            clubs[i] = this.IClubJSONtoObject((JSONObject) jsonArray.get(i));
+        }
+        return clubs;
+    }
+
+    private IClub IClubJSONtoObject(JSONObject jsonObject) {
+        String name = (String) jsonObject.get("name");
+        String code = (String) jsonObject.get("code");
+        String stadium = (String) jsonObject.get("stadium");
+        String logo = (String) jsonObject.get("logo");
+        String country = (String) jsonObject.get("country");
+        int founded = ((Long) jsonObject.get("foundedYear")).intValue();
+        boolean isNationalTeam = (boolean) jsonObject.get("isNationalTeam");
+        IPlayer[] players = IPlayerJSONtoArray((JSONArray) jsonObject.get("players"));
+
+        return new Club(name, code, stadium, logo, country, founded, isNationalTeam, players);
+    }
+
+    private IMatch[] IMatchJSONtoArray(JSONArray jsonArray) {
+        IMatch[] matches = new IMatch[jsonArray.size()];
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            matches[i] = this.IMatchJSONtoObject((JSONObject) jsonArray.get(i));
+        }
+        return matches;
+    }
+
+    private IMatch IMatchJSONtoObject(JSONObject jsonObject) {
+        IClub homeTeam = this.IClubJSONtoObject((JSONObject) jsonObject.get("home_team"));
+        IClub awayTeam = this.IClubJSONtoObject((JSONObject) jsonObject.get("away_team"));
+
+        int round = ((Long) jsonObject.get("round")).intValue();
+        IEvent[] events = IEventJSONtoArray((JSONArray) jsonObject.get("events"));
+        boolean isPlayed = (boolean) jsonObject.get("is_played");
+
+        return new Match(homeTeam, awayTeam, round, events, isPlayed);
+    }
+
+    private ITeam[] ITeamJSONtoArray(JSONArray jsonArray) {
+        ITeam[] teams = new ITeam[jsonArray.size()];
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            teams[i] = this.ITeamJSONtoObject((JSONObject) jsonArray.get(i));
+        }
+        return teams;
+    }
+
+    private ITeam ITeamJSONtoObject(JSONObject jsonObject) {
+        IFormation formation = IFormationStringToObject((String) jsonObject.get("formation"));
+        IClub club = this.IClubJSONtoObject((JSONObject) jsonObject.get("club"));
+        IPlayer[] players = IPlayerJSONtoArray((JSONArray) jsonObject.get("players"));
+
+        return new Team(formation, club, players);
+    }
+
+    IPlayer[] IPlayerJSONtoArray(JSONArray jsonArray) {
+        IPlayer[] players = new IPlayer[jsonArray.size()];
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            players[i] = this.IPlayerJSONtoObject((JSONObject) jsonArray.get(i));
+        }
+        return players;
+    }
+
+    IPlayer IPlayerJSONtoObject(JSONObject jsonObject) {
+        String name = (String) jsonObject.get("name");
+        String stringPosition = (String) jsonObject.get("position");
+        int age = ((Long) jsonObject.get("age")).intValue();
+        int number = ((Long) jsonObject.get("number")).intValue();
+        int shooting = ((Long) jsonObject.get("shooting")).intValue();
+        int passing = ((Long) jsonObject.get("passing")).intValue();
+        int stamina = ((Long) jsonObject.get("stamina")).intValue();
+        int speed = ((Long) jsonObject.get("speed")).intValue();
+        int defense = ((Long) jsonObject.get("defense")).intValue();
+        int goalkeeping = ((Long) jsonObject.get("goalkeeping")).intValue();
+        int height = ((Long) jsonObject.get("height")).intValue();
+        int weight = ((Long) jsonObject.get("weight")).intValue();
+        String nationality = (String) jsonObject.get("nationality");
+        PreferredFoot preferredFoot = PreferredFoot.fromString((String) jsonObject.get("preferredFoot"));
+        String photo = (String) jsonObject.get("photo");
+        LocalDate birthDate = LocalDate.parse((String) jsonObject.get("birthDate"));
+        String clubCode = (String) jsonObject.get("clubCode");
+        int strength = ((Long) jsonObject.get("strength")).intValue();
+
+        PlayerPosition playerPosition = new PlayerPosition(stringPosition);
+        return new Player(name, playerPosition, age, number, shooting, passing, stamina, speed,
+                defense, goalkeeping, height, weight, nationality, preferredFoot, photo, birthDate, clubCode, strength);
+
+    }
+
+
+    private IFormation IFormationStringToObject(String formation) {
+        String[] parts = formation.split("-");
+
+        if (parts.length < 3) {
+            throw new IllegalArgumentException("Formato inválido. Deve ser 'X-X-X'");
+        }
+
+        try {
+            int defenders = Integer.parseInt(parts[0]);
+            int midfielders = Integer.parseInt(parts[1]);
+            int forwards = Integer.parseInt(parts[2]);
+
+            return new Formation(defenders, midfielders, forwards);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Os valores da formação devem ser números inteiros.");
+        }
+    }
 }
 

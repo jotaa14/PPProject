@@ -11,6 +11,7 @@ import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
 import com.ppstudios.footballmanager.api.contracts.team.IClub;
 import com.ppstudios.footballmanager.api.contracts.team.ITeam;
 import model.event.PlayerEvent;
+import model.league.Season;
 import model.player.Player;
 import model.event.Event;
 import model.team.Club;
@@ -69,6 +70,7 @@ public class Exporter implements IExporter {
         seasonJson.put("current_round", season.getCurrentRound());
         seasonJson.put("max_teams", season.getMaxTeams());
         seasonJson.put("clubs", clubsToJsonArray(season.getCurrentClubs()));
+        seasonJson.put("teams", teamsToJsonArray((Season)season).getTeams());
         seasonJson.put("matches", matchesToJsonArray(season.getMatches()));
         seasonJson.put("schedule", scheduleToJsonObject(season.getSchedule()));
         seasonJson.put("standings", standingsToJsonArray(season.getLeagueStandings()));
@@ -112,8 +114,6 @@ public class Exporter implements IExporter {
 
     private JSONObject matchToJsonObject(IMatch match) {
         JSONObject matchJsonObject = new JSONObject();
-        matchJsonObject.put("home_club", clubToJsonObject((Club)match.getHomeClub()));
-        matchJsonObject.put("away_club", clubToJsonObject((Club)match.getAwayClub()));
         matchJsonObject.put("home_team", teamToJsonObject(match.getHomeTeam()));
         matchJsonObject.put("away_team", teamToJsonObject(match.getAwayTeam()));
         matchJsonObject.put("round", match.getRound());
@@ -126,6 +126,16 @@ public class Exporter implements IExporter {
         JSONObject scheduleJson = new JSONObject();
         scheduleJson.put("matches", matchesToJsonArray(schedule.getAllMatches()));
         return scheduleJson;
+    }
+
+    private JSONArray teamsToJsonArray(ITeam[] teams) {
+        JSONArray teamsArray = new JSONArray();
+        for (ITeam team : teams) {
+            if(team != null){
+                teamsArray.add(teamToJsonObject(team));
+            }
+        }
+        return teamsArray;
     }
 
     private JSONObject teamToJsonObject(ITeam team) {
@@ -173,7 +183,6 @@ public class Exporter implements IExporter {
     private JSONObject playerToJsonObject(Player player) {
         JSONObject playerJson = new JSONObject();
         playerJson.put("name", player.getName());
-        playerJson.put("club", player.getClub());
         playerJson.put("position", player.getPosition().getDescription());
         playerJson.put("age", player.getAge());
         playerJson.put("number", player.getNumber());
