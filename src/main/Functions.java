@@ -125,7 +125,7 @@ public class Functions {
             System.out.print("Enter the Max Teams of the Season: ");
             try {
                 maxTeams = input.nextInt();
-                if (maxTeams > 0) {
+                if (maxTeams > 0 && maxTeams <= 18) {
                     verifyInput = true;
                 } else {
                     System.out.println("Select a Valid Number of Teams!");
