@@ -2,7 +2,6 @@ package model.player;
 
 /**
  * Enum representing the possible types of player positions in football.
- * <p>
  * The possible values are:
  * <ul>
  *     <li>{@link #GOALKEEPER}</li>
@@ -12,8 +11,6 @@ package model.player;
  * </ul>
  * This enum provides utility methods for converting from string and for retrieving
  * the string representation of the position type.
- * </p>
- *
  * Example usage:
  * <pre>
  *     PlayerPositionType type = PlayerPositionType.fromString("midfielder");
