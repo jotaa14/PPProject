@@ -405,6 +405,20 @@ public class Club implements IClub {
     }
 
     /**
+     * Sets this club as the associated club within its {@link Team} object.
+     * <p>
+     * This method casts the {@code team} field to {@link Team} and calls its {@code setClub} method,
+     * ensuring that the team object references this club instance. Useful for maintaining consistency
+     * between a club and its internal team representation.
+     * </p>
+     *
+     * @throws ClassCastException if {@code team} is not an instance of {@link Team}
+     */
+    public void setClubInTeam() {
+        ((Team)team).setClub(this);
+    }
+
+    /**
      * {@inheritDoc}
      *
      * <p><b>Note:</b> This method is intentionally left unimplemented in this class,
@@ -419,9 +433,5 @@ public class Club implements IClub {
     @Override
     public void exportToJson() throws IOException {
         // Not applicable in this class
-    }
-
-    public void setClubInTeam() {
-        ((Team)team).setClub(this);
     }
 }

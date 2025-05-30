@@ -81,6 +81,9 @@ public class Player implements IPlayer, Cloneable {
         this.clubCode = clubCode;
     }
 
+    /**
+     * Alternate constructor for Player.
+     */
     public Player(String name, PlayerPosition position, int number, int shooting, int passing, int stamina,
                   int speed, int defense, int goalkeeping, float height, float weight, String nationality,
                   PreferredFoot preferredFoot, String photo, LocalDate birthDate, String clubCode) {

@@ -59,6 +59,13 @@ public class Team implements ITeam {
         this.playerCount = 0;
     }
 
+    /**
+     * Constructs a team instance with a specified formation, club, and player array.
+     *
+     * @param formation The formation to use for this team (cannot be null)
+     * @param club The club this team belongs to (cannot be null)
+     * @param players The array of players in this team (cannot be null; length determines player count)
+     */
     public Team(IFormation formation, IClub club, IPlayer[] players) {
         this.club = club;
         this.formation = formation;
@@ -316,10 +323,19 @@ public class Team implements ITeam {
         System.out.println();
     }
 
+    /**
+     * Sets the associated club for this team.
+     * @param club The club to associate
+     */
     public void setClub(IClub club) {
         this.club = club;
     }
 
+    /**
+     * Compares teams by their associated club.
+     * @param obj Object to compare
+     * @return True if the associated clubs are equal
+     */
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
