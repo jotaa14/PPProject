@@ -479,19 +479,6 @@ public class Functions {
             System.out.println("Formation: Not Set (Invalid club type)");
         }
 
-        if (selectedClub instanceof Club) {
-            Team team = (Team) ((Club) selectedClub).getTeam();
-            if (team != null && team.getFormation() != null) {
-                System.out.println("Formation: " + team.getFormation().getDisplayName());
-
-                team.printStartingElevenByPosition((Formation) team.getFormation());
-            } else {
-                System.out.println("Formation: Not Set");
-            }
-        } else {
-            System.out.println("Formation: Not Set (Invalid club type)");
-        }
-
         System.out.print("Do You Want To See The Players Details? (Y/N): ");
         String choice = input.next();
         if (choice.equalsIgnoreCase("Y")) {
@@ -599,8 +586,20 @@ public class Functions {
             }
         }
 
-        System.out.print("Enter the number of the player you want to get stats for: ");
-        int playerNumber = input.nextInt();
+        int playerNumber = -1;
+        boolean validInput = false;
+        do {
+            System.out.print("Enter the number of the player you want to get stats for: ");
+            if (input.hasNextInt()) {
+                playerNumber = input.nextInt();
+                input.nextLine();
+                validInput = true;
+            } else {
+                System.out.println("Invalid input. Please enter a valid number.");
+                input.nextLine();
+            }
+        } while (!validInput);
+
         IPlayer selectedPlayer = null;
 
         for (IPlayer player : players) {
@@ -617,6 +616,7 @@ public class Functions {
 
         season.getPlayerStatistics(selectedPlayer);
     }
+
 
     /**
      * Lists detailed information for a club, including formation and player details.
@@ -893,17 +893,20 @@ public class Functions {
             boolean valid = false;
             do {
                 System.out.print("Enter the number for your choice: ");
-                try {
-                    choice = Integer.parseInt(input.nextLine());
+                if (input.hasNextInt()) {
+                    choice = input.nextInt();
+                    input.nextLine();
                     if (choice >= 1 && choice <= filtered.length && !alreadySelected[choice - 1]) {
                         valid = true;
                     } else {
                         System.out.println("Invalid choice or player already selected. Try again.");
                     }
-                } catch (Exception e) {
-                    System.out.println("Invalid input. Try again.");
+                } else {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    input.nextLine();
                 }
             } while (!valid);
+
 
             selected[i] = filtered[choice - 1];
             alreadySelected[choice - 1] = true;

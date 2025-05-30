@@ -644,6 +644,14 @@ public class Season implements ISeason {
     }
 
     /**
+     * Returns the name of the league/season.
+     * @return Name of the season
+     */
+    public String getLeagueName() {
+        return name;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * <p><b>Note:</b> This method is intentionally left unimplemented in this class,
@@ -658,13 +666,5 @@ public class Season implements ISeason {
     @Override
     public void exportToJson() throws IOException {
         // Not applicable in this class
-    }
-
-    /**
-     * Returns the name of the league/season.
-     * @return Name of the season
-     */
-    public String getLeagueName() {
-        return name;
     }
 }

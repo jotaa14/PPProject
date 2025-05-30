@@ -79,6 +79,19 @@ public class Club implements IClub {
         this.isNationalTeam = isNationalTeam;
     }
 
+    /**
+     * Constructs a Club instance with all key properties and an initial player roster.
+     *
+     * @param name            The official name of the club.
+     * @param code            The unique club code (e.g., "FCB").
+     * @param stadium         The name of the home stadium.
+     * @param logo            The path or URL to the club's logo image.
+     * @param country         The home country of the club.
+     * @param founded         The year the club was founded.
+     * @param isNationalTeam  True if this club represents a national team, false otherwise.
+     * @param players         The initial array of players for the club. If null, an empty roster is created.
+     * @param team            The associated {@link ITeam} object for this club.
+     */
     public Club(String name, String code, String stadium, String logo, String country, int founded, boolean isNationalTeam, IPlayer[] players, ITeam team) {
         this.name = name;
         this.code = code;

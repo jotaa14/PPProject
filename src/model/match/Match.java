@@ -1,12 +1,9 @@
 package model.match;
 
-import com.ppstudios.footballmanager.api.contracts.event.IEvent;
-import com.ppstudios.footballmanager.api.contracts.event.IEventManager;
-import com.ppstudios.footballmanager.api.contracts.event.IGoalEvent;
+import com.ppstudios.footballmanager.api.contracts.event.*;
 import com.ppstudios.footballmanager.api.contracts.match.IMatch;
 import com.ppstudios.footballmanager.api.contracts.player.IPlayer;
-import com.ppstudios.footballmanager.api.contracts.team.IClub;
-import com.ppstudios.footballmanager.api.contracts.team.ITeam;
+import com.ppstudios.footballmanager.api.contracts.team.*;
 import model.event.EventManager;
 import model.event.PlayerEvent;
 import model.event.eventTypes.GoalEvent;
