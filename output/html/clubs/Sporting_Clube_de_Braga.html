@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sporting Clube de Braga - Club Report</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            background: rgba(30, 60, 114, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 35px;
+        }
+        .club-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
+        }
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.3em;
+            letter-spacing: 2px;
+            color: #00ff99;
+            margin-bottom: 8px;
+        }
+        .header p { color: #fff; font-size: 1.05em; }
+        .club-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .players-section {
+            margin-top: 30px;
+        }
+        .players-section h2 {
+            color: #00ff99;
+            font-size: 1.5em;
+            margin-bottom: 18px;
+        }
+        .players-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+        .player-card {
+            background: rgba(0,0,0,0.18);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+        }
+        .player-card h3 { color: #00ff99; margin-bottom: 8px; }
+        .player-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+        .stat-item { background: #222; border-radius: 6px; padding: 4px 10px; color: #fff; font-size: 0.95em; }
+        .stat-label { color: #00ff99; margin-right: 6px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="club-logo" src="Estádio Municipal de Braga" alt="Club Logo">
+            <div>
+                <h1>Sporting Clube de Braga</h1>
+                <p>Portugal | Founded: 1921</p>
+                <p>Stadium: https://media.api-sports.io/football/teams/217.png</p>
+            </div>
+        </div>
+        <div class="club-info">
+            <div><strong>Club Code:</strong> SCB</div>
+            <div><strong>Players:</strong> 18</div>
+        </div>
+        <div class="players-section">
+            <h2>Players</h2>
+            <div class="players-list">
+                <div class="player-card">
+                    <h3>Matheus</h3>
+                    <p><strong>Nationality:</strong> Brazilian</p>
+                    <p><strong>Birth Date:</strong> 1992-03-29</p>
+                </div>
+                <div class="player-card">
+                    <h3>José Fonte</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1983-12-22</p>
+                </div>
+                <div class="player-card">
+                    <h3>Adrián Marín</h3>
+                    <p><strong>Nationality:</strong> Spanish</p>
+                    <p><strong>Birth Date:</strong> 1997-01-09</p>
+                </div>
+                <div class="player-card">
+                    <h3>Serdar Saatçı</h3>
+                    <p><strong>Nationality:</strong> Turkish</p>
+                    <p><strong>Birth Date:</strong> 2003-02-14</p>
+                </div>
+                <div class="player-card">
+                    <h3>Roger Fernandes</h3>
+                    <p><strong>Nationality:</strong> Guinean</p>
+                    <p><strong>Birth Date:</strong> 2005-11-21</p>
+                </div>
+                <div class="player-card">
+                    <h3>Al Musrati</h3>
+                    <p><strong>Nationality:</strong> Libyan</p>
+                    <p><strong>Birth Date:</strong> 1996-04-06</p>
+                </div>
+                <div class="player-card">
+                    <h3>Castro</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1993-08-11</p>
+                </div>
+                <div class="player-card">
+                    <h3>Vítor Carvalho</h3>
+                    <p><strong>Nationality:</strong> Brazilian</p>
+                    <p><strong>Birth Date:</strong> 1997-05-27</p>
+                </div>
+                <div class="player-card">
+                    <h3>Rodrigo Zalazar</h3>
+                    <p><strong>Nationality:</strong> Uruguayan</p>
+                    <p><strong>Birth Date:</strong> 1999-08-12</p>
+                </div>
+                <div class="player-card">
+                    <h3>João Moutinho</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1986-09-08</p>
+                </div>
+                <div class="player-card">
+                    <h3>André Horta</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1996-11-07</p>
+                </div>
+                <div class="player-card">
+                    <h3>Pizzi</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1989-10-06</p>
+                </div>
+                <div class="player-card">
+                    <h3>Ricardo Horta</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1994-09-15</p>
+                </div>
+                <div class="player-card">
+                    <h3>Bruma</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1994-10-24</p>
+                </div>
+                <div class="player-card">
+                    <h3>Abel Ruiz</h3>
+                    <p><strong>Nationality:</strong> Spanish</p>
+                    <p><strong>Birth Date:</strong> 2000-01-28</p>
+                </div>
+                <div class="player-card">
+                    <h3>Simon Banza</h3>
+                    <p><strong>Nationality:</strong> French</p>
+                    <p><strong>Birth Date:</strong> 1996-08-13</p>
+                </div>
+                <div class="player-card">
+                    <h3>Rony Lopes</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1995-12-28</p>
+                </div>
+                <div class="player-card">
+                    <h3>Álvaro Djaló</h3>
+                    <p><strong>Nationality:</strong> Spanish</p>
+                    <p><strong>Birth Date:</strong> 1999-08-16</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

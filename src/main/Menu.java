@@ -111,18 +111,20 @@ public class Menu {
             System.out.println("|  7. List                                   |");
             System.out.println("|  8. Restart Season                         |");
             System.out.println("|  9. Exit                                   |");
+            System.out.println("| 10. List Clubs Without Home Wins           |");
+            System.out.println("| 11. Game With Most Goals                   |");
             System.out.println("|--------------------------------------------|");
-            System.out.print("> Enter your option [1-9]: ");
+            System.out.print("> Enter your option [1-11]: ");
 
             try {
                 op = input.nextInt();
-                if (op >= 1 && op <= 9) {
+                if (op >= 1 && op <= 11) {
                     verifyInput = true;
                 } else {
-                    System.out.println("! Select a Valid Option (1-9)!");
+                    System.out.println("! Select a Valid Option (1-11)!");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("! Select a Valid Option (1-9)!");
+                System.out.println("! Select a Valid Option (1-11)!");
                 input.next();
             }
         } while (!verifyInput);

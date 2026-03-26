@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport Lisboa e Benfica - Club Report</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            background: rgba(30, 60, 114, 0.97);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 35px;
+        }
+        .club-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
+        }
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.3em;
+            letter-spacing: 2px;
+            color: #00ff99;
+            margin-bottom: 8px;
+        }
+        .header p { color: #fff; font-size: 1.05em; }
+        .club-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .players-section {
+            margin-top: 30px;
+        }
+        .players-section h2 {
+            color: #00ff99;
+            font-size: 1.5em;
+            margin-bottom: 18px;
+        }
+        .players-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+        .player-card {
+            background: rgba(0,0,0,0.18);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+        }
+        .player-card h3 { color: #00ff99; margin-bottom: 8px; }
+        .player-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+        .stat-item { background: #222; border-radius: 6px; padding: 4px 10px; color: #fff; font-size: 0.95em; }
+        .stat-label { color: #00ff99; margin-right: 6px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="club-logo" src="Estádio da Luz" alt="Club Logo">
+            <div>
+                <h1>Sport Lisboa e Benfica</h1>
+                <p>Portugal | Founded: 1904</p>
+                <p>Stadium: https://media.api-sports.io/football/teams/211.png</p>
+            </div>
+        </div>
+        <div class="club-info">
+            <div><strong>Club Code:</strong> SLB</div>
+            <div><strong>Players:</strong> 23</div>
+        </div>
+        <div class="players-section">
+            <h2>Players</h2>
+            <div class="players-list">
+                <div class="player-card">
+                    <h3>André Gomes</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2004-10-20</p>
+                </div>
+                <div class="player-card">
+                    <h3>Samuel Soares</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2002-06-15</p>
+                </div>
+                <div class="player-card">
+                    <h3>Anatoliy Trubin</h3>
+                    <p><strong>Nationality:</strong> Ukrainian</p>
+                    <p><strong>Birth Date:</strong> 2001-08-01</p>
+                </div>
+                <div class="player-card">
+                    <h3>Álvaro Carreras</h3>
+                    <p><strong>Nationality:</strong> Spanish</p>
+                    <p><strong>Birth Date:</strong> 2003-03-23</p>
+                </div>
+                <div class="player-card">
+                    <h3>António Silva</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2003-10-30</p>
+                </div>
+                <div class="player-card">
+                    <h3>Nicolás Otamendi</h3>
+                    <p><strong>Nationality:</strong> Argentine</p>
+                    <p><strong>Birth Date:</strong> 1988-02-12</p>
+                </div>
+                <div class="player-card">
+                    <h3>Alexander Bah</h3>
+                    <p><strong>Nationality:</strong> Danish</p>
+                    <p><strong>Birth Date:</strong> 1997-12-09</p>
+                </div>
+                <div class="player-card">
+                    <h3>Adrian Bajrami</h3>
+                    <p><strong>Nationality:</strong> Albanian</p>
+                    <p><strong>Birth Date:</strong> 2002-04-05</p>
+                </div>
+                <div class="player-card">
+                    <h3>Jan-Niklas Beste</h3>
+                    <p><strong>Nationality:</strong> German</p>
+                    <p><strong>Birth Date:</strong> 1999-01-04</p>
+                </div>
+                <div class="player-card">
+                    <h3>Issa Kaboré</h3>
+                    <p><strong>Nationality:</strong> Burkinabe</p>
+                    <p><strong>Birth Date:</strong> 2001-05-12</p>
+                </div>
+                <div class="player-card">
+                    <h3>Leandro Santos</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2005-09-28</p>
+                </div>
+                <div class="player-card">
+                    <h3>Florentino Luís</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1998-05-19</p>
+                </div>
+                <div class="player-card">
+                    <h3>Fredrik Aursnes</h3>
+                    <p><strong>Nationality:</strong> Norwegian</p>
+                    <p><strong>Birth Date:</strong> 1994-03-13</p>
+                </div>
+                <div class="player-card">
+                    <h3>Orkun Kökçü</h3>
+                    <p><strong>Nationality:</strong> Turkish</p>
+                    <p><strong>Birth Date:</strong> 2002-12-29</p>
+                </div>
+                <div class="player-card">
+                    <h3>Ángel Di María</h3>
+                    <p><strong>Nationality:</strong> Argentine</p>
+                    <p><strong>Birth Date:</strong> 1988-02-14</p>
+                </div>
+                <div class="player-card">
+                    <h3>Renato Sanches</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1997-08-18</p>
+                </div>
+                <div class="player-card">
+                    <h3>Manu Silva</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2000-06-23</p>
+                </div>
+                <div class="player-card">
+                    <h3>Hugo Sequeira</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2002-04-01</p>
+                </div>
+                <div class="player-card">
+                    <h3>João Rêgo</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2004-03-25</p>
+                </div>
+                <div class="player-card">
+                    <h3>Gonçalo Ramos</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 2001-06-20</p>
+                </div>
+                <div class="player-card">
+                    <h3>Luka Jovic</h3>
+                    <p><strong>Nationality:</strong> Serbian</p>
+                    <p><strong>Birth Date:</strong> 1997-01-23</p>
+                </div>
+                <div class="player-card">
+                    <h3>David Neres</h3>
+                    <p><strong>Nationality:</strong> Brazilian</p>
+                    <p><strong>Birth Date:</strong> 1997-03-03</p>
+                </div>
+                <div class="player-card">
+                    <h3>Rafa Silva</h3>
+                    <p><strong>Nationality:</strong> Portuguese</p>
+                    <p><strong>Birth Date:</strong> 1993-05-17</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

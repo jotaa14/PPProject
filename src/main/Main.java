@@ -181,6 +181,14 @@ public class Main {
                     System.out.println("\nExiting season menu.");
                     listing = false;
                     break;
+                case 10:
+                    System.out.println("Listing Clubs...");
+                    season.ListClubsWithOutWinsAtHome();
+                    break;
+                case 11:
+                    System.out.println("Listing Game...");
+                    season.getFastestGoalInSeasonByPlayer();
+                    break;
                 default:
                     System.out.println("\nInvalid option. Please try again.");
             }
